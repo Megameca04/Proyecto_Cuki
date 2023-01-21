@@ -125,13 +125,11 @@ __meta__ = {
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0.5, 0 )
 texture = ExtResource( 2 )
-vframes = 2
 hframes = 3
+vframes = 2
 frame = 1
 
-[node name="Bat_zone" type="Area2D" parent="Sprite" groups=[
-"C_attack",
-]]
+[node name="Bat_zone" type="Area2D" parent="Sprite" groups=["C_attack"]]
 position = Vector2( 29.5, 0 )
 collision_mask = 2
 
@@ -145,6 +143,7 @@ visible = false
 position = Vector2( -5, 0 )
 texture = ExtResource( 3 )
 hframes = 3
+frame = 2
 
 [node name="ProgressBar" parent="Sprite" instance=ExtResource( 4 )]
 visible = false
@@ -173,6 +172,7 @@ anims/Walking = SubResource( 6 )
 anims/Hurt = SubResource( 7 )
 
 [node name="Salud" parent="." instance=ExtResource( 5 )]
+
 [connection signal="timeout" from="Sprite/Hide_Timer" to="." method="_on_Hide_Timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="animation_finished" from="Anim_Sprite" to="." method="_on_Anim_Sprite_animation_finished"]

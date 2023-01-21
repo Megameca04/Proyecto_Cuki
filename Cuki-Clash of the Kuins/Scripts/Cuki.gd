@@ -1,94 +1,90 @@
 extends KinematicBody2D
 
-export (float) var acceleration = 0.38
-export (float) var mass = 500
+export (int) var speed = 200 #Velocidad del jugador
 
-var direction_x = 0
-var direction_y = 0
+var direction = Vector2.ZERO #vector de dirección del jugador
+var movement = Vector2() #vector de movimiento del jugador
+var knockback = Vector2() #vector de knockback del jugador
 
-var speed = acceleration * mass
+var can_walk = true #permite el movimiento, bloqueado en caso de animaciones como golpear
 
-var velocity = Vector2()
-var boom = Vector2()
-
-var can_walk = true
-
-onready var health = $Salud
-onready var health_bar = $Sprite/ProgressBar
-onready var hide_timer = $Sprite/Hide_Timer
+onready var health = $Salud #referencia al nodo de salud
+onready var health_bar = $Sprite/ProgressBar #referencia al nodo de la barra de vida
+onready var hide_timer = $Sprite/Hide_Timer #referencia al nodo que oculta la barra de vida
 
 func _ready():
+	#conecta los nodos de salud y barra de salud para que muestre la vida graficamente
 	health.connect("changed", health_bar, "set_value")
 	health.connect("max_changed", health_bar, "set_max")
 	health.initialize()
 
-func _process(delta):
-	if can_walk == true:
-		animations()
-	attack()
+func _process(delta): #ciclo principal del juego
+	if can_walk == true: #si puede caminar(no está reproduciendo una animación estatica)
+		animations() 
+	
+	attack() #Siempre ataca
 
 func _physics_process(delta):
-	if can_walk == true:
+	if can_walk == true: #si puede caminar
 		
-		velocity = Vector2(0,0)
-		direction_x = 0
-		direction_y = 0
-	
+		#reinicia el movimiento y la dirección cada frame del juego 
+		movement = Vector2.ZERO 
+		direction = Vector2.ZERO
+		
+		#recibe la entrada por teclado del jugador
 		if Input.is_action_pressed("ui_up"):
-			direction_y = -1
+			direction.y = -1
 		if Input.is_action_pressed("ui_down"):
-			direction_y = 1
+			direction.y = 1
 		if Input.is_action_pressed("ui_left"):
-			direction_x = -1
+			direction.x = -1
 		if Input.is_action_pressed("ui_right"):
-			direction_x = 1
+			direction.x = 1
 		
-		velocity.x = direction_x
-		velocity.y = direction_y
-		
-		velocity = velocity.normalized()
-		velocity = move_and_slide(velocity * speed)
+		#ajusta y realiza el movimiento
+		movement = direction.normalized()
+		movement = move_and_slide(movement * speed)
 
-func animations():
-	if velocity.x or velocity.y !=0:
+func animations(): #ajusta la apariencia del jugador
+	if movement.x or movement.y !=0: #Si se mueve
 		$Anim_Sprite.play("Walking")
 	else:
 		$Anim_Sprite.play("Stay")
-	if direction_x >= 1:
+	
+	if direction.x >= 1: #dirección a la que mira el jugador
 		$Sprite.scale.x = 1
 		$CollisionShape2D.scale.x = 1
-	elif direction_x <= -1:
+	elif direction.x <= -1:
 		$Sprite.scale.x = -1
 		$CollisionShape2D.scale.x = -1
 
-func _on_Area2D_body_entered(body):
-		if body.is_in_group("Enemy"):
+func _on_Area2D_body_entered(body): #cuando algo entra a la hitbox
+		if body.is_in_group("Enemy"): #si entra un enemigo, ajustar dirección del knockback
 			if body.global_position.x < self.global_position.x :
-				boom.x = 2000
+				knockback.x = 2000
 			elif body.global_position.x > self.global_position.x:
-				boom.x = -2000
+				knockback.x = -2000
 			if body.global_position.x < self.global_position.x :
-				boom.y = -2000
+				knockback.y = -2000
 			elif body.global_position.x > self.global_position.x:
-				boom.y = 2000
+				knockback.y = 2000
 			
-			$Sprite/ProgressBar.show()
-			$Sprite/Hide_Timer.start()
-			$Visual_anim.play("Hurt")
-			health.current -= 1
-		boom = boom.move_toward(Vector2.ZERO,0)
-		boom = move_and_slide(boom)
+			$Sprite/ProgressBar.show() #mostrar salud
+			$Sprite/Hide_Timer.start() #cuando se desactiva la salud
+			$Visual_anim.play("Hurt") #efecto de daño
+			health.current -= 1 #reduce salud
+		knockback = knockback.move_toward(Vector2.ZERO,0) #realiza knockback
+		knockback = move_and_slide(knockback)
 		
 
-func attack():
-	if Input.is_action_pressed("Atacar"):
+func attack(): #función de ataque
+	if Input.is_action_pressed("Atacar"): #si se presiona z
 		can_walk = false
 		$Anim_Sprite.play("Punch")
 
-func _on_Anim_Sprite_animation_finished(anim_name):
+func _on_Anim_Sprite_animation_finished(anim_name): #cuando se acaba una animación
 	if anim_name == "Punch":
 		can_walk = true
 
-
-func _on_Hide_Timer_timeout():
+func _on_Hide_Timer_timeout(): #para esconder la barra de salud
 	$Sprite/ProgressBar.hide()
