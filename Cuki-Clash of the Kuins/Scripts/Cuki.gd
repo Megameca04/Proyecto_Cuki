@@ -7,6 +7,7 @@ var movement = Vector2() #vector de movimiento del jugador
 var knockback = Vector2() #vector de knockback del jugador
 
 var can_walk = true #permite el movimiento, bloqueado en caso de animaciones como golpear
+var in_knockback = true
 
 onready var health = $Salud #referencia al nodo de salud
 onready var health_bar = $Sprite/ProgressBar #referencia al nodo de la barra de vida
@@ -41,9 +42,13 @@ func _physics_process(delta):
 		if Input.is_action_pressed("ui_right"):
 			direction.x = 1
 		
+		#ajusta el Vector del Knocback a uno nulo en caso de no haber sido golpeado
+		if in_knockback == false:
+			knockback = Vector2.ZERO
+		
 		#ajusta y realiza el movimiento
 		movement = direction.normalized()
-		movement = move_and_slide(movement * speed)
+		movement = move_and_slide((movement * speed)+knockback)
 
 func animations(): #ajusta la apariencia del jugador
 	if movement.x or movement.y !=0: #Si se mueve
@@ -60,21 +65,17 @@ func animations(): #ajusta la apariencia del jugador
 
 func _on_Area2D_body_entered(body): #cuando algo entra a la hitbox
 		if body.is_in_group("Enemy"): #si entra un enemigo, ajustar dirección del knockback
-			if body.global_position.x < self.global_position.x :
-				knockback.x = 2000
-			elif body.global_position.x > self.global_position.x:
-				knockback.x = -2000
-			if body.global_position.x < self.global_position.x :
-				knockback.y = -2000
-			elif body.global_position.x > self.global_position.x:
-				knockback.y = 2000
+			in_knockback = true #activa el knockback
 			
+			#ajuste de componentes X e Y del vector del Knocback
+			knockback.x = 450 * sin(get_angle_to(body.position))
+			knockback.y = 450 * cos(get_angle_to(body.position))
+			
+			$Knockback_timer.start() #activa el temporizador del knocback
 			$Sprite/ProgressBar.show() #mostrar salud
 			$Sprite/Hide_Timer.start() #cuando se desactiva la salud
 			$Visual_anim.play("Hurt") #efecto de daño
 			health.current -= 1 #reduce salud
-		knockback = knockback.move_toward(Vector2.ZERO,0) #realiza knockback
-		knockback = move_and_slide(knockback)
 		
 
 func attack(): #función de ataque
@@ -88,3 +89,6 @@ func _on_Anim_Sprite_animation_finished(anim_name): #cuando se acaba una animaci
 
 func _on_Hide_Timer_timeout(): #para esconder la barra de salud
 	$Sprite/ProgressBar.hide()
+
+func _on_Knockback_timer_timeout(): #cuando acaba el temporizador, el jugador deja de recibir el knocback
+	in_knockback = false
