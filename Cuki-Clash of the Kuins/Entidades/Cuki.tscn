@@ -10,10 +10,10 @@
 extents = Vector2( 9, 19 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 17, 19 )
+extents = Vector2( 12.3333, 18 )
 
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 16, 18 )
+[sub_resource type="CircleShape2D" id=8]
+radius = 10.6667
 
 [sub_resource type="Animation" id=4]
 resource_name = "Punch"
@@ -118,12 +118,9 @@ tracks/0/keys = {
 scale = Vector2( 1.5, 1.5 )
 collision_mask = 6
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0.5, 0 )
+position = Vector2( 0, -7.33333 )
 texture = ExtResource( 2 )
 hframes = 3
 vframes = 2
@@ -139,7 +136,6 @@ shape = SubResource( 1 )
 disabled = true
 
 [node name="Sprite" type="Sprite" parent="Sprite/Bat_zone"]
-visible = false
 position = Vector2( -5, 0 )
 texture = ExtResource( 3 )
 hframes = 3
@@ -155,13 +151,15 @@ margin_bottom = -25.0
 [node name="Hide_Timer" type="Timer" parent="Sprite"]
 
 [node name="Area2D" type="Area2D" parent="."]
+position = Vector2( 0, -8 )
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 1.66667, 0.666667 )
 shape = SubResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 3 )
+shape = SubResource( 8 )
 
 [node name="Anim_Sprite" type="AnimationPlayer" parent="."]
 anims/Punch = SubResource( 4 )
@@ -177,7 +175,12 @@ anims/Hurt = SubResource( 7 )
 wait_time = 0.2
 one_shot = true
 
+[node name="Dash_timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="timeout" from="Sprite/Hide_Timer" to="." method="_on_Hide_Timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="animation_finished" from="Anim_Sprite" to="." method="_on_Anim_Sprite_animation_finished"]
 [connection signal="timeout" from="Knockback_timer" to="." method="_on_Knockback_timer_timeout"]
+[connection signal="timeout" from="Dash_timer" to="." method="_on_Dash_timer_timeout"]
