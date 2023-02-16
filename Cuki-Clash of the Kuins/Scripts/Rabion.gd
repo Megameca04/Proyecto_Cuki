@@ -4,10 +4,15 @@ var Cuki = null #objetivo actual
 
 var knockback = Vector2() #vector de knockback
 var movement = Vector2()  #vector de movimiento
+var formacion = Vector2.ZERO
+
+onready var aliados = get_tree().get_nodes_in_group("Conejos")
 
 export (int) var speed = 100 #velocidad del enemigo
 
 func _process(delta): #ciclo principal del juego
+	
+	
 	animations()
 
 func _physics_process(delta): #ciclo del movimiento
@@ -16,6 +21,7 @@ func _physics_process(delta): #ciclo del movimiento
 	#realiza el knocback
 	knockback = knockback.move_toward(Vector2.ZERO,200)
 	knockback = move_and_slide(knockback)
+	
 	
 	if Cuki != null: #si hay objetivo en el area de visión
 		movement = position.direction_to(Cuki.position) * speed #direction_to da un vector unitario, este se multiplica por la velocidad
@@ -33,6 +39,8 @@ func _on_VisionField_body_entered(body): #si un cuerpo entra al area de visión
 func _on_VisionField_body_exited(body): #si un cuerpo sale del area de visión
 	if body.get_name() == "Cuki": #si ese cuerpo es Cuki
 		Cuki = null #vacia el objetivo
+		
+		
 
 func animations():
 	if movement.x or movement.y !=0: #si se está moviendo
