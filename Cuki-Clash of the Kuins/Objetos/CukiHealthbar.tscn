@@ -25,9 +25,9 @@ expand_margin_bottom = 1.0
 [node name="ProgressBar" type="ProgressBar"]
 margin_right = 64.0
 margin_bottom = 16.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_styles/fg = SubResource( 1 )
 custom_styles/bg = SubResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
 value = 50.0
 percent_visible = false
 __meta__ = {

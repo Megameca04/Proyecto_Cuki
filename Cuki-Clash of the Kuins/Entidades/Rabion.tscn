@@ -1,7 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/Rabion.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Rabion/Rabion.PNG" type="Texture" id=2]
+[ext_resource path="res://Objetos/Salud.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Objetos/CukiHealthbar.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CircleShape2D" id=6]
 radius = 8.0
@@ -42,8 +44,8 @@ tracks/0/keys = {
 [sub_resource type="CircleShape2D" id=4]
 radius = 139.014
 
-[sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 12, 15 )
+[sub_resource type="CircleShape2D" id=7]
+radius = 9.0
 
 [node name="Rabion" type="KinematicBody2D" groups=["Conejos", "Enemy"]]
 collision_layer = 2
@@ -55,6 +57,18 @@ position = Vector2( -3, -11 )
 texture = ExtResource( 2 )
 hframes = 3
 vframes = 2
+
+[node name="Hide_timer" type="Timer" parent="Sprite"]
+
+[node name="ProgressBar" parent="Sprite" instance=ExtResource( 4 )]
+anchor_left = 0.149
+anchor_top = -0.167
+anchor_right = 0.986
+anchor_bottom = -0.056
+margin_left = -18.513
+margin_top = -17.988
+margin_right = -18.482
+margin_bottom = -17.984
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 6 )
@@ -69,13 +83,23 @@ collision_layer = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VisionField"]
 shape = SubResource( 4 )
 
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2( 0, -8 )
+[node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 5 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource( 7 )
+
+[node name="Movimiento" type="RayCast2D" parent="."]
+self_modulate = Color( 1, 0, 0, 1 )
+enabled = true
+
+[node name="Formacion" type="RayCast2D" parent="."]
+self_modulate = Color( 0.203922, 1, 0.0117647, 1 )
+enabled = true
+
+[node name="Salud" parent="." instance=ExtResource( 3 )]
+max_amount = 5
 
 [connection signal="body_entered" from="VisionField" to="." method="_on_VisionField_body_entered"]
 [connection signal="body_exited" from="VisionField" to="." method="_on_VisionField_body_exited"]
-[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_Area2D_area_entered"]

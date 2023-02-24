@@ -8,11 +8,19 @@ var formacion = Vector2.ZERO
 
 onready var aliados = get_tree().get_nodes_in_group("Conejos")
 
+onready var health = $Salud #referencia al nodo de salud
+onready var health_bar = $Sprite/ProgressBar #referencia al nodo de la barra de vida
+onready var hide_timer = $Sprite/Hide_timer #referencia al nodo que oculta la barra de vida
+
 export (int) var speed = 100 #velocidad del enemigo
 
+func _ready():
+	#conecta los nodos de salud y barra de salud para que muestre la vida graficamente
+	health.connect("changed", health_bar, "set_value")
+	health.connect("max_changed", health_bar, "set_max")
+	health.initialize()
+
 func _process(delta): #ciclo principal del juego
-	
-	
 	animations()
 
 func _physics_process(delta): #ciclo del movimiento
@@ -24,23 +32,39 @@ func _physics_process(delta): #ciclo del movimiento
 	
 	
 	if Cuki != null: #si hay objetivo en el area de visión
-		movement = position.direction_to(Cuki.position) * speed #direction_to da un vector unitario, este se multiplica por la velocidad
+		for i in aliados:
+			if i != self:
+				formacion += Vector2(cos(-get_angle_to(i.position)), sin(-get_angle_to(i.position)))
+		
+		formacion = formacion.normalized()
+		
+		movement = position.direction_to(Cuki.position) #direction_to da un vector unitario, este se multiplica por la velocidad
 	else:
 		movement = Vector2.ZERO #si no hay enemigo, se establece en vector nulo
+		formacion = Vector2.ZERO
 	
-	movement = move_and_slide(movement) #realiza el movimiento
+	$Movimiento.cast_to = movement*50
+	
+	$Formacion.cast_to = formacion*50
+	
+	movement = ((1.5*movement)+formacion).normalized()
+	
+	
+	
+	movement = move_and_slide(movement * speed) #realiza el movimiento
 	
 
 func _on_VisionField_body_entered(body): #si un cuerpo entra al area de visión
 	if body != self: #si no es sí mismo
 		if body.get_name() == "Cuki": #si el cuerpo es Cuki
 			Cuki = body #el objetivo será igual al cuerpo que entró
+			for i in aliados:
+				if i.Cuki == null:
+					i.Cuki = Cuki
 
 func _on_VisionField_body_exited(body): #si un cuerpo sale del area de visión
 	if body.get_name() == "Cuki": #si ese cuerpo es Cuki
 		Cuki = null #vacia el objetivo
-		
-		
 
 func animations():
 	if movement.x or movement.y !=0: #si se está moviendo
