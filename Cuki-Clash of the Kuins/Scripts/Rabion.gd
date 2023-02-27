@@ -18,6 +18,7 @@ func _ready():
 	#conecta los nodos de salud y barra de salud para que muestre la vida graficamente
 	health.connect("changed", health_bar, "set_value")
 	health.connect("max_changed", health_bar, "set_max")
+	health.connect("depleted", self, "defeat")
 	health.initialize()
 
 func _process(delta): #ciclo principal del juego
@@ -30,6 +31,7 @@ func _physics_process(delta): #ciclo del movimiento
 	knockback = knockback.move_toward(Vector2.ZERO,200)
 	knockback = move_and_slide(knockback)
 	
+	aliados = get_tree().get_nodes_in_group("Conejos")
 	
 	if Cuki != null: #si hay objetivo en el area de visión
 		for i in aliados:
@@ -49,10 +51,11 @@ func _physics_process(delta): #ciclo del movimiento
 	
 	movement = ((1.5*movement)+formacion).normalized()
 	
-	
-	
 	movement = move_and_slide(movement * speed) #realiza el movimiento
 	
+
+func defeat():
+	self.queue_free()
 
 func _on_VisionField_body_entered(body): #si un cuerpo entra al area de visión
 	if body != self: #si no es sí mismo
@@ -90,3 +93,5 @@ func _on_Area2D_area_entered(area): #si entra un area (ataques)
 			knockback.y = 1250
 		elif area.global_position.y > self.global_position.y:
 			knockback.y = -1250
+		
+		health.current -= 1

@@ -18,6 +18,7 @@ func _ready(): #se ejecuta apenas el objeto entra al arbol de nodos
 	#conecta los nodos de salud y barra de salud para que muestre la vida graficamente
 	health.connect("changed", health_bar, "set_value")
 	health.connect("max_changed", health_bar, "set_max")
+	health.connect("depleted", self, "game_over")
 	health.initialize()
 
 func _process(delta): #ciclo principal del juego
@@ -80,6 +81,10 @@ func attack(): #función de ataque
 	
 	$Hitbox/CollisionShape2D.disabled = dashing #deshabilita detección de daño
 	set_collision_mask_bit(1,!dashing) #deshabilita colisión con enemigos
+
+func game_over():
+	self.set_physics_process(false)
+	self.set_process(false)
 
 func _on_Hitbox_body_entered(body): #cuando algo entra a la hitbox
 		if body.is_in_group("Enemy"): #si entra un enemigo

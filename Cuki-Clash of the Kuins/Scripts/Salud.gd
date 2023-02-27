@@ -10,6 +10,10 @@ onready var current = max_amount setget set_current #almacena la salud actual de
 func _ready(): #cuando el nodo inicia su ejecución
 	initialize()
 
+func initialize(): #inicia el nodo, principalmente se conecta con la barra de salud
+	emit_signal("max_changed", max_amount) # emite la señal max_changed()
+	emit_signal("changed", current) #emite la señal changed()	
+
 func set_max(new_max): #establece la nueva maxima salud del nodo, función setter de la variable max_amount
 	max_amount = new_max #la salud maxima será igual al parametro ingresado
 	max_amount = max(1, new_max) #se asegura que la nueva salud no sea menor a 1
@@ -23,8 +27,3 @@ func set_current(new_value): #establece la nueva salud del nodo, función setter
 	
 	if current == 0: #si la salud llega a 0
 		emit_signal("depleted") #emite la señal depleted()
-		get_parent().queue_free() #elimina el nodo padre (sujeto a cambio)
-
-func initialize(): #inicia el nodo, principalmente se conecta con la barra de salud
-	emit_signal("max_changed", max_amount) # emite la señal max_changed()
-	emit_signal("changed", current) #emite la señal changed()
