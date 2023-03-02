@@ -3,6 +3,9 @@ extends KinematicBody2D
 var Cuki = null #objetivo actual
 
 var knockback = Vector2() #vector de knockback
+var in_knockback = false #establece si se debe aplicar el movimiento de knockback en el jugador
+
+
 var movement = Vector2()  #vector de movimiento
 var formacion = Vector2.ZERO
 
@@ -27,10 +30,6 @@ func _process(delta): #ciclo principal del juego
 func _physics_process(delta): #ciclo del movimiento
 	movement = Vector2.ZERO #reinicio del vector de movimiento
 	
-	#realiza el knocback
-	knockback = knockback.move_toward(Vector2.ZERO,200)
-	knockback = move_and_slide(knockback)
-	
 	aliados = get_tree().get_nodes_in_group("Conejos")
 	
 	if Cuki != null: #si hay objetivo en el area de visión
@@ -39,7 +38,7 @@ func _physics_process(delta): #ciclo del movimiento
 				formacion += Vector2(cos(-get_angle_to(i.position)), sin(-get_angle_to(i.position)))
 		
 		formacion = formacion.normalized()
-		
+				
 		movement = position.direction_to(Cuki.position) #direction_to da un vector unitario, este se multiplica por la velocidad
 	else:
 		movement = Vector2.ZERO #si no hay enemigo, se establece en vector nulo
@@ -51,7 +50,10 @@ func _physics_process(delta): #ciclo del movimiento
 	
 	movement = ((1.5*movement)+formacion).normalized()
 	
-	movement = move_and_slide(movement * speed) #realiza el movimiento
+	if in_knockback == false:
+		knockback = Vector2.ZERO
+	
+	movement = move_and_slide((movement * speed)+knockback) #realiza el movimiento
 	
 
 func defeat():
@@ -85,13 +87,16 @@ func animations():
 func _on_Area2D_area_entered(area): #si entra un area (ataques)
 	
 	if area.name == "Bat_zone": #si entra un enemigo, ajustar dirección del knockback
-		if area.global_position.x < self.global_position.x :
-			knockback.x = 1250
-		elif area.global_position.x > self.global_position.x:
-			knockback.x = -1250
-		if area.global_position.y < self.global_position.y :
-			knockback.y = 1250
-		elif area.global_position.y > self.global_position.y:
-			knockback.y = -1250
 		
-		health.current -= 1
+		in_knockback = true #activa el knockback
+		#ajuste de componentes X e Y del vector del Knocback
+		knockback.x = 450 * sin(get_angle_to(Cuki.position))
+		knockback.y = 450 * cos(get_angle_to(Cuki.position))
+		$Knockback_timer.start() #activa el temporizador del knocback
+		$ProgressBar.show() #mostrar salud
+		$Hide_timer.start() #cuando se desactiva la salud
+		health.current -= 1 #reduce salud
+
+func _on_Knockback_timer_timeout():
+	in_knockback = false 
+	
