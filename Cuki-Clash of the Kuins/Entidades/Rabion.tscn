@@ -1,110 +1,118 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=3 uid="uid://b6wi067d3baqe"]
 
-[ext_resource path="res://Scripts/Rabion.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/Rabion/Rabion.PNG" type="Texture" id=2]
-[ext_resource path="res://Objetos/Salud.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Objetos/CukiHealthbar.tscn" type="PackedScene" id=4]
+[ext_resource type="Script" path="res://Scripts/Rabion.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://0ettfhn1kxgs" path="res://Sprites/Rabion/Rabion.PNG" id="2"]
+[ext_resource type="PackedScene" uid="uid://fyyh6totk12a" path="res://Objetos/Salud.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://dljqaqas8it2e" path="res://Objetos/CukiHealthbar.tscn" id="4"]
 
-[sub_resource type="CircleShape2D" id=6]
+[sub_resource type="CircleShape2D" id="6"]
 radius = 8.0
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id="2"]
 resource_name = "Movin"
-loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [ 1, 2 ]
+"values": [1, 2]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id="3"]
 resource_name = "Stay"
 length = 0.5
-loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ 0 ]
+"values": [0]
 }
 
-[sub_resource type="CircleShape2D" id=4]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r8y8g"]
+_data = {
+"Movin": SubResource("2"),
+"Stay": SubResource("3")
+}
+
+[sub_resource type="CircleShape2D" id="4"]
 radius = 139.014
 
-[sub_resource type="CircleShape2D" id=7]
+[sub_resource type="CircleShape2D" id="7"]
 radius = 9.0
 
-[node name="Rabion" type="KinematicBody2D" groups=["Conejos", "Enemy"]]
+[node name="Rabion" type="CharacterBody2D" groups=["Conejos", "Enemy"]]
 collision_layer = 2
 collision_mask = 6
-script = ExtResource( 1 )
+script = ExtResource("1")
 
-[node name="Sprite" type="Sprite" parent="."]
-position = Vector2( -3, -11 )
-texture = ExtResource( 2 )
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-3, -11)
+texture = ExtResource("2")
 hframes = 3
 vframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 6 )
+shape = SubResource("6")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Movin = SubResource( 2 )
-anims/Stay = SubResource( 3 )
+libraries = {
+"": SubResource("AnimationLibrary_r8y8g")
+}
 
 [node name="VisionField" type="Area2D" parent="."]
+visible = false
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VisionField"]
-shape = SubResource( 4 )
+shape = SubResource("4")
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-shape = SubResource( 7 )
+shape = SubResource("7")
 
-[node name="Movimiento" type="RayCast2D" parent="."]
-self_modulate = Color( 1, 0, 0, 1 )
-enabled = true
-
-[node name="Formacion" type="RayCast2D" parent="."]
-self_modulate = Color( 0.203922, 1, 0.0117647, 1 )
-enabled = true
-
-[node name="Salud" parent="." instance=ExtResource( 3 )]
+[node name="Salud" parent="." instance=ExtResource("3")]
 max_amount = 5
-
-[node name="ProgressBar" parent="." instance=ExtResource( 4 )]
-anchor_left = 0.149
-anchor_top = -0.167
-anchor_right = 0.986
-anchor_bottom = -0.056
-margin_left = -16.0
-margin_top = -35.0
-margin_right = 12.0
-margin_bottom = -31.0
-
-[node name="Hide_timer" type="Timer" parent="."]
 
 [node name="Knockback_timer" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
 
+[node name="Hide_timer" type="Timer" parent="."]
+
+[node name="ProgressBar" parent="." instance=ExtResource("4")]
+anchor_left = 0.149
+anchor_top = -0.167
+anchor_right = 0.986
+anchor_bottom = -0.056
+offset_left = -16.0
+offset_top = -38.0
+offset_right = 16.0
+offset_bottom = -30.0
+
+[node name="Direccion" type="RayCast2D" parent="."]
+
+[node name="Formacion" type="RayCast2D" parent="."]
+self_modulate = Color(0, 0.658824, 0.235294, 1)
+
+[node name="Knockback" type="RayCast2D" parent="."]
+self_modulate = Color(0.992157, 0, 0.211765, 1)
+
 [connection signal="body_entered" from="VisionField" to="." method="_on_VisionField_body_entered"]
 [connection signal="body_exited" from="VisionField" to="." method="_on_VisionField_body_exited"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Area2D_area_entered"]
-[connection signal="timeout" from="Knockback_timer" to="." method="_on_Knockback_timer_timeout"]
+[connection signal="timeout" from="Knockback_timer" to="." method="_on_knockback_timer_timeout"]
+[connection signal="timeout" from="Hide_timer" to="." method="_on_hide_timer_timeout"]

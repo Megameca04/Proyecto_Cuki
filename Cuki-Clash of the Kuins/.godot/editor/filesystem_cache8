@@ -1,0 +1,34 @@
+2a60927148abd1d33b818b535e306557
+::res://::1678662580
+default_env.tres::Environment::6631317262926085604::1678661948::0::1::::<><>::
+icon.png::CompressedTexture2D::8107812734285409254::1618784348::1677714201::1::::<><>::
+Pruebas.tscn::PackedScene::7188558824030980971::1678661948::0::1::::<><>::uid://c1bw1m1tr8gem<>uid://b6wi067d3baqe<>uid://yfaphak8gtm2
+::res://Entidades/::1678661948
+Cuki.tscn::PackedScene::6601198555543904804::1678661948::0::1::::<><>::res://Scripts/Cuki.gd<>uid://dicp13ihj0xno<>uid://ksv0uls0ckvx<>uid://dljqaqas8it2e<>uid://fyyh6totk12a
+Rabion.tscn::PackedScene::4608223205682533452::1678661948::0::1::::<><>::res://Scripts/Rabion.gd<>uid://0ettfhn1kxgs<>uid://fyyh6totk12a<>uid://dljqaqas8it2e
+::res://Objetos/::1678661948
+CukiHealthbar.tscn::PackedScene::7950891044004337142::1677850836::0::1::::<><>::
+Salud.tscn::PackedScene::401960650908374654::1678661948::0::1::::<><>::res://Scripts/Salud.gd
+::res://Scripts/::1678661931
+Cuki.gd::GDScript::-1::1678661931::0::1::::<>CharacterBody2D<>::
+Rabion.gd::GDScript::-1::1678661491::0::1::::<>CharacterBody2D<>::
+Salud.gd::GDScript::-1::1677768655::0::1::::<>Node<>::
+::res://Sprites/::1677714130
+::res://Sprites/Cuki/::1677714201
+Cuki.png::CompressedTexture2D::7725860224568030044::1619217542::1677714201::1::::<><>::
+::res://Sprites/Efectos/::1677714201
+Slash.png::CompressedTexture2D::740368005960306345::1619548469::1677714201::1::::<><>::
+::res://Sprites/Rabion/::1677714201
+Rabion.PNG::CompressedTexture2D::1764166428970011274::1619282623::1677714201::1::::<><>::
+::res://Sprites/Tilesets/::1677714130
+::res://Sprites/Tilesets/Calabozo/::1678661903
+Esquina.png::CompressedTexture2D::1496692930265151925::1624316809::1678661903::1::::<><>::
+Mosaico.png::CompressedTexture2D::1288842623590277985::1620309858::1677714201::1::::<><>::
+Tileset Calabozo.png::CompressedTexture2D::1694881291153812095::1677852603::1677852679::1::::<><>::
+Wall_2.png::CompressedTexture2D::458347075969167493::1620309838::1677714201::1::::<><>::
+Wall_5 copia2.PNG::CompressedTexture2D::810886419073145844::1620737062::1677714201::1::::<><>::
+Wall_5 copia.png::CompressedTexture2D::2123980897586032144::1620736968::1677714201::1::::<><>::
+Wall_6.png::CompressedTexture2D::8775742135347421078::1620737151::1677714201::1::::<><>::
+::res://Tileset/::1678661842
+Calabozo.res::TileSet::-1::1620758577::0::1::::<><>::res://Sprites/Tilesets/Calabozo/Mosaico.png<>res://Sprites/Tilesets/Calabozo/Wall_5 copia2.PNG<>res://Sprites/Tilesets/Calabozo/Wall_5 copia.png<>res://Sprites/Tilesets/Calabozo/Wall_6.png<>res://Sprites/Tilesets/Calabozo/Wall_2.png
+CalabozoTileset.tscn::PackedScene::-1::1624319972::0::1::::<><>::res://Sprites/Tilesets/Calabozo/Mosaico.png<>res://Sprites/Tilesets/Calabozo/Wall_5 copia2.PNG<>res://Sprites/Tilesets/Calabozo/Wall_2.png<>res://Sprites/Tilesets/Calabozo/Wall_5 copia.png<>res://Sprites/Tilesets/Calabozo/Wall_6.png<>res://Sprites/Tilesets/Calabozo/Esquina.png

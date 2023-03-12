@@ -1,27 +1,26 @@
-extends KinematicBody2D
+extends CharacterBody2D
 
 var Cuki = null #objetivo actual
 
 var knockback = Vector2() #vector de knockback
-var in_knockback = false #establece si se debe aplicar el movimiento de knockback en el jugador
-
-
 var movement = Vector2()  #vector de movimiento
 var formacion = Vector2.ZERO
 
-onready var aliados = get_tree().get_nodes_in_group("Conejos")
+@onready var aliados = get_tree().get_nodes_in_group("Conejos")
 
-onready var health = $Salud #referencia al nodo de salud
-onready var health_bar = $Sprite/ProgressBar #referencia al nodo de la barra de vida
-onready var hide_timer = $Sprite/Hide_timer #referencia al nodo que oculta la barra de vida
+@onready var health = $Salud #referencia al nodo de salud
+@onready var health_bar = $ProgressBar #referencia al nodo de la barra de vida
+@onready var hide_timer = $Hide_timer #referencia al nodo que oculta la barra de vida
 
-export (int) var speed = 100 #velocidad del enemigo
+@export var speed = 100 #velocidad del enemigo
+
+var in_knockback
 
 func _ready():
 	#conecta los nodos de salud y barra de salud para que muestre la vida graficamente
-	health.connect("changed", health_bar, "set_value")
-	health.connect("max_changed", health_bar, "set_max")
-	health.connect("depleted", self, "defeat")
+	health.connect("changed",Callable(health_bar,"set_value"))
+	health.connect("max_changed",Callable(health_bar,"set_max"))
+	health.connect("depleted",Callable(self,"defeat"))
 	health.initialize()
 
 func _process(delta): #ciclo principal del juego
@@ -38,22 +37,24 @@ func _physics_process(delta): #ciclo del movimiento
 				formacion += Vector2(cos(-get_angle_to(i.position)), sin(-get_angle_to(i.position)))
 		
 		formacion = formacion.normalized()
-				
+		
 		movement = position.direction_to(Cuki.position) #direction_to da un vector unitario, este se multiplica por la velocidad
 	else:
 		movement = Vector2.ZERO #si no hay enemigo, se establece en vector nulo
 		formacion = Vector2.ZERO
 	
-	$Movimiento.cast_to = movement*50
-	
-	$Formacion.cast_to = formacion*50
+	$Direccion.set_target_position(movement*speed)
+	$Formacion.set_target_position(formacion*speed)
+	$Knockback.set_target_position(knockback)
 	
 	movement = ((1.5*movement)+formacion).normalized()
 	
 	if in_knockback == false:
 		knockback = Vector2.ZERO
 	
-	movement = move_and_slide((movement * speed)+knockback) #realiza el movimiento
+	set_velocity(movement * speed + knockback)
+	move_and_slide()
+	movement = velocity #realiza el movimiento
 	
 
 func defeat():
@@ -78,25 +79,26 @@ func animations():
 		$AnimationPlayer.play("Stay")
 	
 	if movement.x <= 1: #dirección a la que mira
-		$Sprite.scale.x = 1
+		$Sprite2D.scale.x = 1
 		$CollisionShape2D.scale.x = 1
 	elif movement.x >= -1:
-		$Sprite.scale.x = -1
+		$Sprite2D.scale.x = -1
 		$CollisionShape2D.scale.x = -1
 
 func _on_Area2D_area_entered(area): #si entra un area (ataques)
 	
 	if area.name == "Bat_zone": #si entra un enemigo, ajustar dirección del knockback
-		
 		in_knockback = true #activa el knockback
 		#ajuste de componentes X e Y del vector del Knocback
-		knockback.x = 450 * sin(get_angle_to(Cuki.position))
-		knockback.y = 450 * cos(get_angle_to(Cuki.position))
+		knockback.x = 300 * sin(get_angle_to(Cuki.global_position))
+		knockback.y = 300 * cos(get_angle_to(Cuki.global_position))
 		$Knockback_timer.start() #activa el temporizador del knocback
-		$ProgressBar.show() #mostrar salud
-		$Hide_timer.start() #cuando se desactiva la salud
+		health_bar.show() #mostrar salud
+		hide_timer.start() #cuando se desactiva la salud
 		health.current -= 1 #reduce salud
 
-func _on_Knockback_timer_timeout():
-	in_knockback = false 
-	
+func _on_hide_timer_timeout():
+	health_bar.hide()
+
+func _on_knockback_timer_timeout():
+	in_knockback = false
