@@ -2,21 +2,22 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_al1jy"]
 bg_color = Color(0, 0.27451, 0.0823529, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
 border_color = Color(1.38376e-07, 0.215617, 0.0876136, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lkb8y"]
 bg_color = Color(0.2, 0.721569, 0, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
 border_color = Color(0.116853, 0.519997, 0, 1)
 
 [sub_resource type="Theme" id="Theme_eoxfp"]
+resource_local_to_scene = true
 ProgressBar/fonts/font = null
 ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_lkb8y")

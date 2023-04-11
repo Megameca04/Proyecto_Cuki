@@ -1,7 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://c1bw1m1tr8gem"]
+[gd_scene load_steps=18 format=3 uid="uid://c1bw1m1tr8gem"]
 
 [ext_resource type="Script" path="res://Scripts/Cuki.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://dicp13ihj0xno" path="res://Sprites/Cuki/Cuki.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://dicp13ihj0xno" path="res://Sprites/Aliados/Cuki/Cuki.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://ksv0uls0ckvx" path="res://Sprites/Efectos/Slash.png" id="3"]
 [ext_resource type="PackedScene" uid="uid://dljqaqas8it2e" path="res://Objetos/CukiHealthbar.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://fyyh6totk12a" path="res://Objetos/Salud.tscn" id="5"]
@@ -124,6 +124,28 @@ _data = {
 "Hurt": SubResource("7")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_al1jy"]
+bg_color = Color(0, 0.27451, 0.0823529, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1.38376e-07, 0.215617, 0.0876136, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lkb8y"]
+bg_color = Color(0.2, 0.721569, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.116853, 0.519997, 0, 1)
+
+[sub_resource type="Theme" id="Theme_3864o"]
+resource_local_to_scene = true
+ProgressBar/fonts/font = null
+ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_lkb8y")
+
 [node name="Cuki" type="CharacterBody2D"]
 scale = Vector2(1.5, 1.5)
 collision_mask = 6
@@ -136,22 +158,23 @@ position = Vector2(0, -7.33333)
 texture = ExtResource("2")
 hframes = 3
 vframes = 2
-frame = 1
+frame = 3
 
 [node name="Bat_zone" type="Area2D" parent="Sprite2D" groups=["C_attack"]]
-position = Vector2(27.3333, -3.33786e-06)
+position = Vector2(-1.90735e-06, 7.33333)
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Bat_zone"]
-position = Vector2(-2.3333, 0.666666)
+position = Vector2(26, -2.66667)
 shape = SubResource("1")
 disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Sprite2D/Bat_zone"]
-position = Vector2(-5, 0)
+visible = false
+position = Vector2(23.3333, -3.33333)
 texture = ExtResource("3")
 hframes = 3
-frame = 1
+frame = 2
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_mask = 2
@@ -189,17 +212,11 @@ offset_left = -17.5
 offset_top = -38.3333
 offset_right = 15.5
 offset_bottom = -32.3333
+theme = SubResource("Theme_3864o")
 
 [node name="Hide_timer" type="Timer" parent="."]
 
-[node name="Knockback" type="RayCast2D" parent="."]
-
-[node name="Movimiento" type="RayCast2D" parent="."]
-self_modulate = Color(0.890196, 0.027451, 0, 1)
-
-[node name="Direccion" type="RayCast2D" parent="."]
-self_modulate = Color(0, 0.564706, 0.227451, 1)
-
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
 [connection signal="animation_finished" from="Anim_Sprite" to="." method="_on_Anim_Sprite_animation_finished"]
 [connection signal="timeout" from="Knockback_timer" to="." method="_on_knockback_timer_timeout"]

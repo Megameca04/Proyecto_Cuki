@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0ettfhn1kxgs"
-path="res://.godot/imported/Rabion.PNG-2963ed8cce6c8ed7a1efd10f8a81fd69.ctex"
+uid="uid://uulcfvlwm8yg"
+path="res://.godot/imported/Blonk.png-5fe622c7214c2b38ec726d4ad891bdd5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Rabion/Rabion.PNG"
-dest_files=["res://.godot/imported/Rabion.PNG-2963ed8cce6c8ed7a1efd10f8a81fd69.ctex"]
+source_file="res://Sprites/Enemigos/Blonk.png"
+dest_files=["res://.godot/imported/Blonk.png-5fe622c7214c2b38ec726d4ad891bdd5.ctex"]
 
 [params]
 

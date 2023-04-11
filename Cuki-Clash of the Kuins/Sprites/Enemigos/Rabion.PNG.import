@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dicp13ihj0xno"
-path="res://.godot/imported/Cuki.png-3f814d16be07fe9d8b390a3e3af9c17f.ctex"
+uid="uid://0ettfhn1kxgs"
+path="res://.godot/imported/Rabion.PNG-67a09f70720c9038f2274cdd119ea999.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Cuki/Cuki.png"
-dest_files=["res://.godot/imported/Cuki.png-3f814d16be07fe9d8b390a3e3af9c17f.ctex"]
+source_file="res://Sprites/Enemigos/Rabion.PNG"
+dest_files=["res://.godot/imported/Rabion.PNG-67a09f70720c9038f2274cdd119ea999.ctex"]
 
 [params]
 

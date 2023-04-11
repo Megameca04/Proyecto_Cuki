@@ -26,6 +26,7 @@ func _process(delta): #ciclo principal del juego
 		animations() 
 	attack() #Siempre ataca
 
+
 func _physics_process(delta):
 	#reinicia el movimiento y la dirección cada frame del juego 
 	movement = Vector2.ZERO 
@@ -50,11 +51,7 @@ func _physics_process(delta):
 		
 	if dashing:
 		movement *= 2
-		
-	$Knockback.target_position = knockback/10
-	$Direccion.target_position = movement*speed/10
-	$Movimiento.target_position = movement*speed/10 + knockback/10
-		
+	
 	set_velocity((movement*speed) + knockback)
 	move_and_slide()
 	movement = velocity
@@ -94,8 +91,7 @@ func _on_Hitbox_body_entered(body): #cuando algo entra a la hitbox
 			in_knockback = true #activa el knockback
 			
 			#ajuste de componentes X e Y del vector del Knocback
-			knockback.x += 500*sin(get_angle_to(body.position))
-			knockback.y += 500*cos(get_angle_to(body.position))
+			knockback -= 500*Vector2(cos(get_angle_to(body.position)),sin(get_angle_to(body.position)))
 			
 			$Knockback_timer.start() #activa el temporizador del knocback
 			$Health_bar.show() #mostrar salud
@@ -115,3 +111,12 @@ func _on_Dash_timer_timeout(): #cuando acaba el tiempo de dash, se establece a l
 
 func _on_knockback_timer_timeout():
 	in_knockback = false
+
+func _on_hitbox_area_entered(area):
+	if area.is_in_group("expl_attack"):
+		knockback -= 750*Vector2(cos(get_angle_to(area.position)),sin(get_angle_to(area.position)))
+		$Knockback_timer.start() #activa el temporizador del knocback
+		$Health_bar.show() #mostrar salud
+		$Hide_timer.start() #cuando se desactiva la salud
+		$Visual_anim.play("Hurt") #efecto de daño
+		health.current -= 1 #reduce salud

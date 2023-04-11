@@ -43,10 +43,6 @@ func _physics_process(delta): #ciclo del movimiento
 		movement = Vector2.ZERO #si no hay enemigo, se establece en vector nulo
 		formacion = Vector2.ZERO
 	
-	$Direccion.set_target_position(movement*speed)
-	$Formacion.set_target_position(formacion*speed)
-	$Knockback.set_target_position(knockback)
-	
 	movement = ((1.5*movement)+formacion).normalized()
 	
 	if in_knockback == false:
@@ -87,15 +83,22 @@ func animations():
 
 func _on_Area2D_area_entered(area): #si entra un area (ataques)
 	
-	if area.name == "Bat_zone": #si entra un enemigo, ajustar dirección del knockback
+	if area.is_in_group("C_attack"): #si entra un enemigo, ajustar dirección del knockback
 		in_knockback = true #activa el knockback
 		#ajuste de componentes X e Y del vector del Knocback
-		knockback.x = 300 * sin(get_angle_to(Cuki.global_position))
-		knockback.y = 300 * cos(get_angle_to(Cuki.global_position))
+		knockback -= 350*Vector2(cos(get_angle_to(area.position)),sin(get_angle_to(area.position)))
 		$Knockback_timer.start() #activa el temporizador del knocback
 		health_bar.show() #mostrar salud
 		hide_timer.start() #cuando se desactiva la salud
 		health.current -= 1 #reduce salud
+	
+	if area.is_in_group("expl_attack"):
+		knockback -= 600*Vector2(cos(get_angle_to(area.position)),sin(get_angle_to(area.position)))
+		$Knockback_timer.start() #activa el temporizador del knocback
+		health_bar.show() #mostrar salud
+		hide_timer.start() #cuando se desactiva la salud
+		health.current -= 4
+	
 
 func _on_hide_timer_timeout():
 	health_bar.hide()
