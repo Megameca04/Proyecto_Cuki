@@ -1,10 +1,7 @@
 res://default_env.tres
-res://Entidades/Explosion.tscn
 res://Entidades/Barril_b.tscn
 res://Scripts/Barril_b.gd
 res://Pruebas.tscn
 res://Entidades/Cuki.tscn
-res://Scripts/Explosion.gd
+res://Entidades/Explosion.tscn
 res://Entidades/Rabion.tscn
-res://Scripts/Cuki.gd
-res://Scripts/Rabion.gd

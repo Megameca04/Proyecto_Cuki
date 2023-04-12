@@ -61,6 +61,9 @@ layer_0/tile_data = PackedInt32Array(196613, 65536, 1, 196614, 65536, 1, 131078,
 [node name="Barril_b" parent="." instance=ExtResource("3_l2s6e")]
 position = Vector2(200, 112)
 
+[node name="Barril_b2" parent="." instance=ExtResource("3_l2s6e")]
+position = Vector2(320, 112)
+
 [node name="Rabion" parent="." instance=ExtResource("4_t0wj2")]
 position = Vector2(384, 112)
 
