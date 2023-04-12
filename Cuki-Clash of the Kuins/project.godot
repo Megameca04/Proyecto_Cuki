@@ -66,4 +66,5 @@ Dash={
 
 [rendering]
 
+renderer/rendering_method="mobile"
 environment/defaults/default_environment="res://default_env.tres"
