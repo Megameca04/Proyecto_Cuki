@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://daogrpxml5bd8"]
+[gd_scene load_steps=8 format=3 uid="uid://daogrpxml5bd8"]
 
 [ext_resource type="PackedScene" uid="uid://c1bw1m1tr8gem" path="res://Entidades/Cuki.tscn" id="1"]
 [ext_resource type="Texture2D" uid="uid://yfaphak8gtm2" path="res://Sprites/Tilesets/Calabozo/Tileset Calabozo.png" id="3_c7ptk"]
 [ext_resource type="PackedScene" uid="uid://cty4jbpf7flme" path="res://Entidades/Barril_b.tscn" id="3_l2s6e"]
 [ext_resource type="PackedScene" uid="uid://b6wi067d3baqe" path="res://Entidades/Rabion.tscn" id="4_t0wj2"]
+[ext_resource type="PackedScene" uid="uid://gg8rb8xhhwk5" path="res://Entidades/blonk.tscn" id="5_w6h26"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_eg486"]
 texture = ExtResource("3_c7ptk")
@@ -72,3 +73,6 @@ position = Vector2(384, 96)
 
 [node name="Rabion3" parent="." instance=ExtResource("4_t0wj2")]
 position = Vector2(384, 128)
+
+[node name="Blonk" parent="." instance=ExtResource("5_w6h26")]
+position = Vector2(40, 0)

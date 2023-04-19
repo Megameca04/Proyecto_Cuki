@@ -51,7 +51,7 @@ radius = 139.014
 [sub_resource type="CircleShape2D" id="7"]
 radius = 9.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_al1jy"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pdp1l"]
 bg_color = Color(0, 0.27451, 0.0823529, 1)
 border_width_left = 1
 border_width_top = 1
@@ -59,7 +59,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1.38376e-07, 0.215617, 0.0876136, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lkb8y"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ub6uk"]
 bg_color = Color(0.2, 0.721569, 0, 1)
 border_width_left = 1
 border_width_top = 1
@@ -67,11 +67,11 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.116853, 0.519997, 0, 1)
 
-[sub_resource type="Theme" id="Theme_o1t77"]
+[sub_resource type="Theme" id="Theme_mirf6"]
 resource_local_to_scene = true
 ProgressBar/fonts/font = null
-ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
-ProgressBar/styles/fill = SubResource("StyleBoxFlat_lkb8y")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_pdp1l")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_ub6uk")
 
 [node name="Rabion" type="CharacterBody2D" groups=["Conejos", "Enemy"]]
 collision_layer = 2
@@ -84,6 +84,7 @@ position = Vector2(-3, -11)
 texture = ExtResource("2")
 hframes = 3
 vframes = 2
+frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("6")
@@ -120,7 +121,7 @@ offset_left = -16.0
 offset_top = -40.0
 offset_right = 24.0
 offset_bottom = -32.0
-theme = SubResource("Theme_o1t77")
+theme = SubResource("Theme_mirf6")
 
 [connection signal="body_entered" from="VisionField" to="." method="_on_VisionField_body_entered"]
 [connection signal="body_exited" from="VisionField" to="." method="_on_VisionField_body_exited"]
