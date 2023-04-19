@@ -1,8 +1,8 @@
 res://default_env.tres
-res://Entidades/blonk.tscn
-res://Scripts/Blonk.gd
 res://Pruebas.tscn
 res://Entidades/Cuki.tscn
 res://Entidades/Barril_b.tscn
 res://Entidades/Rabion.tscn
+res://Entidades/blonk.tscn
 res://Entidades/Explosion.tscn
+res://Scripts/Blonk.gd

@@ -43,3 +43,14 @@ func _on_vision_field_body_entered(body):
 func _on_vision_field_body_exited(body):
 	if body.get_name() == "Cuki":
 		Cuki = null
+
+
+func _on_hitbox_area_entered(area):
+	if area.is_in_group("C_attack"):
+		health_bar.show()
+		hide_timer.start()
+		health.current -= 1
+	if area.is_in_group("expl_attack"):
+		health_bar.show() #mostrar salud
+		hide_timer.start() #cuando se desactiva la salud
+		health.current -= 2
