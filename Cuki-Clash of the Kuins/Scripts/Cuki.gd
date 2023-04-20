@@ -113,10 +113,19 @@ func _on_knockback_timer_timeout():
 	in_knockback = false
 
 func _on_hitbox_area_entered(area):
-	if area.is_in_group("expl_attack") || area.is_in_group("expl_blonk"):
+	if area.is_in_group("expl_attack"):
+		in_knockback = true
 		knockback -= 750*Vector2(cos(get_angle_to(area.position)),sin(get_angle_to(area.position)))
 		$Knockback_timer.start() #activa el temporizador del knocback
 		$Health_bar.show() #mostrar salud
 		$Hide_timer.start() #cuando se desactiva la salud
 		$Visual_anim.play("Hurt") #efecto de daño
 		health.current -= 1 #reduce salud
+	if area.is_in_group("expl_blonk"):
+		in_knockback = true
+		knockback -= 750*Vector2(cos(get_angle_to(area.position)),sin(get_angle_to(area.position)))
+		$Knockback_timer.start()
+		$Health_bar.show()
+		$Hide_timer.start()
+		$Visual_anim.play("Hurt")
+		health.current -= 1

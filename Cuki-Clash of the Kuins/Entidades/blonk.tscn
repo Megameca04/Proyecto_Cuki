@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://gg8rb8xhhwk5"]
+[gd_scene load_steps=15 format=3 uid="uid://gg8rb8xhhwk5"]
 
 [ext_resource type="Script" path="res://Scripts/Blonk.gd" id="1_dscac"]
 [ext_resource type="Texture2D" uid="uid://uulcfvlwm8yg" path="res://Sprites/Enemigos/Blonk.png" id="1_vuri7"]
@@ -10,9 +10,51 @@ radius = 8.0
 
 [sub_resource type="Animation" id="Animation_0xq8l"]
 resource_name = "Moving"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_8g83p"]
+resource_name = "Attacking"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.3, 0.5, 0.8, 2.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 0, 1, 0, 1]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.9),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"attackPlayer"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_g0jmw"]
 _data = {
+"Attacking": SubResource("Animation_8g83p"),
 "Moving": SubResource("Animation_0xq8l")
 }
 
@@ -40,13 +82,15 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.116853, 0.519997, 0, 1)
 
-[sub_resource type="Theme" id="Theme_58087"]
+[sub_resource type="Theme" id="Theme_6osf0"]
 resource_local_to_scene = true
 ProgressBar/fonts/font = null
 ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_lkb8y")
 
-[node name="Blonk" type="CharacterBody2D"]
+[node name="Blonk" type="CharacterBody2D" groups=["Enemy"]]
+collision_layer = 2
+collision_mask = 6
 script = ExtResource("1_dscac")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -94,9 +138,10 @@ offset_left = -16.0
 offset_top = -40.0
 offset_right = 24.0
 offset_bottom = -32.0
-theme = SubResource("Theme_58087")
+theme = SubResource("Theme_6osf0")
 
 [node name="Pause_attack_timer" type="Timer" parent="."]
+wait_time = 2.051
 
 [node name="Hide_timer" type="Timer" parent="."]
 
@@ -104,3 +149,5 @@ theme = SubResource("Theme_58087")
 [connection signal="body_exited" from="VisionField" to="." method="_on_vision_field_body_exited"]
 [connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="timeout" from="Pause_attack_timer" to="." method="_on_pause_attack_timer_timeout"]
+[connection signal="timeout" from="Hide_timer" to="." method="_on_hide_timer_timeout"]
