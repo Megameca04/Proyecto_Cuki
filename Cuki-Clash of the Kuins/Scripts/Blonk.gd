@@ -17,7 +17,7 @@ func _ready():
 
 
 func _process(delta):
-	pass
+	animations()
 
 func _physics_process(delta):
 	blonkMovement()
@@ -44,7 +44,6 @@ func _on_vision_field_body_exited(body):
 	if body.get_name() == "Cuki":
 		Cuki = null
 
-
 func _on_hitbox_area_entered(area):
 	if area.is_in_group("C_attack"):
 		health_bar.show()
@@ -54,3 +53,11 @@ func _on_hitbox_area_entered(area):
 		health_bar.show() #mostrar salud
 		hide_timer.start() #cuando se desactiva la salud
 		health.current -= 2
+
+func animations():
+	if movement.x <= 1: #dirección a la que mira
+		$Sprite2D.scale.x = -1
+		$CollisionShape2D.scale.x = -1
+	elif movement.x >= -1:
+		$Sprite2D.scale.x = 1
+		$CollisionShape2D.scale.x = 1
