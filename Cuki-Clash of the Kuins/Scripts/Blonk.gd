@@ -1,7 +1,10 @@
 extends CharacterBody2D
 
+enum BlonkState { Patrol, Attacking, Resting }
 var Cuki = null
+var state = BlonkState.Patrol
 var movement = Vector2()
+const ATTACK = preload("res://Entidades/Explosion.tscn")
 @onready var health = $Salud
 @onready var health_bar = $ProgressBar
 @onready var hide_timer = $Hide_timer
@@ -24,13 +27,21 @@ func _physics_process(delta):
 
 func blonkMovement():
 	movement = Vector2.ZERO
-	if Cuki != null:
+	if Cuki != null && state == BlonkState.Patrol:
 		movement = position.direction_to(Cuki.position)
 	else:
 		movement = Vector2.ZERO
 	set_velocity(movement * blonkSpeed)
 	move_and_slide()
 	movement = velocity
+
+func animations():
+	if movement.x <= 1: #dirección a la que mira
+		$Sprite2D.scale.x = -1
+		$CollisionShape2D.scale.x = -1
+	elif movement.x >= -1:
+		$Sprite2D.scale.x = 1
+		$CollisionShape2D.scale.x = 1
 
 func defeat():
 	self.queue_free()
@@ -54,10 +65,9 @@ func _on_hitbox_area_entered(area):
 		hide_timer.start() #cuando se desactiva la salud
 		health.current -= 2
 
-func animations():
-	if movement.x <= 1: #dirección a la que mira
-		$Sprite2D.scale.x = -1
-		$CollisionShape2D.scale.x = -1
-	elif movement.x >= -1:
-		$Sprite2D.scale.x = 1
-		$CollisionShape2D.scale.x = 1
+func _on_attack_area_body_entered(body):
+	if body.get_name() == "Cuki":
+		var atk = ATTACK.instantiate()
+		atk.add_to_group("expl_blonk")
+		atk.global_position = self.global_position
+		call_deferred("add_sibling",atk)

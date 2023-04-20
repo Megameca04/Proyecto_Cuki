@@ -44,7 +44,7 @@ _data = {
 "Explosion": SubResource("Animation_e1wqx")
 }
 
-[node name="Area2D" type="Area2D" groups=["expl_attack"]]
+[node name="Area2D" type="Area2D"]
 texture_filter = 1
 scale = Vector2(2, 2)
 script = ExtResource("1_yv1yo")
