@@ -8,21 +8,6 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_ycrju"]
 radius = 8.0
 
-[sub_resource type="Animation" id="Animation_0xq8l"]
-resource_name = "Moving"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="Animation" id="Animation_8g83p"]
 resource_name = "Attacking"
 tracks/0/type = "value"
@@ -50,6 +35,21 @@ tracks/1/keys = {
 "args": [],
 "method": &"attackPlayer"
 }]
+}
+
+[sub_resource type="Animation" id="Animation_0xq8l"]
+resource_name = "Moving"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_g0jmw"]
@@ -82,7 +82,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.116853, 0.519997, 0, 1)
 
-[sub_resource type="Theme" id="Theme_6osf0"]
+[sub_resource type="Theme" id="Theme_fwnxo"]
 resource_local_to_scene = true
 ProgressBar/fonts/font = null
 ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
@@ -138,16 +138,20 @@ offset_left = -16.0
 offset_top = -40.0
 offset_right = 24.0
 offset_bottom = -32.0
-theme = SubResource("Theme_6osf0")
+theme = SubResource("Theme_fwnxo")
 
 [node name="Pause_attack_timer" type="Timer" parent="."]
 wait_time = 2.051
 
 [node name="Hide_timer" type="Timer" parent="."]
 
+[node name="AttackSpawner" type="Node2D" parent="."]
+position = Vector2(8, 40)
+
 [connection signal="body_entered" from="VisionField" to="." method="_on_vision_field_body_entered"]
 [connection signal="body_exited" from="VisionField" to="." method="_on_vision_field_body_exited"]
 [connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_exited" from="AttackArea" to="." method="_on_attack_area_body_exited"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="timeout" from="Pause_attack_timer" to="." method="_on_pause_attack_timer_timeout"]
 [connection signal="timeout" from="Hide_timer" to="." method="_on_hide_timer_timeout"]
