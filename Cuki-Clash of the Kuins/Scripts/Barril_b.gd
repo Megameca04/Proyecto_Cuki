@@ -8,6 +8,9 @@ var movement:Vector2 = Vector2.ZERO
 
 const EXPL = preload("res://Entidades/Explosion.tscn")
 
+func _ready():
+	add_to_group("Barrels")
+
 func _physics_process(delta):
 	
 	
