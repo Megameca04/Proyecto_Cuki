@@ -41,15 +41,30 @@ func checkClosestBarrel():
 		if barrel.global_position.distance_to(self.global_position) < distanceToBarrel:
 			distanceToBarrel = barrel.global_position.distance_to(self.global_position)
 			barrelToGet = barrel
+	state = ExplosiveEaterState.SearchingBarrel
+
+func attackPlayer():
+	var atk = ATTACK.instantiate()
+	atk.add_to_group("expl_blonk")
+	atk.global_position = attack_spawner.global_position
+	call_deferred("add_sibling",atk)
+	self.queue_free()
+
+func eatBarrel(body):
+	state = ExplosiveEaterState.Pursuing
+	body.queue_free()
 
 func _on_vision_field_body_entered(body):
 	if body.get_name() == "Cuki" && state == ExplosiveEaterState.Chill:
 		Cuki = body
-		state = ExplosiveEaterState.SearchingBarrel
 		checkClosestBarrel()
-
 
 func _on_hitbox_body_entered(body):
 	if body.is_in_group("Barrels") && ExplosiveEaterState.SearchingBarrel:
-		state = ExplosiveEaterState.Pursuing
-		body.queue_free()
+		eatBarrel(body)
+	if body.get_name() == "Cuki" && state == ExplosiveEaterState.Pursuing:
+		attackPlayer()
+
+func _on_attack_area_body_entered(body):
+	if body.get_name() == "Cuki" && state == ExplosiveEaterState.Pursuing:
+		attackPlayer()

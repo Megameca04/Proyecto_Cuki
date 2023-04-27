@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dljqaqas8it2e" path="res://Objetos/CukiHealthbar.tscn" id="3_8p41f"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_obhf7"]
-radius = 32.0
+radius = 16.0
 
 [sub_resource type="Animation" id="2"]
 resource_name = "Movin"
@@ -49,7 +49,7 @@ _data = {
 radius = 105.224
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jf8a7"]
-radius = 65.9697
+radius = 72.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j4u7k"]
 radius = 24.0
@@ -70,7 +70,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.116853, 0.519997, 0, 1)
 
-[sub_resource type="Theme" id="Theme_fbml5"]
+[sub_resource type="Theme" id="Theme_gprdh"]
 resource_local_to_scene = true
 ProgressBar/fonts/font = null
 ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
@@ -123,11 +123,12 @@ offset_left = -16.0
 offset_top = -40.0
 offset_right = 24.0
 offset_bottom = -32.0
-theme = SubResource("Theme_fbml5")
+theme = SubResource("Theme_gprdh")
 
 [node name="Hide_timer" type="Timer" parent="."]
 
 [node name="AttackSpawner" type="Node2D" parent="."]
 
 [connection signal="body_entered" from="VisionField" to="." method="_on_vision_field_body_entered"]
+[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
