@@ -52,7 +52,7 @@ radius = 105.224
 radius = 65.9697
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j4u7k"]
-radius = 32.0
+radius = 24.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_al1jy"]
 bg_color = Color(0, 0.27451, 0.0823529, 1)
@@ -70,7 +70,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.116853, 0.519997, 0, 1)
 
-[sub_resource type="Theme" id="Theme_v75aw"]
+[sub_resource type="Theme" id="Theme_fbml5"]
 resource_local_to_scene = true
 ProgressBar/fonts/font = null
 ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
@@ -94,16 +94,22 @@ libraries = {
 }
 
 [node name="VisionField" type="Area2D" parent="."]
+collision_layer = 7
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VisionField"]
 shape = SubResource("CircleShape2D_7ydt5")
 
 [node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 7
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
 shape = SubResource("CircleShape2D_jf8a7")
 
 [node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 7
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_j4u7k")
@@ -117,10 +123,11 @@ offset_left = -16.0
 offset_top = -40.0
 offset_right = 24.0
 offset_bottom = -32.0
-theme = SubResource("Theme_v75aw")
+theme = SubResource("Theme_fbml5")
 
 [node name="Hide_timer" type="Timer" parent="."]
 
 [node name="AttackSpawner" type="Node2D" parent="."]
 
 [connection signal="body_entered" from="VisionField" to="." method="_on_vision_field_body_entered"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

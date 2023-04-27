@@ -35,7 +35,7 @@ func explosiveEaterMovement():
 	movement = velocity
 
 func checkClosestBarrel():
-	var distanceToBarrel = 99999999999999999999
+	var distanceToBarrel = 99999999
 	var barrels = get_tree().get_nodes_in_group("Barrels")
 	for barrel in barrels:
 		if barrel.global_position.distance_to(self.global_position) < distanceToBarrel:
@@ -47,3 +47,9 @@ func _on_vision_field_body_entered(body):
 		Cuki = body
 		state = ExplosiveEaterState.SearchingBarrel
 		checkClosestBarrel()
+
+
+func _on_hitbox_body_entered(body):
+	if body.is_in_group("Barrels") && ExplosiveEaterState.SearchingBarrel:
+		state = ExplosiveEaterState.Pursuing
+		body.queue_free()
