@@ -1,0 +1,123 @@
+[gd_scene load_steps=14 format=3 uid="uid://bo8b3iunrn026"]
+
+[ext_resource type="Script" path="res://Scripts/Chooty.gd" id="1_3j4sc"]
+[ext_resource type="Texture2D" uid="uid://ljpm51y6y4aw" path="res://Sprites/Enemigos/Chooty.png" id="1_xv04k"]
+[ext_resource type="PackedScene" uid="uid://dljqaqas8it2e" path="res://Objetos/CukiHealthbar.tscn" id="3_nlkpd"]
+[ext_resource type="PackedScene" uid="uid://fyyh6totk12a" path="res://Objetos/Salud.tscn" id="4_wc8xc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w5s3q"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ajwvp"]
+radius = 204.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x5lgt"]
+radius = 11.0
+
+[sub_resource type="Animation" id="Animation_dhd75"]
+resource_name = "Default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_t3q33"]
+resource_name = "Shoot"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3du0n"]
+_data = {
+"Default": SubResource("Animation_dhd75"),
+"Shoot": SubResource("Animation_t3q33")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_al1jy"]
+bg_color = Color(0, 0.27451, 0.0823529, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1.38376e-07, 0.215617, 0.0876136, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lkb8y"]
+bg_color = Color(0.2, 0.721569, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.116853, 0.519997, 0, 1)
+
+[sub_resource type="Theme" id="Theme_r6e60"]
+resource_local_to_scene = true
+ProgressBar/fonts/font = null
+ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_lkb8y")
+
+[node name="Chooty" type="CharacterBody2D"]
+texture_filter = 1
+collision_layer = 2
+collision_mask = 5
+motion_mode = 1
+script = ExtResource("1_3j4sc")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("1_xv04k")
+hframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_w5s3q")
+
+[node name="Vision_field" type="Area2D" parent="."]
+visible = false
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Vision_field"]
+shape = SubResource("CircleShape2D_ajwvp")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_x5lgt")
+
+[node name="Vision_Raycast" type="RayCast2D" parent="."]
+collision_mask = 4
+
+[node name="Vision_Raycast_2" type="RayCast2D" parent="."]
+
+[node name="Shoot_timer" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3du0n")
+}
+
+[node name="Hide_timer" type="Timer" parent="."]
+
+[node name="ProgressBar" parent="." instance=ExtResource("3_nlkpd")]
+theme = SubResource("Theme_r6e60")
+
+[node name="Salud" parent="." instance=ExtResource("4_wc8xc")]
+
+[connection signal="body_entered" from="Vision_field" to="." method="_on_vision_field_body_entered"]
+[connection signal="body_exited" from="Vision_field" to="." method="_on_vision_field_body_exited"]

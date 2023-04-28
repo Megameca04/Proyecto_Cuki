@@ -46,7 +46,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="4"]
-radius = 139.014
+radius = 136.0
 
 [sub_resource type="CircleShape2D" id="7"]
 radius = 9.0
@@ -67,7 +67,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.116853, 0.519997, 0, 1)
 
-[sub_resource type="Theme" id="Theme_jnqty"]
+[sub_resource type="Theme" id="Theme_srpbf"]
 resource_local_to_scene = true
 ProgressBar/fonts/font = null
 ProgressBar/styles/background = SubResource("StyleBoxFlat_pdp1l")
@@ -121,7 +121,7 @@ offset_left = -16.0
 offset_top = -40.0
 offset_right = 24.0
 offset_bottom = -32.0
-theme = SubResource("Theme_jnqty")
+theme = SubResource("Theme_srpbf")
 
 [connection signal="body_entered" from="VisionField" to="." method="_on_VisionField_body_entered"]
 [connection signal="body_exited" from="VisionField" to="." method="_on_VisionField_body_exited"]

@@ -1,7 +1,7 @@
 res://default_env.tres
-res://Pruebas.tscn
-res://Entidades/Cuki.tscn
-res://Entidades/Barril_b.tscn
+res://Entidades/Chooty.tscn
+res://Scripts/Chooty.gd
 res://Entidades/Rabion.tscn
+res://Pruebas.tscn
 res://Entidades/blonk.tscn
-res://Entidades/Explosion.tscn
+res://Entidades/Cuki.tscn
