@@ -1,15 +1,15 @@
-[gd_scene load_steps=15 format=3 uid="uid://c66oom3xhf7kf"]
+[gd_scene load_steps=16 format=3 uid="uid://c66oom3xhf7kf"]
 
-[ext_resource type="Texture2D" uid="uid://0ettfhn1kxgs" path="res://Sprites/Enemigos/Rabion.PNG" id="1_bgtuv"]
 [ext_resource type="Script" path="res://Scripts/ExplosiveEater.gd" id="1_njnlc"]
 [ext_resource type="PackedScene" uid="uid://fyyh6totk12a" path="res://Objetos/Salud.tscn" id="2_7w504"]
+[ext_resource type="Texture2D" uid="uid://q367cv8ywqsc" path="res://Sprites/Enemigos/Bun.png" id="2_oe7r6"]
 [ext_resource type="PackedScene" uid="uid://dljqaqas8it2e" path="res://Objetos/CukiHealthbar.tscn" id="3_8p41f"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_obhf7"]
 radius = 16.0
 
-[sub_resource type="Animation" id="2"]
-resource_name = "Movin"
+[sub_resource type="Animation" id="Animation_6gsob"]
+resource_name = "Empty"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -17,15 +17,14 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [1, 2]
+"values": [0, 0, 0]
 }
 
-[sub_resource type="Animation" id="3"]
-resource_name = "Stay"
-length = 0.5
+[sub_resource type="Animation" id="Animation_kiem2"]
+resource_name = "Full"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -33,16 +32,46 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
+"times": PackedFloat32Array(0.1, 0.5, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [1, 1, 1]
+}
+
+[sub_resource type="Animation" id="Animation_h5ace"]
+resource_name = "Explode"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [2]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"attackPlayer"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r8y8g"]
 _data = {
-"Movin": SubResource("2"),
-"Stay": SubResource("3")
+"Empty": SubResource("Animation_6gsob"),
+"Explode": SubResource("Animation_h5ace"),
+"Full": SubResource("Animation_kiem2")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7ydt5"]
@@ -70,7 +99,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.116853, 0.519997, 0, 1)
 
-[sub_resource type="Theme" id="Theme_gprdh"]
+[sub_resource type="Theme" id="Theme_7xt6f"]
 resource_local_to_scene = true
 ProgressBar/fonts/font = null
 ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
@@ -83,10 +112,8 @@ script = ExtResource("1_njnlc")
 shape = SubResource("CircleShape2D_obhf7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_bgtuv")
+texture = ExtResource("2_oe7r6")
 hframes = 3
-vframes = 2
-frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -123,7 +150,7 @@ offset_left = -16.0
 offset_top = -40.0
 offset_right = 24.0
 offset_bottom = -32.0
-theme = SubResource("Theme_gprdh")
+theme = SubResource("Theme_7xt6f")
 
 [node name="Hide_timer" type="Timer" parent="."]
 

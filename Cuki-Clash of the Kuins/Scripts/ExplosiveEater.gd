@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-enum ExplosiveEaterState { Chill, SearchingBarrel, Pursuing }
+enum ExplosiveEaterState { Chill, SearchingBarrel, Pursuing, Exploding }
 var Cuki = null
 var CukiOnAttackRange = null
 var barrelToGet = null
@@ -20,16 +20,35 @@ func _ready():
 	health.initialize()
 
 func _process(delta):
-	pass
+	animationFace()
 
 func _physics_process(delta):
 	explosiveEaterMovement()
+
+func animationFace():
+	if movement.x <= 1:
+		$Sprite2D.scale.x = -1
+		$CollisionShape2D.scale.x = -1
+	elif movement.x >= -1:
+		$Sprite2D.scale.x = 1
+		$CollisionShape2D.scale.x = 1
+
+func stateAndAnimationChange(bunState):
+	state = bunState
+	if bunState == ExplosiveEaterState.Chill || bunState == ExplosiveEaterState.SearchingBarrel:
+		$AnimationPlayer.play("Empty")
+	if bunState == ExplosiveEaterState.Pursuing:
+		$AnimationPlayer.play("Full")
+	if bunState == ExplosiveEaterState.Exploding:
+		$AnimationPlayer.play("Explode")
 
 func explosiveEaterMovement():
 	if state == ExplosiveEaterState.Pursuing:
 		movement = position.direction_to(Cuki.position)
 	if state == ExplosiveEaterState.SearchingBarrel && barrelToGet != null:
 		movement = position.direction_to(barrelToGet.position)
+	if state == ExplosiveEaterState.Exploding:
+		movement = Vector2.ZERO
 	set_velocity(movement * explosiveEaterSpeed)
 	move_and_slide()
 	movement = velocity
@@ -41,7 +60,7 @@ func checkClosestBarrel():
 		if barrel.global_position.distance_to(self.global_position) < distanceToBarrel:
 			distanceToBarrel = barrel.global_position.distance_to(self.global_position)
 			barrelToGet = barrel
-	state = ExplosiveEaterState.SearchingBarrel
+	stateAndAnimationChange(ExplosiveEaterState.SearchingBarrel)
 
 func attackPlayer():
 	var atk = ATTACK.instantiate()
@@ -51,7 +70,7 @@ func attackPlayer():
 	self.queue_free()
 
 func eatBarrel(body):
-	state = ExplosiveEaterState.Pursuing
+	stateAndAnimationChange(ExplosiveEaterState.Pursuing)
 	body.queue_free()
 
 func _on_vision_field_body_entered(body):
@@ -60,11 +79,11 @@ func _on_vision_field_body_entered(body):
 		checkClosestBarrel()
 
 func _on_hitbox_body_entered(body):
-	if body.is_in_group("Barrels") && ExplosiveEaterState.SearchingBarrel:
+	if body.is_in_group("Barrels") && state == ExplosiveEaterState.SearchingBarrel:
 		eatBarrel(body)
 	if body.get_name() == "Cuki" && state == ExplosiveEaterState.Pursuing:
-		attackPlayer()
+		stateAndAnimationChange(ExplosiveEaterState.Exploding)
 
 func _on_attack_area_body_entered(body):
 	if body.get_name() == "Cuki" && state == ExplosiveEaterState.Pursuing:
-		attackPlayer()
+		stateAndAnimationChange(ExplosiveEaterState.Exploding)
