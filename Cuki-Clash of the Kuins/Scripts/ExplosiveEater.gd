@@ -87,3 +87,15 @@ func _on_hitbox_body_entered(body):
 func _on_attack_area_body_entered(body):
 	if body.get_name() == "Cuki" && state == ExplosiveEaterState.Pursuing:
 		stateAndAnimationChange(ExplosiveEaterState.Exploding)
+
+func _on_hitbox_area_entered(area):
+	if area.is_in_group("C_attack"):
+		if state == ExplosiveEaterState.Pursuing:
+			attackPlayer()
+		else:
+			health_bar.show()
+			hide_timer.start()
+			health.current -= 1
+	if area.is_in_group("expl_attack") || area.is_in_group("expl_blonk"):
+		if state == ExplosiveEaterState.Pursuing:
+			attackPlayer()

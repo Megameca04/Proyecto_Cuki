@@ -76,7 +76,7 @@ position = Vector2(384, 96)
 position = Vector2(384, 128)
 
 [node name="Blonk" parent="." instance=ExtResource("5_w6h26")]
-position = Vector2(-16, -8)
+position = Vector2(56, 0)
 
 [node name="ExplosiveEater" parent="." instance=ExtResource("6_ccqc4")]
 position = Vector2(120, 208)
