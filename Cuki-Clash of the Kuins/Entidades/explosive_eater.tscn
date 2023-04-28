@@ -99,7 +99,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.116853, 0.519997, 0, 1)
 
-[sub_resource type="Theme" id="Theme_dkobl"]
+[sub_resource type="Theme" id="Theme_dely8"]
 resource_local_to_scene = true
 ProgressBar/fonts/font = null
 ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
@@ -150,9 +150,11 @@ offset_left = -16.0
 offset_top = -40.0
 offset_right = 24.0
 offset_bottom = -32.0
-theme = SubResource("Theme_dkobl")
+theme = SubResource("Theme_dely8")
 
 [node name="Hide_timer" type="Timer" parent="."]
+
+[node name="Knockback_timer" type="Timer" parent="."]
 
 [node name="AttackSpawner" type="Node2D" parent="."]
 
