@@ -64,7 +64,7 @@ func checkClosestBarrel():
 
 func attackPlayer():
 	var atk = ATTACK.instantiate()
-	atk.add_to_group("expl_blonk")
+	atk.add_to_group("expl_bun")
 	atk.global_position = attack_spawner.global_position
 	call_deferred("add_sibling",atk)
 	self.queue_free()

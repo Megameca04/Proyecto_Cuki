@@ -23,21 +23,6 @@ tracks/0/keys = {
 "values": [0, 0, 0]
 }
 
-[sub_resource type="Animation" id="Animation_kiem2"]
-resource_name = "Full"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.1, 0.5, 0.9),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [1, 1, 1]
-}
-
 [sub_resource type="Animation" id="Animation_h5ace"]
 resource_name = "Explode"
 tracks/0/type = "value"
@@ -65,6 +50,21 @@ tracks/1/keys = {
 "args": [],
 "method": &"attackPlayer"
 }]
+}
+
+[sub_resource type="Animation" id="Animation_kiem2"]
+resource_name = "Full"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.5, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [1, 1, 1]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r8y8g"]
@@ -99,7 +99,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.116853, 0.519997, 0, 1)
 
-[sub_resource type="Theme" id="Theme_7xt6f"]
+[sub_resource type="Theme" id="Theme_ncmp7"]
 resource_local_to_scene = true
 ProgressBar/fonts/font = null
 ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
@@ -150,7 +150,7 @@ offset_left = -16.0
 offset_top = -40.0
 offset_right = 24.0
 offset_bottom = -32.0
-theme = SubResource("Theme_7xt6f")
+theme = SubResource("Theme_ncmp7")
 
 [node name="Hide_timer" type="Timer" parent="."]
 

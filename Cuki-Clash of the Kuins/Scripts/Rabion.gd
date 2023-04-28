@@ -92,7 +92,7 @@ func _on_Area2D_area_entered(area): #si entra un area (ataques)
 		hide_timer.start() #cuando se desactiva la salud
 		health.current -= 1 #reduce salud
 	
-	if area.is_in_group("expl_attack"):
+	if area.is_in_group("expl_attack") || area.is_in_group("expl_bun"):
 		knockback -= 600*Vector2(cos(get_angle_to(area.position)),sin(get_angle_to(area.position)))
 		$Knockback_timer.start() #activa el temporizador del knocback
 		health_bar.show() #mostrar salud
