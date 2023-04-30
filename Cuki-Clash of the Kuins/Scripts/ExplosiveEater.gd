@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-enum ExplosiveEaterState { Chill, SearchingBarrel, Pursuing, Exploding }
+enum ExplosiveEaterState { Chill, SearchingBarrel, Pursuing, Exploding, NormalRabion }
 var Cuki = null
 var CukiOnAttackRange = null
 var barrelToGet = null
@@ -37,7 +37,7 @@ func animationFace():
 
 func stateAndAnimationChange(bunState):
 	state = bunState
-	if bunState == ExplosiveEaterState.Chill || bunState == ExplosiveEaterState.SearchingBarrel:
+	if bunState == ExplosiveEaterState.Chill || bunState == ExplosiveEaterState.SearchingBarrel || bunState == ExplosiveEaterState.NormalRabion:
 		$AnimationPlayer.play("Empty")
 	if bunState == ExplosiveEaterState.Pursuing:
 		$AnimationPlayer.play("Full")
@@ -45,13 +45,15 @@ func stateAndAnimationChange(bunState):
 		$AnimationPlayer.play("Explode")
 
 func explosiveEaterMovement():
-	if state == ExplosiveEaterState.Pursuing:
+	if state == ExplosiveEaterState.Pursuing || state == ExplosiveEaterState.NormalRabion:
 		movement = position.direction_to(Cuki.position)
 	if state == ExplosiveEaterState.SearchingBarrel && barrelToGet != null:
 		movement = position.direction_to(barrelToGet.position)
+	if state == ExplosiveEaterState.SearchingBarrel && barrelToGet == null:
+		checkClosestBarrel()
 	if state == ExplosiveEaterState.Exploding:
 		movement = Vector2.ZERO
-	set_velocity(movement * explosiveEaterSpeed)
+	set_velocity(movement * explosiveEaterSpeed + knockback)
 	move_and_slide()
 	movement = velocity
 
@@ -62,13 +64,19 @@ func checkClosestBarrel():
 		if barrel.global_position.distance_to(self.global_position) < distanceToBarrel:
 			distanceToBarrel = barrel.global_position.distance_to(self.global_position)
 			barrelToGet = barrel
-	stateAndAnimationChange(ExplosiveEaterState.SearchingBarrel)
+	if (barrelToGet != null):
+		stateAndAnimationChange(ExplosiveEaterState.SearchingBarrel)
+	else:
+		stateAndAnimationChange(ExplosiveEaterState.NormalRabion)
 
 func attackPlayer():
 	var atk = ATTACK.instantiate()
 	atk.add_to_group("expl_bun")
 	atk.global_position = attack_spawner.global_position
 	call_deferred("add_sibling",atk)
+	self.queue_free()
+
+func defeat():
 	self.queue_free()
 
 func eatBarrel(body):
@@ -95,9 +103,25 @@ func _on_hitbox_area_entered(area):
 		if state == ExplosiveEaterState.Pursuing:
 			attackPlayer()
 		else:
+			in_knockback = true
+			knockback -= 350*Vector2(cos(get_angle_to(area.position)),sin(get_angle_to(area.position)))
+			$Knockback_timer.start()
 			health_bar.show()
 			hide_timer.start()
 			health.current -= 1
 	if area.is_in_group("expl_attack") || area.is_in_group("expl_blonk"):
 		if state == ExplosiveEaterState.Pursuing:
 			attackPlayer()
+		else:
+			knockback -= 600*Vector2(cos(get_angle_to(area.position)),sin(get_angle_to(area.position)))
+			$Knockback_timer.start()
+			health_bar.show()
+			hide_timer.start()
+			health.current -= 4
+
+func _on_hide_timer_timeout():
+	health_bar.hide()
+
+func _on_knockback_timer_timeout():
+	in_knockback = false
+	knockback = Vector2.ZERO

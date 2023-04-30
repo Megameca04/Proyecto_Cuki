@@ -99,13 +99,15 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.116853, 0.519997, 0, 1)
 
-[sub_resource type="Theme" id="Theme_dely8"]
+[sub_resource type="Theme" id="Theme_u75nb"]
 resource_local_to_scene = true
 ProgressBar/fonts/font = null
 ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_lkb8y")
 
-[node name="ExplosiveEater" type="CharacterBody2D"]
+[node name="ExplosiveEater" type="CharacterBody2D" groups=["Enemy"]]
+collision_layer = 7
+collision_mask = 7
 script = ExtResource("1_njnlc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -150,7 +152,7 @@ offset_left = -16.0
 offset_top = -40.0
 offset_right = 24.0
 offset_bottom = -32.0
-theme = SubResource("Theme_dely8")
+theme = SubResource("Theme_u75nb")
 
 [node name="Hide_timer" type="Timer" parent="."]
 
@@ -162,3 +164,5 @@ theme = SubResource("Theme_dely8")
 [connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="timeout" from="Hide_timer" to="." method="_on_hide_timer_timeout"]
+[connection signal="timeout" from="Knockback_timer" to="." method="_on_knockback_timer_timeout"]
