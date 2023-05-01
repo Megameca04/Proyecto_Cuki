@@ -86,6 +86,9 @@ func shoot_stone():
 		stone.objective_position = Cuki.global_position
 	call_deferred("add_sibling",stone)
 
+func defeat():
+	self.queue_free()
+
 func _on_vision_field_body_entered(body):
 	if body.get_name() == "Cuki":
 			Cuki = body
@@ -102,3 +105,13 @@ func _on_animation_player_animation_finished(anim_name):
 		"Shoot":
 			shoot_timer.start()
 			can_shoot = false
+
+func _on_hitbox_area_entered(area):
+	if area.is_in_group("C_attack"):
+		health_bar.show()
+		hide_timer.start()
+		health.current -= 1
+	if area.is_in_group("expl_attack") || area.is_in_group("expl_bun"):
+		health_bar.show()
+		hide_timer.start()
+		health.current -= 3
