@@ -82,7 +82,7 @@ func _on_hitbox_area_entered(area):
 		health_bar.show()
 		hide_timer.start()
 		health.current -= 1
-	if area.is_in_group("expl_attack"):
+	if area.is_in_group("expl_attack") || area.is_in_group("expl_bun"):
 		health_bar.show()
 		hide_timer.start()
 		health.current -= 2
