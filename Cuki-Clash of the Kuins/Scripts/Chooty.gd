@@ -2,10 +2,13 @@ extends CharacterBody2D
 
 enum ChootyState {Patrol, Running, Shooting, Resting}
 
+const STONE = preload("res://Entidades/Piedra.tscn")
+
 var Cuki = null
 
 var Cuki_on_shoot_range = false
 var state = ChootyState.Patrol
+var can_shoot = true
 
 @onready var shoot_timer = $Shoot_timer
 @onready var vision_raycast = $Vision_Raycast
@@ -27,10 +30,10 @@ func _ready():
 
 func _process(delta):
 	chootyBehaviour()
+	$Label.text = str(state)
 
 func _physics_process(delta):
 	chootyMovement()
-	print(state)
 
 func chootyMovement():
 	movement = Vector2.ZERO
@@ -52,8 +55,12 @@ func chootyMovement():
 
 func chootyBehaviour():
 	if Cuki != null:
-		if distance_from_Cuki() > 100 :
-			stateAndAnimationChange(ChootyState.Shooting)
+		if position.distance_to(Cuki.position) > 100 :
+			if can_shoot:
+				if state != ChootyState.Shooting:
+					stateAndAnimationChange(ChootyState.Shooting)
+			else: 
+				stateAndAnimationChange(ChootyState.Resting)
 		else:
 			stateAndAnimationChange(ChootyState.Running)
 	else:
@@ -72,10 +79,12 @@ func stateAndAnimationChange(chootyState):
 		ChootyState.Resting:
 			$AnimationPlayer.play("Default")
 
-func distance_from_Cuki():
+func shoot_stone():
+	var stone = STONE.instantiate()
+	stone.global_position = global_position
 	if Cuki != null:
-		var distance = sqrt(pow(Cuki.global_position.x - global_position.x,2)+pow(Cuki.global_position.y - global_position.y,2))
-		return distance
+		stone.objective_position = Cuki.global_position
+	call_deferred("add_sibling",stone)
 
 func _on_vision_field_body_entered(body):
 	if body.get_name() == "Cuki":
@@ -84,3 +93,12 @@ func _on_vision_field_body_entered(body):
 func _on_vision_field_body_exited(body):
 	if body.get_name() == "Cuki":
 		Cuki = null
+
+func _on_shoot_timer_timeout():
+	can_shoot = true
+
+func _on_animation_player_animation_finished(anim_name):
+	match anim_name:
+		"Shoot":
+			shoot_timer.start()
+			can_shoot = false

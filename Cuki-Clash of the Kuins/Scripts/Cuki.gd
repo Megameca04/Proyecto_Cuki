@@ -129,3 +129,12 @@ func _on_hitbox_area_entered(area):
 		$Hide_timer.start()
 		$Visual_anim.play("Hurt")
 		health.current -= 1
+	if area.is_in_group("Piedra"):
+		in_knockback = true
+		print(Vector2(cos(get_angle_to(area.position)),sin(get_angle_to(area.position))))
+		knockback = 500*Vector2(cos(get_angle_to(area.position)),sin(get_angle_to(area.position)))
+		$Knockback_timer.start()
+		$Health_bar.show()
+		$Hide_timer.start()
+		$Visual_anim.play("Hurt")
+		health.current -= 1

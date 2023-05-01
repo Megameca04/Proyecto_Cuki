@@ -1,11 +1,13 @@
 CollisionShape2D
 Area2D
-RayCast2D
-Timer
-AnimationPlayer
+Label
+Marker2D
+Sprite2D
 CharacterBody2D
+Timer
+RayCast2D
+AnimationPlayer
 Node2D
 Node
-Sprite2D
 CanvasLayer
 TileMap
