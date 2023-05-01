@@ -2,8 +2,9 @@ res://default_env.tres
 res://Entidades/explosive_eater.tscn
 res://Scripts/ExplosiveEater.gd
 res://Pruebas.tscn
-res://Entidades/Cuki.tscn
-res://Entidades/Barril_b.tscn
+res://Entidades/Chooty.tscn
+res://Entidades/Piedra.tscn
 res://Entidades/Rabion.tscn
-res://Entidades/blonk.tscn
-res://Entidades/Explosion.tscn
+res://Entidades/Cuki.tscn
+res://Scripts/Piedra.gd
+res://Scripts/Cuki.gd
