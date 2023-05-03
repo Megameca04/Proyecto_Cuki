@@ -28,8 +28,11 @@ func _process(delta): #ciclo principal del juego
 
 
 func _physics_process(delta):
-	#reinicia el movimiento y la dirección cada frame del juego 
-	movement = Vector2.ZERO 
+	CukiDirections()
+	calcularMovimiento()
+	moviendose()
+
+func CukiDirections():
 	direction = Vector2.ZERO
 	if can_walk == true: #si puede caminar
 		#recibe la entrada por teclado del jugador
@@ -41,17 +44,14 @@ func _physics_process(delta):
 			direction.x = -1
 		if Input.is_action_pressed("ui_right"):
 			direction.x = 1
-	
-	#ajusta el Vector del Knocback a uno nulo en caso de no haber sido golpeado
-	if in_knockback == false:
-		knockback = Vector2.ZERO
-		
-	#ajusta y realiza el movimiento
+
+func calcularMovimiento():
+	movement = Vector2.ZERO
 	movement = direction.normalized()
-		
 	if dashing:
 		movement *= 2
-	
+
+func moviendose():
 	set_velocity((movement*speed) + knockback)
 	move_and_slide()
 	movement = velocity
@@ -111,6 +111,7 @@ func _on_Dash_timer_timeout(): #cuando acaba el tiempo de dash, se establece a l
 
 func _on_knockback_timer_timeout():
 	in_knockback = false
+	knockback = Vector2.ZERO
 
 func _on_hitbox_area_entered(area):
 	if area.is_in_group("expl_attack"):
