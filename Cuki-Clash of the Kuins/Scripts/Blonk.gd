@@ -68,6 +68,11 @@ func attackPlayer():
 func defeat():
 	self.queue_free()
 
+func attackedBySomething(healthLost):
+	health_bar.show()
+	hide_timer.start()
+	health.current -= healthLost
+
 func _on_vision_field_body_entered(body):
 	if body != self:
 		if body.get_name() == "Cuki":
@@ -79,13 +84,9 @@ func _on_vision_field_body_exited(body):
 
 func _on_hitbox_area_entered(area):
 	if area.is_in_group("C_attack"):
-		health_bar.show()
-		hide_timer.start()
-		health.current -= 1
+		attackedBySomething(1)
 	if area.is_in_group("expl_attack") || area.is_in_group("expl_bun"):
-		health_bar.show()
-		hide_timer.start()
-		health.current -= 2
+		attackedBySomething(2)
 
 func _on_attack_area_body_entered(body):
 	if body != self:

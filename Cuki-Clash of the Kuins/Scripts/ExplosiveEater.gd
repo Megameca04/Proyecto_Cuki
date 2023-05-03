@@ -83,6 +83,14 @@ func eatBarrel(body):
 	stateAndAnimationChange(ExplosiveEaterState.Pursuing)
 	body.queue_free()
 
+func attackedBySomething(knockbackForce, healthLost, something):
+	in_knockback = true
+	knockback -= knockbackForce*Vector2(cos(get_angle_to(something.position)),sin(get_angle_to(something.position)))
+	$Knockback_timer.start()
+	health_bar.show()
+	hide_timer.start()
+	health.current -= healthLost
+
 func _on_vision_field_body_entered(body):
 	if body.get_name() == "Cuki" && state == ExplosiveEaterState.Chill:
 		Cuki = body
@@ -103,21 +111,12 @@ func _on_hitbox_area_entered(area):
 		if state == ExplosiveEaterState.Pursuing:
 			attackPlayer()
 		else:
-			in_knockback = true
-			knockback -= 350*Vector2(cos(get_angle_to(area.position)),sin(get_angle_to(area.position)))
-			$Knockback_timer.start()
-			health_bar.show()
-			hide_timer.start()
-			health.current -= 1
+			attackedBySomething(350, 1, area)
 	if area.is_in_group("expl_attack") || area.is_in_group("expl_blonk"):
 		if state == ExplosiveEaterState.Pursuing:
 			attackPlayer()
 		else:
-			knockback -= 600*Vector2(cos(get_angle_to(area.position)),sin(get_angle_to(area.position)))
-			$Knockback_timer.start()
-			health_bar.show()
-			hide_timer.start()
-			health.current -= 4
+			attackedBySomething(600, 4, area)
 
 func _on_hide_timer_timeout():
 	health_bar.hide()

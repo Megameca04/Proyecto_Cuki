@@ -89,6 +89,11 @@ func shoot_stone():
 func defeat():
 	self.queue_free()
 
+func attackedBySomething(healthLost):
+	health_bar.show()
+	hide_timer.start()
+	health.current -= healthLost
+
 func _on_vision_field_body_entered(body):
 	if body.get_name() == "Cuki":
 			Cuki = body
@@ -108,10 +113,6 @@ func _on_animation_player_animation_finished(anim_name):
 
 func _on_hitbox_area_entered(area):
 	if area.is_in_group("C_attack"):
-		health_bar.show()
-		hide_timer.start()
-		health.current -= 1
+		attackedBySomething(1)
 	if area.is_in_group("expl_attack") || area.is_in_group("expl_bun"):
-		health_bar.show()
-		hide_timer.start()
-		health.current -= 3
+		attackedBySomething(3)

@@ -6,3 +6,6 @@ res://Entidades/Chooty.tscn
 res://Entidades/Rabion.tscn
 res://Entidades/blonk.tscn
 res://Entidades/explosive_eater.tscn
+res://Scripts/ExplosiveEater.gd
+res://Scripts/Blonk.gd
+res://Scripts/Chooty.gd
