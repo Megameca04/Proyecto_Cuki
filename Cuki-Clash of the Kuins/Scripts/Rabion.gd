@@ -27,31 +27,32 @@ func _process(delta): #ciclo principal del juego
 	animations()
 
 func _physics_process(delta): #ciclo del movimiento
-	movement = Vector2.ZERO #reinicio del vector de movimiento
-	
+	formando()
+	calcularMovimiento()
+	moviendose()
+
+func formando():
 	aliados = get_tree().get_nodes_in_group("Conejos")
-	
 	if Cuki != null: #si hay objetivo en el area de visión
 		for i in aliados:
 			if i != self:
 				formacion += Vector2(cos(-get_angle_to(i.position)), sin(-get_angle_to(i.position)))
-		
 		formacion = formacion.normalized()
-		
+	else:
+		formacion = Vector2.ZERO
+
+func calcularMovimiento():
+	movement = Vector2.ZERO
+	if Cuki != null:
 		movement = position.direction_to(Cuki.position) #direction_to da un vector unitario, este se multiplica por la velocidad
 	else:
-		movement = Vector2.ZERO #si no hay enemigo, se establece en vector nulo
-		formacion = Vector2.ZERO
-	
+		movement = Vector2.ZERO
 	movement = ((1.5*movement)+formacion).normalized()
-	
-	if in_knockback == false:
-		knockback = Vector2.ZERO
-	
+
+func moviendose():
 	set_velocity(movement * speed + knockback)
 	move_and_slide()
 	movement = velocity #realiza el movimiento
-	
 
 func defeat():
 	self.queue_free()
@@ -105,3 +106,4 @@ func _on_hide_timer_timeout():
 
 func _on_knockback_timer_timeout():
 	in_knockback = false
+	knockback = Vector2.ZERO
