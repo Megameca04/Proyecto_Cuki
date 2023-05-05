@@ -1,10 +1,11 @@
 extends Node
 
-enum ElementalState { None, Water, Venom, Tar, Fire, Ice, ParalIce, Shock }
+enum MovementState { None, Frozen, Tar, Paralyzed }
+enum TimedState { None, Venom, Fire, Ice }
 enum ElementalEvent { Cured, Wet, Poisoned, Dirty, Torched, Freezed, Shocked }
-enum ElementalEffect { DoubleDamage, Damage }
 
-var state = ElementalState.None
+var movementState = MovementState.None
+var timedState = TimedState.None
 
 func _ready():
 	pass
@@ -13,49 +14,40 @@ func _process(delta):
 	pass
 
 func contactWithElement(elementalEvent):
-	if (elementalEvent == ElementalEvent.Cured):
-		state = ElementalState.None
-		return state
 	if (elementalEvent == ElementalEvent.Wet):
-		if (state == ElementalState.Fire && state == ElementalState.Tar && state == ElementalState.Venom):
-			state = ElementalState.None
-			return state
-		if (state == ElementalState.Shock):
-			return effectWithElement(elementalEvent)
-		if (state == ElementalState.Ice):
-			state == ElementalState.ParalIce
-			return state
-	if (elementalEvent == ElementalEvent.Poisoned):
-		if (state == ElementalState.None):
-			state = ElementalState.Venom
-			return state
-	if (elementalEvent == ElementalEvent.Dirty):
-		if (state == ElementalState.None):
-			state = ElementalState.Tar
-			return state
-		if (state == ElementalState.Fire):
-			return effectWithElement(elementalEvent)
-	if (elementalEvent == ElementalEvent.Torched):
-		if (state == ElementalState.None):
-			state = ElementalState.Shock
-			return state
-		if (state == ElementalState.Ice):
-			state = ElementalState.None
-			return state
-		if (state == ElementalState.ParalIce):
-			state = ElementalState.None
-			return state
-	if (elementalEvent == ElementalEvent.Freezed):
-		if (state == ElementalState.None):
-			state = ElementalState.Ice
-			return state
-	if (elementalEvent == ElementalEvent.Shocked):
-		if (state == ElementalState.None):
-			state = ElementalState.Shock
-			return state
+		contactWithWater()
+	if (elementalEvent == ElementalEvent.Poisoned || elementalEvent == ElementalEvent.Torched || elementalEvent == ElementalEvent.Freezed):
+		contactWithTemporalState(elementalEvent)
+	if (elementalEvent == ElementalEvent.Dirty || elementalEvent == ElementalEvent.Shocked):
+		contactWithMovementState(elementalEvent)
 
-func effectWithElement(elementalEvent):
-	if (elementalEvent == ElementalEvent.Wet && state == ElementalState.Shock):
-		return ElementalEffect.Damage
-	if (elementalEvent == ElementalEvent.Dirty && state == ElementalState.Fire):
-		return ElementalEffect.DoubleDamage
+func contactWithWater():
+	if (timedState == TimedState.Ice && movementState != MovementState.Paralyzed && movementState != MovementState.Tar):
+		timedState = TimedState.None
+		movementState = MovementState.Frozen
+	if (movementState == MovementState.Tar):
+		movementState = MovementState.None
+	if (timedState == TimedState.Venom || timedState.Fire):
+		timedState = TimedState.None
+
+func contactWithTemporalState(elementalEvent):
+	if (timedState == TimedState.None):
+		if (elementalEvent == ElementalEvent.Poisoned):
+			timedState = TimedState.Venom
+		if (elementalEvent == ElementalEvent.Torched):
+			timedState == TimedState.Fire
+		if (elementalEvent == ElementalEvent.Freezed):
+			timedState = TimedState.Ice
+
+func contactWithMovementState(elementalEvent):
+	if (movementState == MovementState.None):
+		if (elementalEvent == ElementalEvent.Dirty):
+			movementState = MovementState.Tar
+		if (elementalEvent == ElementalEvent.Shocked):
+			movementState = MovementState.Paralyzed
+
+func getMovementState():
+	return movementState
+
+func getTemporalState():
+	return timedState
