@@ -1,6 +1,6 @@
 extends Node
 
-enum MovementState { None, Frozen, Tar, Paralyzed }
+enum MovementState { None, Frozen, Tar, Paralyzed } # CHANGE THE ENUMS TO A STRING (HOLLOW)
 enum TimedState { None, Venom, Fire, Ice }
 enum ElementalEvent { Cured, Wet, Poisoned, Dirty, Torched, Freezed, Shocked }
 

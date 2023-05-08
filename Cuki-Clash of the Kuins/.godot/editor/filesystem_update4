@@ -1,3 +1,5 @@
 res://default_env.tres
-res://Pruebas.tscn
+res://Objetos/ElementalState.tscn
+res://Entidades/Cuki.tscn
+res://Scripts/Cuki.gd
 res://Scripts/ElementalStateMachine.gd

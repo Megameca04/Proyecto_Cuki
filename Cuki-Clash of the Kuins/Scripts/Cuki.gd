@@ -13,6 +13,7 @@ var dashing = false #establece si se debe aplicar el efecto de esquiva en el jug
 @onready var health = $Salud #referencia al nodo de salud
 @onready var health_bar = $Health_bar #referencia al nodo de la barra de vida
 @onready var hide_timer = $Hide_timer #referencia al nodo que oculta la barra de vida
+@onready var elemental_state = $ElementalState # Referencia a la barra de estado de los elementos
 
 func _ready(): #se ejecuta apenas el objeto entra al arbol de nodos
 	#conecta los nodos de salud y barra de salud para que muestre la vida graficamente
@@ -121,3 +122,4 @@ func _on_hitbox_area_entered(area):
 		attackedBySomething(750, 1, area)
 	if area.is_in_group("Piedra"):
 		attackedBySomething(500, 1, area)
+
