@@ -1,50 +1,42 @@
 extends Node
 
-enum MovementState { None, Frozen, Tar, Paralyzed } # CHANGE THE ENUMS TO A STRING (HOLLOW)
-enum TimedState { None, Venom, Fire, Ice }
-enum ElementalEvent { Cured, Wet, Poisoned, Dirty, Torched, Freezed, Shocked }
 
-var movementState = MovementState.None
-var timedState = TimedState.None
 
-func _ready():
-	pass
-
-func _process(delta):
-	pass
+var movementState = "None"
+var timedState = "None"
 
 func contactWithElement(elementalEvent):
-	if (elementalEvent == ElementalEvent.Wet):
+	if (elementalEvent == "Water"):
 		contactWithWater()
-	if (elementalEvent == ElementalEvent.Poisoned || elementalEvent == ElementalEvent.Torched || elementalEvent == ElementalEvent.Freezed):
+	if (elementalEvent == "Poison" || elementalEvent == "Flame" || elementalEvent == "Freeze"):
 		contactWithTemporalState(elementalEvent)
-	if (elementalEvent == ElementalEvent.Dirty || elementalEvent == ElementalEvent.Shocked):
+	if (elementalEvent == "Tar" || elementalEvent == "Shock"):
 		contactWithMovementState(elementalEvent)
 
 func contactWithWater():
-	if (timedState == TimedState.Ice && movementState != MovementState.Paralyzed && movementState != MovementState.Tar):
-		timedState = TimedState.None
-		movementState = MovementState.Frozen
-	if (movementState == MovementState.Tar):
-		movementState = MovementState.None
-	if (timedState == TimedState.Venom || timedState.Fire):
-		timedState = TimedState.None
+	if (timedState == "Ice" && movementState != "Paralyzed" && movementState != "Tar"):
+		timedState = "None"
+		movementState = "Frozen"
+	if (movementState == "Tar"):
+		movementState = "None"
+	if (timedState == "Venom" || "Fire"):
+		timedState = "None"
 
 func contactWithTemporalState(elementalEvent):
-	if (timedState == TimedState.None):
-		if (elementalEvent == ElementalEvent.Poisoned):
-			timedState = TimedState.Venom
-		if (elementalEvent == ElementalEvent.Torched):
-			timedState == TimedState.Fire
-		if (elementalEvent == ElementalEvent.Freezed):
-			timedState = TimedState.Ice
+	if (timedState == "None"):
+		if (elementalEvent == "Poison"):
+			timedState = "Venom"
+		if (elementalEvent == "Flame"):
+			timedState == "Fire"
+		if (elementalEvent == "Freeze"):
+			timedState = "Ice"
 
 func contactWithMovementState(elementalEvent):
-	if (movementState == MovementState.None):
-		if (elementalEvent == ElementalEvent.Dirty):
-			movementState = MovementState.Tar
-		if (elementalEvent == ElementalEvent.Shocked):
-			movementState = MovementState.Paralyzed
+	if (movementState == "None"):
+		if (elementalEvent == "Tar"):
+			movementState = "Tar"
+		if (elementalEvent == "Shock"):
+			movementState = "Paralyzed"
 
 func getMovementState():
 	return movementState

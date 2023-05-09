@@ -27,7 +27,6 @@ func _process(delta): #ciclo principal del juego
 		animations() 
 	attack() #Siempre ataca
 
-
 func _physics_process(delta):
 	CukiDirections()
 	calcularMovimiento()
@@ -122,4 +121,7 @@ func _on_hitbox_area_entered(area):
 		attackedBySomething(750, 1, area)
 	if area.is_in_group("Piedra"):
 		attackedBySomething(500, 1, area)
+	if area.is_in_group("Elements"):
+		elemental_state.contactWithElement(area.name)
+		area.queue_free()
 

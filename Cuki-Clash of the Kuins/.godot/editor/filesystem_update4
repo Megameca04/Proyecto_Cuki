@@ -1,5 +1,10 @@
 res://default_env.tres
-res://Objetos/ElementalState.tscn
 res://Entidades/Cuki.tscn
-res://Scripts/Cuki.gd
 res://Scripts/ElementalStateMachine.gd
+res://Scripts/Cuki.gd
+res://Objetos/Water.tscn
+res://Pruebas.tscn
+res://Entidades/Chooty.tscn
+res://Entidades/Rabion.tscn
+res://Entidades/blonk.tscn
+res://Entidades/explosive_eater.tscn
