@@ -24,7 +24,7 @@ func _ready(): #se ejecuta apenas el objeto entra al arbol de nodos
 
 func _process(delta): #ciclo principal del juego
 	if can_walk == true: #si puede caminar(si no está reproduciendo una animación estatica)
-		animations() 
+		animations()
 	attack() #Siempre ataca
 
 func _physics_process(delta):
@@ -34,7 +34,7 @@ func _physics_process(delta):
 
 func CukiDirections():
 	direction = Vector2.ZERO
-	if can_walk == true: #si puede caminar
+	if can_walk == true && elemental_state.getMovementState() != "Paralyzed": #si puede caminar
 		#recibe la entrada por teclado del jugador
 		if Input.is_action_pressed("ui_up"):
 			direction.y = -1
@@ -70,17 +70,18 @@ func animations(): #ajusta la apariencia del jugador
 		$CollisionShape2D.scale.x = -1
 
 func attack(): #función de ataque
-	if Input.is_action_pressed("Atacar"): #si se presiona z
-		can_walk = false
-		$Anim_Sprite.play("Punch")
+	if elemental_state.getMovementState() != "Paralyzed":
+		if Input.is_action_pressed("Atacar"): #si se presiona z
+			can_walk = false
+			$Anim_Sprite.play("Punch")
 	
-	if Input.is_action_just_pressed("Dash"): #si se presiona x
-		if !dashing:
-			dashing = true
-			$Dash_timer.start()
+		if Input.is_action_just_pressed("Dash"): #si se presiona x
+			if !dashing:
+				dashing = true
+				$Dash_timer.start()
 	
-	$Hitbox/CollisionShape2D.disabled = dashing #deshabilita detección de daño
-	set_collision_mask_value(2,!dashing) #deshabilita colisión con enemigos
+		$Hitbox/CollisionShape2D.disabled = dashing #deshabilita detección de daño
+		set_collision_mask_value(2,!dashing) #deshabilita colisión con enemigos
 
 func attackedBySomething(knockbackForce, healthLost, something):
 	in_knockback = true #activa el knockback

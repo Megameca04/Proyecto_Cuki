@@ -4,3 +4,7 @@
 
 [node name="ElementalState" type="Node"]
 script = ExtResource("1_n7d4b")
+
+[node name="Elemental_timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Elemental_timer" to="." method="_on_elemental_timer_timeout"]

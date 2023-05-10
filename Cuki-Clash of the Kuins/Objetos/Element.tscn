@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n3amh"]
 size = Vector2(48, 48)
 
-[node name="Water" type="Area2D" groups=["Elements"]]
+[node name="Element" type="Area2D" groups=["Elements"]]
 light_mask = 7
 visibility_layer = 7
 collision_layer = 7
