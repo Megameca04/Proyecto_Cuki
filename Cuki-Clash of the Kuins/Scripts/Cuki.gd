@@ -46,15 +46,17 @@ func CukiDirections():
 			direction.x = 1
 
 func calcularMovimiento():
-	movement = Vector2.ZERO
-	movement = direction.normalized()
-	if dashing:
-		movement *= 2
+	if elemental_state.getMovementState() != "Tar":
+		movement = Vector2.ZERO
+		movement = direction.normalized()
+		if dashing:
+			movement *= 2
 
 func moviendose():
-	set_velocity((movement*speed) + knockback)
-	move_and_slide()
-	movement = velocity
+	if elemental_state.getMovementState() != "Tar":
+		set_velocity((movement*speed) + knockback)
+		move_and_slide()
+		movement = velocity
 
 func animations(): #ajusta la apariencia del jugador
 	if movement.x or movement.y !=0: #Si se mueve
