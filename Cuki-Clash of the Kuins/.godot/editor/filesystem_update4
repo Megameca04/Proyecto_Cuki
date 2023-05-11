@@ -1,5 +1,6 @@
 res://default_env.tres
 res://Entidades/Cuki.tscn
+res://Scripts/ElementalStateMachine.gd
 res://Scripts/Cuki.gd
 res://Pruebas.tscn
 res://Entidades/Chooty.tscn

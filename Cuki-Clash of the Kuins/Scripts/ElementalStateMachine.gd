@@ -16,6 +16,7 @@ func contactWithWater():
 	if (timedState == "Ice" && movementState != "Paralyzed" && movementState != "Tar"):
 		timedState = "None"
 		movementState = "Frozen"
+		elemental_timer.start()
 	if (movementState == "Tar"):
 		movementState = "None"
 	if (timedState == "Venom" || "Fire"):

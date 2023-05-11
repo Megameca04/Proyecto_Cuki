@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @export var speed = 200 #Velocidad del jugador
+var totalSpeed = 0
 
 var direction = Vector2.ZERO #vector de dirección del jugador
 var movement = Vector2() #vector de movimiento del jugador
@@ -51,10 +52,14 @@ func calcularMovimiento():
 		movement = direction.normalized()
 		if dashing:
 			movement *= 2
+		if elemental_state.getTemporalState() == "Ice":
+			totalSpeed = speed / 2
+		else:
+			totalSpeed = speed
 
 func moviendose():
 	if elemental_state.getMovementState() != "Tar":
-		set_velocity((movement*speed) + knockback)
+		set_velocity((movement*totalSpeed) + knockback)
 		move_and_slide()
 		movement = velocity
 
