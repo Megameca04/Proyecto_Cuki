@@ -35,7 +35,7 @@ func _physics_process(delta):
 
 func CukiDirections():
 	direction = Vector2.ZERO
-	if can_walk == true && elemental_state.getMovementState() != "Paralyzed": #si puede caminar
+	if can_walk == true && elemental_state.getMovementState() != "Paralyzed" && elemental_state.getMovementState() != "Frozen": #si puede caminar
 		#recibe la entrada por teclado del jugador
 		if Input.is_action_pressed("ui_up"):
 			direction.y = -1
@@ -91,14 +91,15 @@ func attack(): #función de ataque
 		set_collision_mask_value(2,!dashing) #deshabilita colisión con enemigos
 
 func attackedBySomething(knockbackForce, healthLost, something):
-	in_knockback = true #activa el knockback
-	#ajuste de componentes X e Y del vector del Knocback
-	knockback -= knockbackForce*Vector2(cos(get_angle_to(something.position)),sin(get_angle_to(something.position)))
-	$Knockback_timer.start() #activa el temporizador del knocback
-	$Health_bar.show() #mostrar salud
-	$Hide_timer.start() #cuando se desactiva la salud
-	$Visual_anim.play("Hurt") #efecto de daño
-	health.current -= healthLost #reduce salud
+	if elemental_state.getMovementState() != "Frozen":
+		in_knockback = true #activa el knockback
+		#ajuste de componentes X e Y del vector del Knocback
+		knockback -= knockbackForce*Vector2(cos(get_angle_to(something.position)),sin(get_angle_to(something.position)))
+		$Knockback_timer.start() #activa el temporizador del knocback
+		$Health_bar.show() #mostrar salud
+		$Hide_timer.start() #cuando se desactiva la salud
+		$Visual_anim.play("Hurt") #efecto de daño
+		health.current -= healthLost #reduce salud
 
 func game_over():
 	self.set_physics_process(false)
