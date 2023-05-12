@@ -99,7 +99,10 @@ func attackedBySomething(knockbackForce, healthLost, something):
 		$Health_bar.show() #mostrar salud
 		$Hide_timer.start() #cuando se desactiva la salud
 		$Visual_anim.play("Hurt") #efecto de daño
-		health.current -= healthLost #reduce salud
+		if elemental_state.getTemporalState() != "Venom":
+			health.current -= healthLost #reduce salud
+		else:
+			health.current -= healthLost * 2
 
 func game_over():
 	self.set_physics_process(false)
