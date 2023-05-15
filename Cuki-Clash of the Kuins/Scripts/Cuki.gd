@@ -135,5 +135,7 @@ func _on_hitbox_area_entered(area):
 		attackedBySomething(500, 1, area)
 	if area.is_in_group("Elements"):
 		elemental_state.contactWithElement(area.name)
+		if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):
+			attackedBySomething(0, 1, area)
 		area.queue_free()
 
