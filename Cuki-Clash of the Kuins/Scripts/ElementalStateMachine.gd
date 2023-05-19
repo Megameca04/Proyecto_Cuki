@@ -3,6 +3,8 @@ extends Node
 var movementState = "None"
 var timedState = "None"
 @onready var elemental_timer = $Elemental_timer
+@onready var elemental_damage = $Elemental_damage
+signal temporal_damage
 
 func contactWithElement(elementalEvent):
 	if (elementalEvent == "Water"):
@@ -27,7 +29,10 @@ func contactWithTemporalState(elementalEvent):
 		if (elementalEvent == "Poison"):
 			timedState = "Venom"
 		if (elementalEvent == "Flame"):
-			timedState == "Fire"
+			timedState = "Fire"
+			elemental_damage.start()
+			if (movementState == "Tar"):
+				movementState = "None"
 		if (elementalEvent == "Freeze"):
 			timedState = "Ice"
 		elemental_timer.start()
@@ -35,7 +40,10 @@ func contactWithTemporalState(elementalEvent):
 func contactWithMovementState(elementalEvent):
 	if (movementState == "None"):
 		if (elementalEvent == "Tar"):
-			movementState = "Tar"
+			if (timedState == "Fire"):
+				movementState = "None"
+			else:
+				movementState = "Tar"
 		if (elementalEvent == "Shock"):
 			movementState = "Paralyzed"
 		elemental_timer.start()
@@ -52,3 +60,7 @@ func getTemporalState():
 
 func _on_elemental_timer_timeout():
 	cureEverything()
+
+func _on_elemental_damage_timeout():
+	emit_signal("temporal_damage")
+	elemental_damage.start()

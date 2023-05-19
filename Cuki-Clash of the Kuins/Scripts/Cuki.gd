@@ -94,7 +94,8 @@ func attackedBySomething(knockbackForce, healthLost, something):
 	if elemental_state.getMovementState() != "Frozen":
 		in_knockback = true #activa el knockback
 		#ajuste de componentes X e Y del vector del Knocback
-		knockback -= knockbackForce*Vector2(cos(get_angle_to(something.position)),sin(get_angle_to(something.position)))
+		if (something != null):
+			knockback -= knockbackForce*Vector2(cos(get_angle_to(something.position)),sin(get_angle_to(something.position)))
 		$Knockback_timer.start() #activa el temporizador del knocback
 		$Health_bar.show() #mostrar salud
 		$Hide_timer.start() #cuando se desactiva la salud
@@ -139,3 +140,6 @@ func _on_hitbox_area_entered(area):
 			attackedBySomething(0, 1, area)
 		area.queue_free()
 
+func _on_elemental_state_temporal_damage():
+	if (elemental_state.getTemporalState() == "Fire"):
+		attackedBySomething(0, 1, null)

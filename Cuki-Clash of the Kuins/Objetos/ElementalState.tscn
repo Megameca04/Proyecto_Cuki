@@ -8,4 +8,8 @@ script = ExtResource("1_n7d4b")
 [node name="Elemental_timer" type="Timer" parent="."]
 wait_time = 4.435
 
+[node name="Elemental_damage" type="Timer" parent="."]
+wait_time = 0.314
+
 [connection signal="timeout" from="Elemental_timer" to="." method="_on_elemental_timer_timeout"]
+[connection signal="timeout" from="Elemental_damage" to="." method="_on_elemental_damage_timeout"]
