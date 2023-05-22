@@ -5,6 +5,8 @@ var timedState = "None"
 @onready var elemental_timer = $Elemental_timer
 @onready var elemental_damage = $Elemental_damage
 signal temporal_damage
+@export var elemental_timer_time = 4.425
+@export var elemental_damage_time = 0.314
 
 func contactWithElement(elementalEvent):
 	if (elementalEvent == "Water"):
@@ -18,6 +20,7 @@ func contactWithWater():
 	if (timedState == "Ice" && movementState != "Paralyzed" && movementState != "Tar"):
 		timedState = "None"
 		movementState = "Frozen"
+		elemental_timer.set_wait_time(elemental_timer_time)
 		elemental_timer.start()
 	if (movementState == "Tar"):
 		movementState = "None"
@@ -35,6 +38,7 @@ func contactWithTemporalState(elementalEvent):
 				movementState = "None"
 		if (elementalEvent == "Freeze"):
 			timedState = "Ice"
+		elemental_timer.set_wait_time(elemental_timer_time)
 		elemental_timer.start()
 
 func contactWithMovementState(elementalEvent):
@@ -42,10 +46,13 @@ func contactWithMovementState(elementalEvent):
 		if (elementalEvent == "Tar"):
 			if (timedState == "Fire"):
 				movementState = "None"
+				elemental_timer.set_wait_time(elemental_timer.get_wait_time() - elemental_timer_time / 2)
+				return
 			else:
 				movementState = "Tar"
 		if (elementalEvent == "Shock"):
 			movementState = "Paralyzed"
+		elemental_timer.set_wait_time(elemental_timer_time)
 		elemental_timer.start()
 
 func cureEverything():
@@ -63,4 +70,5 @@ func _on_elemental_timer_timeout():
 
 func _on_elemental_damage_timeout():
 	emit_signal("temporal_damage")
+	elemental_damage.set_wait_time(elemental_damage_time)
 	elemental_damage.start()
