@@ -94,3 +94,6 @@ layer_0/tile_data = PackedInt32Array(65536, 1, 1, 131072, 1, 1, 196608, 1, 1, 26
 
 [node name="Flame" parent="." instance=ExtResource("8_ogdcj")]
 position = Vector2(206, 133)
+
+[node name="Tar" parent="." instance=ExtResource("8_ogdcj")]
+position = Vector2(198, 74)

@@ -143,3 +143,5 @@ func _on_hitbox_area_entered(area):
 func _on_elemental_state_temporal_damage():
 	if (elemental_state.getTemporalState() == "Fire"):
 		attackedBySomething(0, 1, null)
+	if (elemental_state.getTemporalState() == "IntenseFire"):
+		attackedBySomething(0, 1 * 2, null)
