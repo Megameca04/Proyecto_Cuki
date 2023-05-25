@@ -11,6 +11,7 @@ var formacion = Vector2.ZERO
 @onready var health = $Salud #referencia al nodo de salud
 @onready var health_bar = $ProgressBar #referencia al nodo de la barra de vida
 @onready var hide_timer = $Hide_timer #referencia al nodo que oculta la barra de vida
+@onready var elemental_state = $ElementalState # Referencia a la barra de estado de los elementos
 
 @export var speed = 100 #velocidad del enemigo
 
@@ -32,42 +33,50 @@ func _physics_process(delta): #ciclo del movimiento
 	moviendose()
 
 func formando():
-	aliados = get_tree().get_nodes_in_group("Conejos")
-	if Cuki != null: #si hay objetivo en el area de visión
-		for i in aliados:
-			if i != self:
-				formacion += Vector2(cos(-get_angle_to(i.position)), sin(-get_angle_to(i.position)))
-		formacion = formacion.normalized()
-	else:
-		formacion = Vector2.ZERO
+	if elemental_state.getMovementState() != "Paralyzed" && elemental_state.getMovementState() != "Frozen":
+		aliados = get_tree().get_nodes_in_group("Conejos")
+		if Cuki != null: #si hay objetivo en el area de visión
+			for i in aliados:
+				if i != self:
+					formacion += Vector2(cos(-get_angle_to(i.position)), sin(-get_angle_to(i.position)))
+			formacion = formacion.normalized()
+		else:
+			formacion = Vector2.ZERO
 
 func calcularMovimiento():
 	movement = Vector2.ZERO
-	if Cuki != null:
-		movement = position.direction_to(Cuki.position) #direction_to da un vector unitario, este se multiplica por la velocidad
-	else:
-		movement = Vector2.ZERO
-	movement = ((1.5*movement)+formacion).normalized()
+	if elemental_state.getMovementState() != "Paralyzed" && elemental_state.getMovementState() != "Frozen":
+		if Cuki != null:
+			movement = position.direction_to(Cuki.position) #direction_to da un vector unitario, este se multiplica por la velocidad
+		else:
+			movement = Vector2.ZERO
+		movement = ((1.5*movement)+formacion).normalized()
 
 func moviendose():
-	set_velocity(movement * speed + knockback)
-	move_and_slide()
-	movement = velocity #realiza el movimiento
+	if elemental_state.getMovementState() != "Tar":
+		if elemental_state.getTemporalState() == "Ice":
+			set_velocity(movement * (speed / 2) + knockback)
+		else:
+			set_velocity(movement * speed + knockback)
+		move_and_slide()
+		movement = velocity #realiza el movimiento
 
 func defeat():
 	self.queue_free()
 
 func _on_VisionField_body_entered(body): #si un cuerpo entra al area de visión
-	if body != self: #si no es sí mismo
-		if body.get_name() == "Cuki": #si el cuerpo es Cuki
-			Cuki = body #el objetivo será igual al cuerpo que entró
-			for i in aliados:
-				if i.Cuki == null:
-					i.Cuki = Cuki
+	if elemental_state.getMovementState() != "Paralyzed" && elemental_state.getMovementState() != "Frozen":
+		if body != self: #si no es sí mismo
+			if body.get_name() == "Cuki": #si el cuerpo es Cuki
+				Cuki = body #el objetivo será igual al cuerpo que entró
+				for i in aliados:
+					if i.Cuki == null:
+						i.Cuki = Cuki
 
 func _on_VisionField_body_exited(body): #si un cuerpo sale del area de visión
-	if body.get_name() == "Cuki": #si ese cuerpo es Cuki
-		Cuki = null #vacia el objetivo
+	if elemental_state.getMovementState() != "Paralyzed" && elemental_state.getMovementState() != "Frozen":
+		if body.get_name() == "Cuki": #si ese cuerpo es Cuki
+			Cuki = null #vacia el objetivo
 
 func animations():
 	if movement.x or movement.y !=0: #si se está moviendo
@@ -83,22 +92,33 @@ func animations():
 		$CollisionShape2D.scale.x = -1
 
 func _on_Area2D_area_entered(area): #si entra un area (ataques)
+	if elemental_state.getMovementState() != "Frozen":
+		if area.is_in_group("C_attack"): #si entra un enemigo, ajustar dirección del knockback
+			in_knockback = true #activa el knockback
+			#ajuste de componentes X e Y del vector del Knocback
+			knockback -= 350*Vector2(cos(get_angle_to(area.position)),sin(get_angle_to(area.position)))
+			$Knockback_timer.start() #activa el temporizador del knocback
+			health_bar.show() #mostrar salud
+			hide_timer.start() #cuando se desactiva la salud
+			if elemental_state.getTemporalState() == "Venom":
+				health.current -= 1 * 2 #reduce salud
+			else:
+				health.current -= 1 #reduce salud
 	
-	if area.is_in_group("C_attack"): #si entra un enemigo, ajustar dirección del knockback
-		in_knockback = true #activa el knockback
-		#ajuste de componentes X e Y del vector del Knocback
-		knockback -= 350*Vector2(cos(get_angle_to(area.position)),sin(get_angle_to(area.position)))
-		$Knockback_timer.start() #activa el temporizador del knocback
-		health_bar.show() #mostrar salud
-		hide_timer.start() #cuando se desactiva la salud
-		health.current -= 1 #reduce salud
-	
-	if area.is_in_group("expl_attack") || area.is_in_group("expl_bun"):
-		knockback -= 600*Vector2(cos(get_angle_to(area.position)),sin(get_angle_to(area.position)))
-		$Knockback_timer.start() #activa el temporizador del knocback
-		health_bar.show() #mostrar salud
-		hide_timer.start() #cuando se desactiva la salud
-		health.current -= 4
+		if area.is_in_group("expl_attack") || area.is_in_group("expl_bun"):
+			knockback -= 600*Vector2(cos(get_angle_to(area.position)),sin(get_angle_to(area.position)))
+			$Knockback_timer.start() #activa el temporizador del knocback
+			health_bar.show() #mostrar salud
+			hide_timer.start() #cuando se desactiva la salud
+			if elemental_state.getTemporalState() == "Venom":
+				health.current -= 4 * 2
+			else:
+				health.current -= 4
+	if area.is_in_group("Elements"):
+		elemental_state.contactWithElement(area.name)
+		if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):
+			health.current -= 1 #reduce salud
+		area.queue_free()
 	
 
 func _on_hide_timer_timeout():
@@ -107,3 +127,9 @@ func _on_hide_timer_timeout():
 func _on_knockback_timer_timeout():
 	in_knockback = false
 	knockback = Vector2.ZERO
+
+func _on_elemental_state_temporal_damage():
+	if (elemental_state.getTemporalState() == "Fire"):
+		health.current -= 1 
+	if (elemental_state.getTemporalState() == "IntenseFire"):
+		health.current -= 1 * 2

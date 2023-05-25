@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://bo8b3iunrn026"]
+[gd_scene load_steps=15 format=3 uid="uid://bo8b3iunrn026"]
 
 [ext_resource type="Script" path="res://Scripts/Chooty.gd" id="1_3j4sc"]
 [ext_resource type="Texture2D" uid="uid://ljpm51y6y4aw" path="res://Sprites/Enemigos/Chooty.png" id="1_xv04k"]
 [ext_resource type="PackedScene" uid="uid://dljqaqas8it2e" path="res://Objetos/CukiHealthbar.tscn" id="3_nlkpd"]
 [ext_resource type="PackedScene" uid="uid://fyyh6totk12a" path="res://Objetos/Salud.tscn" id="4_wc8xc"]
+[ext_resource type="PackedScene" uid="uid://6wpanuw2c5wd" path="res://Objetos/ElementalState.tscn" id="5_ttn2o"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_w5s3q"]
 
@@ -80,7 +81,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.116853, 0.519997, 0, 1)
 
-[sub_resource type="Theme" id="Theme_q131a"]
+[sub_resource type="Theme" id="Theme_a435s"]
 resource_local_to_scene = true
 ProgressBar/fonts/font = null
 ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
@@ -135,7 +136,7 @@ offset_left = -32.0
 offset_top = -56.0
 offset_right = 32.0
 offset_bottom = -40.0
-theme = SubResource("Theme_q131a")
+theme = SubResource("Theme_a435s")
 
 [node name="Salud" parent="." instance=ExtResource("4_wc8xc")]
 max_amount = 3
@@ -144,8 +145,11 @@ max_amount = 3
 offset_right = 40.0
 offset_bottom = 23.0
 
+[node name="ElementalState" parent="." instance=ExtResource("5_ttn2o")]
+
 [connection signal="body_entered" from="Vision_field" to="." method="_on_vision_field_body_entered"]
 [connection signal="body_exited" from="Vision_field" to="." method="_on_vision_field_body_exited"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="timeout" from="Shoot_timer" to="." method="_on_shoot_timer_timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="temporal_damage" from="ElementalState" to="." method="_on_elemental_state_temporal_damage"]

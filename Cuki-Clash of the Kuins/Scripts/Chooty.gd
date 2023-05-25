@@ -17,6 +17,7 @@ var can_shoot = true
 @onready var health = $Salud
 @onready var health_bar = $ProgressBar
 @onready var hide_timer = $Hide_timer
+@onready var elemental_state = $ElementalState # Referencia a la barra de estado de los elementos
 
 var speed = 200
 var movement = Vector2.ZERO
@@ -36,22 +37,26 @@ func _physics_process(delta):
 	chootyMovement()
 
 func chootyMovement():
-	movement = Vector2.ZERO
-	if Cuki != null && state == ChootyState.Running:
-		movement = -position.direction_to(Cuki.position)
-		vision_raycast.target_position = movement * 100
-		if vision_raycast.is_colliding():
-			vision_raycast_2.target_position = movement.orthogonal() * 100
-			if vision_raycast_2.is_colliding():
-				movement += movement.orthogonal()
-			else:
-				movement -= movement.orthogonal()
-	else:
+	if elemental_state.getMovementState() != "Paralyzed" && elemental_state.getMovementState() != "Frozen":
 		movement = Vector2.ZERO
-	
-	set_velocity(movement * speed)
-	move_and_slide()
-	movement = velocity
+		if Cuki != null && state == ChootyState.Running:
+			movement = -position.direction_to(Cuki.position)
+			vision_raycast.target_position = movement * 100
+			if vision_raycast.is_colliding():
+				vision_raycast_2.target_position = movement.orthogonal() * 100
+				if vision_raycast_2.is_colliding():
+					movement += movement.orthogonal()
+				else:
+					movement -= movement.orthogonal()
+		else:
+			movement = Vector2.ZERO
+		if elemental_state.getMovementState() != "Tar":
+			if elemental_state.getMovementState() == "Ice":
+				set_velocity(movement * speed / 2)
+			else:
+				set_velocity(movement * speed)
+			move_and_slide()
+			movement = velocity
 
 func chootyBehaviour():
 	if Cuki != null:
@@ -80,19 +85,24 @@ func stateAndAnimationChange(chootyState):
 			$AnimationPlayer.play("Default")
 
 func shoot_stone():
-	var stone = STONE.instantiate()
-	stone.global_position = global_position
-	if Cuki != null:
-		stone.objective_position = Cuki.global_position
-	call_deferred("add_sibling",stone)
+	if elemental_state.getMovementState() != "Paralyzed" && elemental_state.getMovementState() != "Frozen":
+		var stone = STONE.instantiate()
+		stone.global_position = global_position
+		if Cuki != null:
+			stone.objective_position = Cuki.global_position
+		call_deferred("add_sibling",stone)
 
 func defeat():
 	self.queue_free()
 
 func attackedBySomething(healthLost):
-	health_bar.show()
-	hide_timer.start()
-	health.current -= healthLost
+	if elemental_state.getMovementState() != "Frozen":
+		health_bar.show()
+		hide_timer.start()
+		if elemental_state.getTemporalState() == "Venom":
+			health.current -= healthLost * 2
+		else:
+			health.current -= healthLost
 
 func _on_vision_field_body_entered(body):
 	if body.get_name() == "Cuki":
@@ -116,3 +126,14 @@ func _on_hitbox_area_entered(area):
 		attackedBySomething(1)
 	if area.is_in_group("expl_attack") || area.is_in_group("expl_bun"):
 		attackedBySomething(3)
+	if area.is_in_group("Elements"):
+		elemental_state.contactWithElement(area.name)
+		if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):
+			attackedBySomething(1)
+		area.queue_free()
+
+func _on_elemental_state_temporal_damage():
+	if (elemental_state.getTemporalState() == "Fire"):
+		attackedBySomething(1)
+	if (elemental_state.getTemporalState() == "IntenseFire"):
+		attackedBySomething(1 * 2)

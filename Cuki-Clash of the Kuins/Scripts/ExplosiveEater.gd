@@ -13,6 +13,7 @@ const ATTACK = preload("res://Entidades/Explosion.tscn")
 @onready var health_bar = $ProgressBar
 @onready var hide_timer = $Hide_timer
 @onready var attack_spawner = $AttackSpawner
+@onready var elemental_state = $ElementalState # Referencia a la barra de estado de los elementos
 @export var explosiveEaterSpeed = 100
 
 func _ready():
@@ -45,17 +46,21 @@ func stateAndAnimationChange(bunState):
 		$AnimationPlayer.play("Explode")
 
 func explosiveEaterMovement():
-	if state == ExplosiveEaterState.Pursuing || state == ExplosiveEaterState.NormalRabion:
-		movement = position.direction_to(Cuki.position)
-	if state == ExplosiveEaterState.SearchingBarrel && barrelToGet != null:
-		movement = position.direction_to(barrelToGet.position)
-	if state == ExplosiveEaterState.SearchingBarrel && barrelToGet == null:
-		checkClosestBarrel()
-	if state == ExplosiveEaterState.Exploding:
-		movement = Vector2.ZERO
-	set_velocity(movement * explosiveEaterSpeed + knockback)
-	move_and_slide()
-	movement = velocity
+	if elemental_state.getMovementState() != "Paralyzed" && elemental_state.getMovementState() != "Frozen" && elemental_state.getMovementState() != "Tar":
+		if state == ExplosiveEaterState.Pursuing || state == ExplosiveEaterState.NormalRabion:
+			movement = position.direction_to(Cuki.position)
+		if state == ExplosiveEaterState.SearchingBarrel && barrelToGet != null:
+			movement = position.direction_to(barrelToGet.position)
+		if state == ExplosiveEaterState.SearchingBarrel && barrelToGet == null:
+			checkClosestBarrel()
+		if state == ExplosiveEaterState.Exploding:
+			movement = Vector2.ZERO
+		if (elemental_state.getMovementState() == "Ice"):
+			set_velocity(movement * explosiveEaterSpeed / 2 + knockback)
+		else:
+			set_velocity(movement * explosiveEaterSpeed + knockback)
+		move_and_slide()
+		movement = velocity
 
 func checkClosestBarrel():
 	var distanceToBarrel = 99999999
@@ -70,11 +75,12 @@ func checkClosestBarrel():
 		stateAndAnimationChange(ExplosiveEaterState.NormalRabion)
 
 func attackPlayer():
-	var atk = ATTACK.instantiate()
-	atk.add_to_group("expl_bun")
-	atk.global_position = attack_spawner.global_position
-	call_deferred("add_sibling",atk)
-	self.queue_free()
+	if elemental_state.getMovementState() != "Paralyzed" && elemental_state.getMovementState() != "Frozen":
+		var atk = ATTACK.instantiate()
+		atk.add_to_group("expl_bun")
+		atk.global_position = attack_spawner.global_position
+		call_deferred("add_sibling",atk)
+		self.queue_free()
 
 func defeat():
 	self.queue_free()
@@ -84,12 +90,16 @@ func eatBarrel(body):
 	body.queue_free()
 
 func attackedBySomething(knockbackForce, healthLost, something):
-	in_knockback = true
-	knockback -= knockbackForce*Vector2(cos(get_angle_to(something.position)),sin(get_angle_to(something.position)))
-	$Knockback_timer.start()
-	health_bar.show()
-	hide_timer.start()
-	health.current -= healthLost
+	if elemental_state.getMovementState() != "Frozen":
+		in_knockback = true
+		knockback -= knockbackForce*Vector2(cos(get_angle_to(something.position)),sin(get_angle_to(something.position)))
+		$Knockback_timer.start()
+		health_bar.show()
+		hide_timer.start()
+		if elemental_state.getMovementState() == "Venom":
+			health.current -= healthLost * 2
+		else:
+			health.current -= healthLost
 
 func _on_vision_field_body_entered(body):
 	if body.get_name() == "Cuki" && state == ExplosiveEaterState.Chill:
@@ -97,14 +107,16 @@ func _on_vision_field_body_entered(body):
 		checkClosestBarrel()
 
 func _on_hitbox_body_entered(body):
-	if body.is_in_group("Barrels") && state == ExplosiveEaterState.SearchingBarrel:
-		eatBarrel(body)
-	if body.get_name() == "Cuki" && state == ExplosiveEaterState.Pursuing:
-		stateAndAnimationChange(ExplosiveEaterState.Exploding)
+	if elemental_state.getMovementState() != "Paralyzed" && elemental_state.getMovementState() != "Frozen":
+		if body.is_in_group("Barrels") && state == ExplosiveEaterState.SearchingBarrel:
+			eatBarrel(body)
+		if body.get_name() == "Cuki" && state == ExplosiveEaterState.Pursuing:
+			stateAndAnimationChange(ExplosiveEaterState.Exploding)
 
 func _on_attack_area_body_entered(body):
-	if body.get_name() == "Cuki" && state == ExplosiveEaterState.Pursuing:
-		stateAndAnimationChange(ExplosiveEaterState.Exploding)
+	if elemental_state.getMovementState() != "Paralyzed" && elemental_state.getMovementState() != "Frozen":
+		if body.get_name() == "Cuki" && state == ExplosiveEaterState.Pursuing:
+			stateAndAnimationChange(ExplosiveEaterState.Exploding)
 
 func _on_hitbox_area_entered(area):
 	if area.is_in_group("C_attack"):
@@ -117,6 +129,11 @@ func _on_hitbox_area_entered(area):
 			attackPlayer()
 		else:
 			attackedBySomething(600, 4, area)
+		if area.is_in_group("Elements"):
+			elemental_state.contactWithElement(area.name)
+			if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):
+				attackedBySomething(0, 1, area)
+			area.queue_free()
 
 func _on_hide_timer_timeout():
 	health_bar.hide()
@@ -124,3 +141,9 @@ func _on_hide_timer_timeout():
 func _on_knockback_timer_timeout():
 	in_knockback = false
 	knockback = Vector2.ZERO
+
+func _on_elemental_state_temporal_damage():
+	if (elemental_state.getTemporalState() == "Fire"):
+		attackedBySomething(0, 1, null)
+	if (elemental_state.getTemporalState() == "IntenseFire"):
+		attackedBySomething(0, 1 * 2, null)

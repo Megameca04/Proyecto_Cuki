@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://gg8rb8xhhwk5"]
+[gd_scene load_steps=16 format=3 uid="uid://gg8rb8xhhwk5"]
 
 [ext_resource type="Script" path="res://Scripts/Blonk.gd" id="1_dscac"]
 [ext_resource type="Texture2D" uid="uid://uulcfvlwm8yg" path="res://Sprites/Enemigos/Blonk.png" id="1_vuri7"]
 [ext_resource type="PackedScene" uid="uid://fyyh6totk12a" path="res://Objetos/Salud.tscn" id="2_58cjs"]
 [ext_resource type="PackedScene" uid="uid://dljqaqas8it2e" path="res://Objetos/CukiHealthbar.tscn" id="3_f8wit"]
+[ext_resource type="PackedScene" uid="uid://6wpanuw2c5wd" path="res://Objetos/ElementalState.tscn" id="5_3uoyk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ycrju"]
 radius = 32.0
@@ -83,7 +84,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.116853, 0.519997, 0, 1)
 
-[sub_resource type="Theme" id="Theme_ohtso"]
+[sub_resource type="Theme" id="Theme_vadcu"]
 resource_local_to_scene = true
 ProgressBar/fonts/font = null
 ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
@@ -140,7 +141,7 @@ offset_left = -16.0
 offset_top = -40.0
 offset_right = 24.0
 offset_bottom = -32.0
-theme = SubResource("Theme_ohtso")
+theme = SubResource("Theme_vadcu")
 
 [node name="Pause_attack_timer" type="Timer" parent="."]
 wait_time = 2.051
@@ -150,6 +151,8 @@ wait_time = 2.051
 [node name="AttackSpawner" type="Node2D" parent="."]
 position = Vector2(8, 40)
 
+[node name="ElementalState" parent="." instance=ExtResource("5_3uoyk")]
+
 [connection signal="body_entered" from="VisionField" to="." method="_on_vision_field_body_entered"]
 [connection signal="body_exited" from="VisionField" to="." method="_on_vision_field_body_exited"]
 [connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
@@ -157,3 +160,4 @@ position = Vector2(8, 40)
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="timeout" from="Pause_attack_timer" to="." method="_on_pause_attack_timer_timeout"]
 [connection signal="timeout" from="Hide_timer" to="." method="_on_hide_timer_timeout"]
+[connection signal="temporal_damage" from="ElementalState" to="." method="_on_elemental_state_temporal_damage"]
