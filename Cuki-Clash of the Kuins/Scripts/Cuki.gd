@@ -1,41 +1,46 @@
 extends CharacterBody2D
 
-@export var speed = 200 #Velocidad del jugador
+const GROUND_SLAM = preload("res://Entidades/Explosion.tscn")
 
-var direction = Vector2.ZERO #vector de dirección del jugador
-var movement = Vector2() #vector de movimiento del jugador
-var knockback = Vector2() #vector de knockback del jugador
+enum STATES {idle, walk, hurt, attacking, recover, dashing}
+enum ATTACKS {none, hit1, hit2, hit3, hit4}
+var current_state = STATES.idle
+var current_attack = ATTACKS.none
+var next_attack = current_attack
+var can_next = false
+var attack_counter = 0
 
-var can_walk = true #permite el movimiento, bloqueado en caso de animaciones como golpear
-var in_knockback = false #establece si se debe aplicar el movimiento de knockback en el jugador
-var dashing = false #establece si se debe aplicar el efecto de esquiva en el jugador
+@export var speed = 200 
 
-@onready var health = $Salud #referencia al nodo de salud
-@onready var health_bar = $Health_bar #referencia al nodo de la barra de vida
-@onready var hide_timer = $Hide_timer #referencia al nodo que oculta la barra de vida
+var direction = Vector2.ZERO
+var movement = Vector2()
+var knockback = Vector2()
 
-func _ready(): #se ejecuta apenas el objeto entra al arbol de nodos
-	#conecta los nodos de salud y barra de salud para que muestre la vida graficamente
+@onready var health = $Salud 
+@onready var health_bar = $Health_bar
+@onready var hide_timer = $Hide_timer
+
+func _ready():
 	health.connect("changed",Callable(health_bar,"set_value"))
 	health.connect("max_changed",Callable(health_bar,"set_max"))
 	health.connect("depleted",Callable(self,"game_over"))
 	health.initialize()
 
-func _process(delta): #ciclo principal del juego
-	if can_walk == true: #si puede caminar(si no está reproduciendo una animación estatica)
-		animations() 
-	attack() #Siempre ataca
-
+func _process(delta):
+	$Label.text ="CA: " + str(current_attack) + " NA: "+ str(next_attack)
+	$Label2.text = "CS: "+ str(current_state)+"\nYa: "+str(can_next)
 
 func _physics_process(delta):
 	CukiDirections()
+	attack()
 	calcularMovimiento()
 	moviendose()
+	animations() 
+	
 
 func CukiDirections():
 	direction = Vector2.ZERO
-	if can_walk == true: #si puede caminar
-		#recibe la entrada por teclado del jugador
+	if current_state == STATES.walk or current_state == STATES.idle or current_state == STATES.dashing:
 		if Input.is_action_pressed("ui_up"):
 			direction.y = -1
 		if Input.is_action_pressed("ui_down"):
@@ -48,7 +53,7 @@ func CukiDirections():
 func calcularMovimiento():
 	movement = Vector2.ZERO
 	movement = direction.normalized()
-	if dashing:
+	if current_state == STATES.dashing:
 		movement *= 2
 
 func moviendose():
@@ -56,66 +61,142 @@ func moviendose():
 	move_and_slide()
 	movement = velocity
 
-func animations(): #ajusta la apariencia del jugador
-	if movement.x or movement.y !=0: #Si se mueve
-		$Anim_Sprite.play("Walking")
-	else:
-		$Anim_Sprite.play("Stay")
-	
-	if direction.x >= 1: #dirección a la que mira el jugador
-		$Sprite2D.scale.x = 1
-		$CollisionShape2D.scale.x = 1
-	elif direction.x <= -1:
-		$Sprite2D.scale.x = -1
-		$CollisionShape2D.scale.x = -1
+func animations():
+	match current_state:
+		STATES.idle:
+			$Anim_Sprite.play("Stay")
+			if movement != Vector2.ZERO and current_state != STATES.dashing:
+				current_state = STATES.walk
+		STATES.walk:
+			$Anim_Sprite.play("Walking")
+			if direction.x >= 1:
+				$Sprite2D.scale.x = 1
+				$CollisionShape2D.scale.x = 1
+			elif direction.x <= -1:
+				$Sprite2D.scale.x = -1
+				$CollisionShape2D.scale.x = -1
+			if movement == Vector2.ZERO and current_state != STATES.dashing:
+				current_state = STATES.idle
+		STATES.dashing:
+			$Anim_Sprite.play("Dash")
+			if direction.x >= 1:
+				$Sprite2D.scale.x = 1
+				$CollisionShape2D.scale.x = 1
+			elif direction.x <= -1:
+				$Sprite2D.scale.x = -1
+				$CollisionShape2D.scale.x = -1
+			if movement == Vector2.ZERO and current_state != STATES.dashing:
+				current_state = STATES.idle
+		STATES.attacking:
+			current_attack = next_attack
+			match current_attack:
+				ATTACKS.hit1:
+					$Anim_Sprite.play("Hit_1")
+				ATTACKS.hit2:
+					$Anim_Sprite.play("Hit_2")
+				ATTACKS.hit3:
+					$Anim_Sprite.play("Hit_3")
+				ATTACKS.hit4:
+					$Anim_Sprite.play("Hit_4")
+		STATES.recover:
+			$Anim_Sprite.play("Recover")
 
-func attack(): #función de ataque
-	if Input.is_action_pressed("Atacar"): #si se presiona z
-		can_walk = false
-		$Anim_Sprite.play("Punch")
+func attack():
+	if Input.is_action_just_pressed("Atacar"):
+		if current_state != STATES.recover and current_state != STATES.dashing:
+			current_state = STATES.attacking
+			match current_attack:
+				ATTACKS.none:
+					next_attack = ATTACKS.hit1
+				ATTACKS.hit1:
+					if can_next:
+						if next_attack != ATTACKS.hit2:
+							can_next = false
+							next_attack = ATTACKS.hit2
+				ATTACKS.hit2:
+					if can_next:
+						if next_attack != ATTACKS.hit3:
+							can_next = false
+							next_attack = ATTACKS.hit3
+				ATTACKS.hit3:
+					if can_next:
+						if next_attack != ATTACKS.hit4:
+							can_next = false
+							next_attack = ATTACKS.hit4
+				_: 
+					current_attack = ATTACKS.none
 	
-	if Input.is_action_just_pressed("Dash"): #si se presiona x
-		if !dashing:
-			dashing = true
+	if Input.is_action_just_pressed("Dash"):
+		if current_state != STATES.dashing and direction != Vector2.ZERO:
+			can_next = false
+			current_state = STATES.dashing
+			$Hitbox/CollisionShape2D.disabled = true
+			set_collision_mask_value(2,false)
 			$Dash_timer.start()
-	
-	$Hitbox/CollisionShape2D.disabled = dashing #deshabilita detección de daño
-	set_collision_mask_value(2,!dashing) #deshabilita colisión con enemigos
 
 func attackedBySomething(knockbackForce, healthLost, something):
-	in_knockback = true #activa el knockback
-	#ajuste de componentes X e Y del vector del Knocback
+	current_state = STATES.hurt
 	knockback -= knockbackForce*Vector2(cos(get_angle_to(something.position)),sin(get_angle_to(something.position)))
-	$Knockback_timer.start() #activa el temporizador del knocback
-	$Health_bar.show() #mostrar salud
-	$Hide_timer.start() #cuando se desactiva la salud
-	$Visual_anim.play("Hurt") #efecto de daño
-	health.current -= healthLost #reduce salud
+	$Knockback_timer.start()
+	$Health_bar.show()
+	$Hide_timer.start()
+	$Visual_anim.play("Hurt")
+	health.current -= healthLost
+
+func keep_combo():
+	can_next = true
+
+func stop_combo():
+	can_next = false
+	$Hitbox/CollisionShape2D.disabled = false
+	$CollisionShape2D.disabled = false
+	set_collision_mask_value(2,true)
+	current_state = STATES.idle
+	current_attack = ATTACKS.none
+	next_attack = ATTACKS.none
 
 func game_over():
 	self.set_physics_process(false)
 	self.set_process(false)
 
-func _on_Hitbox_body_entered(body): #cuando algo entra a la hitbox
-		if body.is_in_group("Enemy"): #si entra un enemigo
+func _on_Hitbox_body_entered(body):
+		if body.is_in_group("Enemy"):
 			attackedBySomething(500, 1, body)
 
-func _on_Anim_Sprite_animation_finished(anim_name): #cuando se acaba una animación
-	if anim_name == "Punch":
-		can_walk = true
+func _on_Anim_Sprite_animation_finished(anim_name):
+	match anim_name:
+		"Dash":
+			stop_combo()
+		"Hit_1":
+			stop_combo()
+		"Hit_2":
+			stop_combo()
+		"Hit_3":
+			can_next = false
+			current_state = STATES.recover
+			current_attack = ATTACKS.none
+			next_attack = ATTACKS.none
+		"Recover":
+			stop_combo()
+		"Hit_4":
+			stop_combo()
+			var gs = GROUND_SLAM.instantiate()
+			gs.add_to_group("Cuki_ground_slam")
+			gs.global_position = self.global_position
+			call_deferred("add_sibling",gs)
 
-func _on_Hide_Timer_timeout(): #para esconder la barra de salud
+func _on_Hide_Timer_timeout(): 
 	$Health_bar.hide()
 
-func _on_Dash_timer_timeout(): #cuando acaba el tiempo de dash, se establece a la velocidad normal
-	dashing = false
-
 func _on_knockback_timer_timeout():
-	in_knockback = false
+	if direction == Vector2.ZERO:
+		current_state = STATES.idle
+	else:
+		current_state = STATES.walk
 	knockback = Vector2.ZERO
 
 func _on_hitbox_area_entered(area):
-	if area.is_in_group("expl_attack"):
+	if area.is_in_group("expl_attack") and !area.is_in_group("Cuki_ground_slam"):
 		attackedBySomething(750, 1, area)
 	if area.is_in_group("expl_blonk"):
 		attackedBySomething(750, 1, area)
