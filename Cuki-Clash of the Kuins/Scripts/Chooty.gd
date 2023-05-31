@@ -126,11 +126,13 @@ func _on_hitbox_area_entered(area):
 		attackedBySomething(1)
 	if area.is_in_group("expl_attack") || area.is_in_group("expl_bun"):
 		attackedBySomething(3)
+		for _i in area.get_children():
+			if (_i.is_in_group("Elements")):
+				elemental_state.contactWithElement(_i.name)
 	if area.is_in_group("Elements"):
 		elemental_state.contactWithElement(area.name)
 		if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):
 			attackedBySomething(1)
-		area.queue_free()
 
 func _on_elemental_state_temporal_damage():
 	if (elemental_state.getTemporalState() == "Fire"):

@@ -8,6 +8,8 @@ var movement:Vector2 = Vector2.ZERO
 
 const EXPL = preload("res://Entidades/Explosion.tscn")
 
+@export var elementName = "None"
+
 func _ready():
 	add_to_group("Barrels")
 
@@ -37,5 +39,6 @@ func blow_up():
 	expl.add_to_group("expl_attack")
 	expl.global_position = self.global_position
 	call_deferred("add_sibling",expl)
+	expl.element_appear(elementName)
 	queue_free()
 	
