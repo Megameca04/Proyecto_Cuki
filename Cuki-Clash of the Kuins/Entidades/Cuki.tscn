@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://c1bw1m1tr8gem"]
+[gd_scene load_steps=22 format=3 uid="uid://c1bw1m1tr8gem"]
 
 [ext_resource type="Script" path="res://Scripts/Cuki.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://dicp13ihj0xno" path="res://Sprites/Aliados/Cuki/Cuki.png" id="2"]
@@ -343,6 +343,95 @@ tracks/3/keys = {
 "values": [false]
 }
 
+[sub_resource type="Animation" id="Animation_fmjm6"]
+resource_name = "Hurt"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/Bat_zone/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D/Bat_zone/Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D/Bat_zone/Sprite2D:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:scale")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.5, 1), Vector2(1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D:modulate")
+tracks/5/interp = 2
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Sprite2D:self_modulate")
+tracks/6/interp = 2
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.501961), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_k831l"]
 resource_name = "Recover"
 length = 0.4
@@ -468,28 +557,10 @@ _data = {
 "Hit_2": SubResource("Animation_5xmtp"),
 "Hit_3": SubResource("Animation_r5n7f"),
 "Hit_4": SubResource("Animation_3ljx1"),
+"Hurt": SubResource("Animation_fmjm6"),
 "Recover": SubResource("Animation_k831l"),
 "Stay": SubResource("5"),
 "Walking": SubResource("6")
-}
-
-[sub_resource type="Animation" id="7"]
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.1, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 0, 0, 1), Color(1, 0, 0, 0.247059), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_c7oga"]
-_data = {
-"Hurt": SubResource("7")
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_al1jy"]
@@ -508,7 +579,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.116853, 0.519997, 0, 1)
 
-[sub_resource type="Theme" id="Theme_ch5yt"]
+[sub_resource type="Theme" id="Theme_dot0d"]
 resource_local_to_scene = true
 ProgressBar/fonts/font = null
 ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
@@ -523,11 +594,10 @@ script = ExtResource("1")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 position = Vector2(0, -7.33333)
-rotation = 6.28319
 texture = ExtResource("2")
 hframes = 3
 vframes = 5
-frame = 2
+frame = 1
 
 [node name="Bat_zone" type="Area2D" parent="Sprite2D" groups=["C_attack"]]
 position = Vector2(-1.90735e-06, 7.33333)
@@ -543,7 +613,6 @@ visible = false
 position = Vector2(23.3333, -3.33333)
 texture = ExtResource("3")
 hframes = 3
-frame = 2
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_mask = 2
@@ -559,21 +628,8 @@ libraries = {
 "": SubResource("AnimationLibrary_y1pv4")
 }
 
-[node name="Visual_anim" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_c7oga")
-}
-
 [node name="Salud" parent="." instance=ExtResource("5")]
 max_amount = 20
-
-[node name="Knockback_timer" type="Timer" parent="."]
-wait_time = 0.2
-one_shot = true
-
-[node name="Dash_timer" type="Timer" parent="."]
-wait_time = 0.5
-one_shot = true
 
 [node name="Health_bar" parent="." instance=ExtResource("4")]
 visible = false
@@ -581,9 +637,7 @@ offset_left = -17.5
 offset_top = -38.3333
 offset_right = 15.5
 offset_bottom = -32.3333
-theme = SubResource("Theme_ch5yt")
-
-[node name="Hide_timer" type="Timer" parent="."]
+theme = SubResource("Theme_dot0d")
 
 [node name="Label" type="Label" parent="."]
 offset_left = -20.6667
@@ -600,5 +654,3 @@ offset_bottom = 25.0
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
 [connection signal="animation_finished" from="Anim_Sprite" to="." method="_on_Anim_Sprite_animation_finished"]
-[connection signal="timeout" from="Knockback_timer" to="." method="_on_knockback_timer_timeout"]
-[connection signal="timeout" from="Hide_timer" to="." method="_on_Hide_Timer_timeout"]

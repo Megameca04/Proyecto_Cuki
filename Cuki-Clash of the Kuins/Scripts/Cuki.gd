@@ -18,7 +18,6 @@ var knockback = Vector2()
 
 @onready var health = $Salud 
 @onready var health_bar = $Health_bar
-@onready var hide_timer = $Hide_timer
 
 func _ready():
 	health.connect("changed",Callable(health_bar,"set_value"))
@@ -64,10 +63,12 @@ func moviendose():
 func animations():
 	match current_state:
 		STATES.idle:
+			knockback = Vector2.ZERO
 			$Anim_Sprite.play("Stay")
 			if movement != Vector2.ZERO and current_state != STATES.dashing:
 				current_state = STATES.walk
 		STATES.walk:
+			knockback = Vector2.ZERO
 			$Anim_Sprite.play("Walking")
 			if direction.x >= 1:
 				$Sprite2D.scale.x = 1
@@ -78,6 +79,7 @@ func animations():
 			if movement == Vector2.ZERO and current_state != STATES.dashing:
 				current_state = STATES.idle
 		STATES.dashing:
+			knockback = Vector2.ZERO
 			$Anim_Sprite.play("Dash")
 			if direction.x >= 1:
 				$Sprite2D.scale.x = 1
@@ -87,7 +89,16 @@ func animations():
 				$CollisionShape2D.scale.x = -1
 			if movement == Vector2.ZERO and current_state != STATES.dashing:
 				current_state = STATES.idle
+		STATES.hurt:
+			$Anim_Sprite.play("Hurt")
+			if direction.x >= 1:
+				$Sprite2D.scale.x = 1
+				$CollisionShape2D.scale.x = 1
+			elif direction.x <= -1:
+				$Sprite2D.scale.x = -1
+				$CollisionShape2D.scale.x = -1
 		STATES.attacking:
+			knockback = Vector2.ZERO
 			current_attack = next_attack
 			match current_attack:
 				ATTACKS.hit1:
@@ -132,15 +143,11 @@ func attack():
 			current_state = STATES.dashing
 			$Hitbox/CollisionShape2D.disabled = true
 			set_collision_mask_value(2,false)
-			$Dash_timer.start()
 
 func attackedBySomething(knockbackForce, healthLost, something):
 	current_state = STATES.hurt
 	knockback -= knockbackForce*Vector2(cos(get_angle_to(something.position)),sin(get_angle_to(something.position)))
-	$Knockback_timer.start()
 	$Health_bar.show()
-	$Hide_timer.start()
-	$Visual_anim.play("Hurt")
 	health.current -= healthLost
 
 func keep_combo():
@@ -184,16 +191,12 @@ func _on_Anim_Sprite_animation_finished(anim_name):
 			gs.add_to_group("Cuki_ground_slam")
 			gs.global_position = self.global_position
 			call_deferred("add_sibling",gs)
-
-func _on_Hide_Timer_timeout(): 
-	$Health_bar.hide()
-
-func _on_knockback_timer_timeout():
-	if direction == Vector2.ZERO:
-		current_state = STATES.idle
-	else:
-		current_state = STATES.walk
-	knockback = Vector2.ZERO
+		"Hurt":
+			if direction == Vector2.ZERO:
+				current_state = STATES.idle
+			else:
+				current_state = STATES.walk
+			$Health_bar.hide()
 
 func _on_hitbox_area_entered(area):
 	if area.is_in_group("expl_attack") and !area.is_in_group("Cuki_ground_slam"):
