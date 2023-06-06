@@ -59,7 +59,7 @@ position = Vector2(237, 873)
 position = Vector2(-71, 1008)
 
 [node name="Cuki" parent="." instance=ExtResource("1")]
-position = Vector2(136, 133)
+position = Vector2(51, 735)
 
 [node name="Camera2D" type="Camera2D" parent="Cuki"]
 zoom = Vector2(1.5, 1.5)

@@ -30,7 +30,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_t3q33"]
 resource_name = "Shoot"
-length = 1.5
+length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -80,7 +80,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.116853, 0.519997, 0, 1)
 
-[sub_resource type="Theme" id="Theme_hcjih"]
+[sub_resource type="Theme" id="Theme_fdogv"]
 resource_local_to_scene = true
 ProgressBar/fonts/font = null
 ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
@@ -97,7 +97,7 @@ script = ExtResource("1_3j4sc")
 position = Vector2(0, -8)
 texture = ExtResource("1_xv04k")
 hframes = 3
-frame = 1
+frame = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_w5s3q")
@@ -135,7 +135,7 @@ offset_left = -32.0
 offset_top = -56.0
 offset_right = 32.0
 offset_bottom = -40.0
-theme = SubResource("Theme_hcjih")
+theme = SubResource("Theme_fdogv")
 
 [node name="Salud" parent="." instance=ExtResource("4_wc8xc")]
 max_amount = 3

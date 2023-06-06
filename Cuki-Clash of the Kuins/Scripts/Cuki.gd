@@ -4,6 +4,7 @@ const GROUND_SLAM = preload("res://Entidades/Explosion.tscn")
 
 enum STATES {idle, walk, hurt, attacking, recover, dashing}
 enum ATTACKS {none, hit1, hit2, hit3, hit4}
+var level = 4
 var current_state = STATES.idle
 var current_attack = ATTACKS.none
 var next_attack = current_attack
@@ -60,7 +61,7 @@ func moviendose():
 	move_and_slide()
 	movement = velocity
 
-func animations():
+func animations():	
 	match current_state:
 		STATES.idle:
 			knockback = Vector2.ZERO
@@ -114,23 +115,23 @@ func animations():
 
 func attack():
 	if Input.is_action_just_pressed("Atacar"):
-		if current_state != STATES.recover and current_state != STATES.dashing:
+		if current_state != STATES.recover and current_state != STATES.dashing and current_state != STATES.hurt:
 			current_state = STATES.attacking
 			match current_attack:
 				ATTACKS.none:
 					next_attack = ATTACKS.hit1
 				ATTACKS.hit1:
-					if can_next:
-						if next_attack != ATTACKS.hit2:
-							can_next = false
-							next_attack = ATTACKS.hit2
+						if can_next and level >= ATTACKS.hit2:
+							if next_attack != ATTACKS.hit2:
+								can_next = false
+								next_attack = ATTACKS.hit2
 				ATTACKS.hit2:
-					if can_next:
+					if can_next and level >= ATTACKS.hit3:
 						if next_attack != ATTACKS.hit3:
 							can_next = false
 							next_attack = ATTACKS.hit3
 				ATTACKS.hit3:
-					if can_next:
+					if can_next and level >= ATTACKS.hit4:
 						if next_attack != ATTACKS.hit4:
 							can_next = false
 							next_attack = ATTACKS.hit4
@@ -189,6 +190,7 @@ func _on_Anim_Sprite_animation_finished(anim_name):
 			stop_combo()
 			var gs = GROUND_SLAM.instantiate()
 			gs.add_to_group("Cuki_ground_slam")
+			gs.add_to_group("expl_attack")
 			gs.global_position = self.global_position
 			call_deferred("add_sibling",gs)
 		"Hurt":

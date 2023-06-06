@@ -85,7 +85,7 @@ func eatBarrel(body):
 
 func attackedBySomething(knockbackForce, healthLost, something):
 	in_knockback = true
-	knockback -= knockbackForce*Vector2(cos(get_angle_to(something.position)),sin(get_angle_to(something.position)))
+	knockback -= 350*Vector2(cos(get_angle_to(something.get_parent().global_position)),sin(get_angle_to(something.get_parent().global_position)))
 	$Knockback_timer.start()
 	health_bar.show()
 	hide_timer.start()

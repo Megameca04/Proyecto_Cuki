@@ -43,7 +43,7 @@ func formando():
 
 func calcularMovimiento():
 	movement = Vector2.ZERO
-	if Cuki != null:
+	if Cuki != null and !in_knockback:
 		movement = position.direction_to(Cuki.position) #direction_to da un vector unitario, este se multiplica por la velocidad
 	else:
 		movement = Vector2.ZERO
@@ -87,7 +87,7 @@ func _on_Area2D_area_entered(area): #si entra un area (ataques)
 	if area.is_in_group("C_attack"): #si entra un enemigo, ajustar dirección del knockback
 		in_knockback = true #activa el knockback
 		#ajuste de componentes X e Y del vector del Knocback
-		knockback -= 350*Vector2(cos(get_angle_to(area.position)),sin(get_angle_to(area.position)))
+		knockback -= 350*Vector2(cos(get_angle_to(area.get_parent().global_position)),sin(get_angle_to(area.get_parent().global_position)))
 		$Knockback_timer.start() #activa el temporizador del knocback
 		health_bar.show() #mostrar salud
 		hide_timer.start() #cuando se desactiva la salud

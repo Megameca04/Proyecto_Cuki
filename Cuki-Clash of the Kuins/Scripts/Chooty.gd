@@ -9,6 +9,7 @@ var Cuki = null
 var Cuki_on_shoot_range = false
 var state = ChootyState.Patrol
 var can_shoot = true
+var can_move = true
 
 @onready var shoot_timer = $Shoot_timer
 @onready var vision_raycast = $Vision_Raycast
@@ -18,7 +19,7 @@ var can_shoot = true
 @onready var health_bar = $ProgressBar
 @onready var hide_timer = $Hide_timer
 
-var speed = 200
+var speed = 150
 var movement = Vector2.ZERO
 var knockback = Vector2.ZERO
 
@@ -37,7 +38,7 @@ func _physics_process(delta):
 
 func chootyMovement():
 	movement = Vector2.ZERO
-	if Cuki != null && state == ChootyState.Running:
+	if Cuki != null && state == ChootyState.Running && can_move:
 		movement = -position.direction_to(Cuki.position)
 		vision_raycast.target_position = movement * 100
 		if vision_raycast.is_colliding():
@@ -55,7 +56,7 @@ func chootyMovement():
 
 func chootyBehaviour():
 	if Cuki != null:
-		if position.distance_to(Cuki.position) > 100 :
+		if position.distance_to(Cuki.position) > 100:
 			if can_shoot:
 				if state != ChootyState.Shooting:
 					stateAndAnimationChange(ChootyState.Shooting)
@@ -73,13 +74,15 @@ func stateAndAnimationChange(chootyState):
 		ChootyState.Patrol:
 			$AnimationPlayer.play("Default")
 		ChootyState.Running:
-			$AnimationPlayer.play("Default")
+			if can_move:
+				$AnimationPlayer.play("Default")
 		ChootyState.Shooting:
 			$AnimationPlayer.play("Shoot")
 		ChootyState.Resting:
 			$AnimationPlayer.play("Default")
 
 func shoot_stone():
+	can_move = false
 	var stone = STONE.instantiate()
 	stone.global_position = global_position
 	if Cuki != null:
@@ -110,6 +113,7 @@ func _on_animation_player_animation_finished(anim_name):
 		"Shoot":
 			shoot_timer.start()
 			can_shoot = false
+			can_move = true
 
 func _on_hitbox_area_entered(area):
 	if area.is_in_group("C_attack"):

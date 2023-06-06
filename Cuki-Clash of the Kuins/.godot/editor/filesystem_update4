@@ -1,4 +1,6 @@
 res://default_env.tres
 res://Pruebas.tscn
 res://Entidades/Cuki.tscn
-res://Entidades/Rabion.tscn
+res://Entidades/blonk.tscn
+res://Entidades/Chooty.tscn
+res://Scripts/Chooty.gd
