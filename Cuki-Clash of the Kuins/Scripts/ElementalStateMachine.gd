@@ -5,8 +5,8 @@ var timedState = "None"
 @onready var elemental_timer = $Elemental_timer
 @onready var elemental_damage = $Elemental_damage
 signal temporal_damage
-@export var elemental_timer_time = 4.425
-@export var elemental_damage_time = 0.314
+@export var elemental_timer_time:float
+@export var elemental_damage_time:float
 
 func contactWithElement(elementalEvent):
 	if (elementalEvent == "Water"):

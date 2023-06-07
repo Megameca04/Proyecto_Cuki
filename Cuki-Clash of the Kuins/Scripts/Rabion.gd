@@ -114,13 +114,9 @@ func _on_Area2D_area_entered(area): #si entra un area (ataques)
 				health.current -= 4 * 2
 			else:
 				health.current -= 4
-			for _i in area.get_children():
-				if (_i.is_in_group("Elements")):
-					elemental_state.contactWithElement(_i.name)
-	if area.is_in_group("Elements"):
-		elemental_state.contactWithElement(area.name)
-		if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):
-			health.current -= 1 #reduce salud
+	elemental_state.contactWithElement(area.name)
+	if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):
+		health.current -= 1 #reduce salud
 	
 
 func _on_hide_timer_timeout():

@@ -98,13 +98,9 @@ func _on_hitbox_area_entered(area):
 		attackedBySomething(1)
 	if area.is_in_group("expl_attack") || area.is_in_group("expl_bun"):
 		attackedBySomething(2)
-		for _i in area.get_children():
-			if (_i.is_in_group("Elements")):
-				elemental_state.contactWithElement(_i.name)
-	if area.is_in_group("Elements"):
-		elemental_state.contactWithElement(area.name)
-		if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):
-			attackedBySomething(1)
+	elemental_state.contactWithElement(area.name)
+	if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):
+		attackedBySomething(1)
 
 func _on_attack_area_body_entered(body):
 	if body != self:

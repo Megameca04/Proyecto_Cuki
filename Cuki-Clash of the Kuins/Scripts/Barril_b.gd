@@ -36,6 +36,7 @@ func _on_hitbox_body_entered(body):
 
 func blow_up():
 	var expl = EXPL.instantiate()
+	expl.name = elementName
 	expl.add_to_group("expl_attack")
 	expl.global_position = self.global_position
 	call_deferred("add_sibling",expl)

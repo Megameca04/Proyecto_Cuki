@@ -130,17 +130,14 @@ func _on_knockback_timer_timeout():
 func _on_hitbox_area_entered(area):
 	if area.is_in_group("expl_attack"):
 		attackedBySomething(750, 1, area)
-		for _i in area.get_children():
-			if (_i.is_in_group("Elements")):
-				elemental_state.contactWithElement(_i.name)
+		elemental_state.contactWithElement(area.name)
 	if area.is_in_group("expl_blonk"):
 		attackedBySomething(750, 1, area)
 	if area.is_in_group("Piedra"):
 		attackedBySomething(500, 1, area)
-	if area.is_in_group("Elements"):
-		elemental_state.contactWithElement(area.name)
-		if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):
-			attackedBySomething(0, 1, area)
+	elemental_state.contactWithElement(area.name)
+	if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):
+		attackedBySomething(0, 1, area)
 
 func _on_elemental_state_temporal_damage():
 	if (elemental_state.getTemporalState() == "Fire"):
