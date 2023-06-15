@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-enum ChootyState {Patrol, Running, Shooting, Resting}
+enum ChootyState {Patrol, Running, Shooting, AfterShooting, Resting}
 
 const STONE = preload("res://Entidades/Piedra.tscn")
 
@@ -37,7 +37,7 @@ func _physics_process(delta):
 
 func chootyMovement():
 	movement = Vector2.ZERO
-	if Cuki != null && state == ChootyState.Running:
+	if Cuki != null && state == ChootyState.Running && can_shoot == true:
 		movement = -position.direction_to(Cuki.position)
 		vision_raycast.target_position = movement * 100
 		if vision_raycast.is_colliding():
