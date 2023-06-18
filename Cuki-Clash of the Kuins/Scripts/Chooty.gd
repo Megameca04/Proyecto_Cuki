@@ -9,7 +9,6 @@ var Cuki = null
 var Cuki_on_shoot_range = false
 var state = ChootyState.Patrol
 var can_shoot = true
-var run_position_set = false
 
 @onready var shoot_timer = $Shoot_timer
 @onready var vision_raycast = $Vision_Raycast
@@ -41,14 +40,13 @@ func chootyMovement():
 	if Cuki != null && state == ChootyState.Running:
 		movement = -position.direction_to(Cuki.position)
 		vision_raycast.target_position = movement * 100
-		run_position_set = true
 		
-		#if vision_raycast.is_colliding():
-		#	vision_raycast_2.target_position = movement.orthogonal() * 100
-		#	if vision_raycast_2.is_colliding():
-		#		movement += movement.orthogonal()
-		#	else:
-		#		movement -= movement.orthogonal()
+		if vision_raycast.is_colliding():
+			vision_raycast_2.target_position = movement.orthogonal() * 100
+			if vision_raycast_2.is_colliding():
+				movement += movement.orthogonal()
+			else:
+				movement -= movement.orthogonal()
 	if state != ChootyState.Running && state != ChootyState.RunningToPos:
 		movement = Vector2.ZERO
 	
@@ -60,15 +58,10 @@ func chootyBehaviour():
 	if Cuki != null:
 		if position.distance_to(Cuki.position) > 100 :
 			if can_shoot:
-				if state != ChootyState.Shooting && state != ChootyState.Running && ChootyState.RunningToPos:
+				if state != ChootyState.Shooting && state != ChootyState.Running:
 					stateAndAnimationChange(ChootyState.Shooting)
-		if position.distance_to(Cuki.position) < 100 && !can_shoot && state != ChootyState.RunningToPos:
+		if position.distance_to(Cuki.position) < 80 && can_shoot:
 			stateAndAnimationChange(ChootyState.Running)
-		if run_position_set == true:
-			stateAndAnimationChange(ChootyState.RunningToPos)
-		if position.distance_to(vision_raycast.target_position) >= 0 && state == ChootyState.RunningToPos:
-			stateAndAnimationChange(ChootyState.Patrol)
-			run_position_set = false
 	else:
 		stateAndAnimationChange(ChootyState.Patrol)
 
