@@ -131,3 +131,9 @@ func _on_elemental_state_temporal_damage():
 		health.current -= 1 
 	if (elemental_state.getTemporalState() == "IntenseFire"):
 		health.current -= 1 * 2
+
+func _on_hitbox_body_entered(body):
+	if body.name == "Cuki":
+		knockback -= 100*Vector2(cos(get_angle_to(body.position)),sin(get_angle_to(body.position)))
+		$Knockback_timer.start()
+

@@ -9,6 +9,7 @@ var Cuki = null
 var Cuki_on_shoot_range = false
 var state = ChootyState.Patrol
 var can_shoot = true
+var can_move = true
 
 @onready var shoot_timer = $Shoot_timer
 @onready var vision_raycast = $Vision_Raycast
@@ -19,7 +20,7 @@ var can_shoot = true
 @onready var hide_timer = $Hide_timer
 @onready var elemental_state = $ElementalState # Referencia a la barra de estado de los elementos
 
-var speed = 200
+var speed = 150
 var movement = Vector2.ZERO
 var knockback = Vector2.ZERO
 
@@ -60,7 +61,7 @@ func chootyMovement():
 
 func chootyBehaviour():
 	if Cuki != null:
-		if position.distance_to(Cuki.position) > 100 :
+		if position.distance_to(Cuki.position) > 100:
 			if can_shoot:
 				if state != ChootyState.Shooting:
 					stateAndAnimationChange(ChootyState.Shooting)
@@ -78,7 +79,8 @@ func stateAndAnimationChange(chootyState):
 		ChootyState.Patrol:
 			$AnimationPlayer.play("Default")
 		ChootyState.Running:
-			$AnimationPlayer.play("Default")
+			if can_move:
+				$AnimationPlayer.play("Default")
 		ChootyState.Shooting:
 			$AnimationPlayer.play("Shoot")
 		ChootyState.Resting:
@@ -120,6 +122,7 @@ func _on_animation_player_animation_finished(anim_name):
 		"Shoot":
 			shoot_timer.start()
 			can_shoot = false
+			can_move = true
 
 func _on_hitbox_area_entered(area):
 	if area.is_in_group("C_attack"):
