@@ -2,14 +2,21 @@ extends CharacterBody2D
 
 const GROUND_SLAM = preload("res://Entidades/Explosion.tscn")
 
-enum STATES {idle, walk, hurt, attacking, recover, dashing}
-enum ATTACKS {none, hit1, hit2, hit3, hit4}
-var level = 4
-var current_state = STATES.idle
-var current_attack = ATTACKS.none
-var next_attack = current_attack
-var can_next = false
-var attack_counter = 0
+enum STATES {idle,
+			walk,
+			hurt,
+			attacking,
+			recover,
+			dashing,
+			dAttack,
+			chargingA,
+			chargedA}
+
+var next_state = STATES.idle
+var current_state = next_state
+
+var next_an = 0
+var charge = 0
 
 @export var speed = 200 
 
@@ -19,6 +26,16 @@ var knockback = Vector2()
 
 @onready var health = $Salud 
 @onready var health_bar = $Health_bar
+@onready var anim_node = $Anim_Sprite
+@onready var hitbox_col = $Hitbox/CollisionShape2D
+@onready var colision_s = $CollisionShape2D
+@onready var attack_node = $Attack_node
+@onready var charge_particles = $Charge_particles
+
+var can_spin:bool = false
+var can_charge: bool = false
+
+
 
 func _ready():
 	health.connect("changed",Callable(health_bar,"set_value"))
@@ -26,21 +43,17 @@ func _ready():
 	health.connect("depleted",Callable(self,"game_over"))
 	health.initialize()
 
-func _process(delta):
-	$Label.text ="CA: " + str(current_attack) + " NA: "+ str(next_attack)
-	$Label2.text = "CS: "+ str(current_state)+"\nYa: "+str(can_next)
-
 func _physics_process(delta):
 	CukiDirections()
-	attack()
 	calcularMovimiento()
 	moviendose()
-	animations() 
-	
+	attack(delta)
+	animations()
+	$Label.text = str(current_state)
 
 func CukiDirections():
 	direction = Vector2.ZERO
-	if current_state == STATES.walk or current_state == STATES.idle or current_state == STATES.dashing:
+	if current_state == STATES.walk || current_state == STATES.idle || current_state == STATES.dashing:
 		if Input.is_action_pressed("ui_up"):
 			direction.y = -1
 		if Input.is_action_pressed("ui_down"):
@@ -49,6 +62,19 @@ func CukiDirections():
 			direction.x = -1
 		if Input.is_action_pressed("ui_right"):
 			direction.x = 1
+		direction = direction.normalized()
+	if direction != Vector2.ZERO and next_state != STATES.dAttack and current_state != STATES.dAttack and current_state != STATES.hurt:
+		match next_state:
+			STATES.dashing:
+				next_state = STATES.dashing
+			STATES.hurt:
+				next_state = STATES.hurt
+			_:
+				next_state = STATES.walk
+		attack_node.rotation = direction.angle()
+	else:
+		if next_state != STATES.attacking and next_state != STATES.chargedA and next_state != STATES.dAttack and next_state != STATES.hurt and current_state != STATES.hurt:
+			next_state = STATES.idle
 
 func calcularMovimiento():
 	movement = Vector2.ZERO
@@ -61,107 +87,92 @@ func moviendose():
 	move_and_slide()
 	movement = velocity
 
-func animations():	
+func animations():
+	if current_state != next_state:
+		#print("CS: "+str(current_state)+"|NS: "+str(next_state))
+		current_state = next_state
+	
+	if direction.x >= 1:
+		$Sprite2D.scale.x = 1
+	elif direction.x <= -1:
+		$Sprite2D.scale.x = -1
+	
 	match current_state:
 		STATES.idle:
 			knockback = Vector2.ZERO
-			$Anim_Sprite.play("Stay")
-			if movement != Vector2.ZERO and current_state != STATES.dashing:
-				current_state = STATES.walk
+			anim_node.play("Stay")
 		STATES.walk:
 			knockback = Vector2.ZERO
-			$Anim_Sprite.play("Walking")
-			if direction.x >= 1:
-				$Sprite2D.scale.x = 1
-				$CollisionShape2D.scale.x = 1
-			elif direction.x <= -1:
-				$Sprite2D.scale.x = -1
-				$CollisionShape2D.scale.x = -1
-			if movement == Vector2.ZERO and current_state != STATES.dashing:
-				current_state = STATES.idle
+			anim_node.play("Walking")
 		STATES.dashing:
 			knockback = Vector2.ZERO
-			$Anim_Sprite.play("Dash")
+			anim_node.play("Dash")
 			if direction.x >= 1:
 				$Sprite2D.scale.x = 1
-				$CollisionShape2D.scale.x = 1
 			elif direction.x <= -1:
 				$Sprite2D.scale.x = -1
-				$CollisionShape2D.scale.x = -1
-			if movement == Vector2.ZERO and current_state != STATES.dashing:
-				current_state = STATES.idle
-		STATES.hurt:
-			$Anim_Sprite.play("Hurt")
-			if direction.x >= 1:
-				$Sprite2D.scale.x = 1
-				$CollisionShape2D.scale.x = 1
-			elif direction.x <= -1:
-				$Sprite2D.scale.x = -1
-				$CollisionShape2D.scale.x = -1
 		STATES.attacking:
-			knockback = Vector2.ZERO
-			current_attack = next_attack
-			match current_attack:
-				ATTACKS.hit1:
-					$Anim_Sprite.play("Hit_1")
-				ATTACKS.hit2:
-					$Anim_Sprite.play("Hit_2")
-				ATTACKS.hit3:
-					$Anim_Sprite.play("Hit_3")
-				ATTACKS.hit4:
-					$Anim_Sprite.play("Hit_4")
-		STATES.recover:
-			$Anim_Sprite.play("Recover")
+			if current_state != STATES.dashing:
+				if next_an == 0:
+					anim_node.play("Hit_1")
+				else:
+					anim_node.play("Hit_2")
+		STATES.dAttack:
+			anim_node.play("Spin_attack")
+		STATES.chargingA:
+			anim_node.play("ChargingAttack")
+		STATES.chargedA:
+			anim_node.play("ChargedAttack")
+		STATES.hurt:
+			anim_node.play("Hurt")
+			if direction.x >= 1:
+				$Sprite2D.scale.x = 1
+			elif direction.x <= -1:
+				$Sprite2D.scale.x = -1
+	if current_state != STATES.chargingA:
+		charge_particles.emitting = false
 
-func attack():
-	if Input.is_action_just_pressed("Atacar"):
-		if current_state != STATES.recover and current_state != STATES.dashing and current_state != STATES.hurt:
-			current_state = STATES.attacking
-			match current_attack:
-				ATTACKS.none:
-					next_attack = ATTACKS.hit1
-				ATTACKS.hit1:
-						if can_next and level >= ATTACKS.hit2:
-							if next_attack != ATTACKS.hit2:
-								can_next = false
-								next_attack = ATTACKS.hit2
-				ATTACKS.hit2:
-					if can_next and level >= ATTACKS.hit3:
-						if next_attack != ATTACKS.hit3:
-							can_next = false
-							next_attack = ATTACKS.hit3
-				ATTACKS.hit3:
-					if can_next and level >= ATTACKS.hit4:
-						if next_attack != ATTACKS.hit4:
-							can_next = false
-							next_attack = ATTACKS.hit4
-				_: 
-					current_attack = ATTACKS.none
+func attack(delta):
+	if Input.is_action_just_pressed("Atacar") and (next_state != STATES.dAttack or next_state != STATES.hurt) and (current_state != STATES.hurt):
+		match current_state:
+			STATES.dashing:
+				if can_spin:
+					next_state = STATES.dAttack
+				else:
+					next_state = STATES.dashing
+			
+			_:
+				if (current_state != STATES.dAttack or current_state != STATES.hurt) and (next_state != STATES.dAttack or next_state != STATES.hurt):
+					next_state = STATES.attacking
+					can_charge = false
+	
+	if Input.is_action_pressed("Atacar") and current_state != STATES.attacking:
+		if current_state != STATES.dAttack and next_state != STATES.dAttack and current_state != STATES.hurt and next_state != STATES.hurt and current_state != STATES.dashing and next_state != STATES.dashing:
+			if can_charge:
+				next_state = STATES.chargingA
+				charge += (1*delta)
+				if charge >= 1 and (next_state != STATES.chargedA or next_state != STATES.dAttack):
+					next_state = STATES.chargedA
+
+	if Input.is_action_just_released("Atacar"):
+		charge = 0
+		can_charge = false
+		if current_state != STATES.chargedA:
+			if (current_state != STATES.dAttack and next_state != STATES.dAttack ) and (current_state != STATES.hurt and next_state != STATES.hurt):
+				next_state = STATES.attacking
+		else:
+			next_state = STATES.chargedA
 	
 	if Input.is_action_just_pressed("Dash"):
-		if current_state != STATES.dashing and direction != Vector2.ZERO:
-			can_next = false
-			current_state = STATES.dashing
-			$Hitbox/CollisionShape2D.disabled = true
-			set_collision_mask_value(2,false)
+		if (current_state != STATES.dashing or current_state != STATES.hurt) and next_state != STATES.hurt and direction != Vector2.ZERO:
+			next_state = STATES.dashing
 
 func attackedBySomething(knockbackForce, healthLost, something):
-	current_state = STATES.hurt
+	next_state = STATES.hurt
 	knockback -= knockbackForce*Vector2(cos(get_angle_to(something.position)),sin(get_angle_to(something.position)))
+	$Knockback_timer.start()
 	$Health_bar.show()
 	health.current -= healthLost
-
-func keep_combo():
-	can_next = true
-
-func stop_combo():
-	can_next = false
-	$Hitbox/CollisionShape2D.disabled = false
-	$CollisionShape2D.disabled = false
-	set_collision_mask_value(2,true)
-	current_state = STATES.idle
-	current_attack = ATTACKS.none
-	next_attack = ATTACKS.none
 
 func game_over():
 	self.set_physics_process(false)
@@ -169,36 +180,48 @@ func game_over():
 
 func _on_Hitbox_body_entered(body):
 		if body.is_in_group("Enemy"):
-			attackedBySomething(500, 1, body)
+			attack_node.rotation = attack_node.global_position.angle_to(body.global_position)
+			attackedBySomething(200, 1, body)
+
+func prepare_spin():
+	can_spin = true
 
 func _on_Anim_Sprite_animation_finished(anim_name):
 	match anim_name:
-		"Dash":
-			stop_combo()
 		"Hit_1":
-			stop_combo()
+			next_an = 1
+			next_state = STATES.idle
+			can_charge = true
 		"Hit_2":
-			stop_combo()
-		"Hit_3":
-			can_next = false
-			current_state = STATES.recover
-			current_attack = ATTACKS.none
-			next_attack = ATTACKS.none
-		"Recover":
-			stop_combo()
-		"Hit_4":
-			stop_combo()
-			var gs = GROUND_SLAM.instantiate()
-			gs.add_to_group("Cuki_ground_slam")
-			gs.add_to_group("expl_attack")
-			gs.global_position = self.global_position
-			call_deferred("add_sibling",gs)
+			next_an = 0
+			next_state = STATES.idle
+			can_charge = true
+		"Dash":
+			can_spin = false
+			next_state = STATES.walk
+		"Spin_attack":
+			can_spin = false
+			next_state = STATES.walk
 		"Hurt":
 			if direction == Vector2.ZERO:
-				current_state = STATES.idle
+				next_state = STATES.idle
 			else:
-				current_state = STATES.walk
+				next_state = STATES.walk
 			$Health_bar.hide()
+		"ChargingAttack":
+			if charge >= 1:
+				next_state = STATES.chargedA
+			else:
+				next_state = STATES.idle
+			charge = 0
+		"ChargedAttack":
+			next_state = STATES.idle
+			charge = 0
+			var gs = GROUND_SLAM.instantiate()
+			gs.global_position = self.global_position
+			gs.add_to_group("Cuki_ground_slam")
+			gs.add_to_group("expl_attack")
+			self.call_deferred("add_sibling",gs)
 
 func _on_hitbox_area_entered(area):
 	if area.is_in_group("expl_attack") and !area.is_in_group("Cuki_ground_slam"):
@@ -207,3 +230,7 @@ func _on_hitbox_area_entered(area):
 		attackedBySomething(750, 1, area)
 	if area.is_in_group("Piedra"):
 		attackedBySomething(500, 1, area)
+
+func _on_knockback_timer_timeout():
+	if current_state == STATES.hurt:
+		current_state = STATES.idle
