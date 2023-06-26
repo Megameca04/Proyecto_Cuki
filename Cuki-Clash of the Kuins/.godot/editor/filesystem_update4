@@ -1,6 +1,7 @@
 res://default_env.tres
+res://Objetos/ElementalState.tscn
+res://Scripts/Explosion.gd
+res://Entidades/Explosion.tscn
 res://Pruebas.tscn
 res://Entidades/Cuki.tscn
 res://Entidades/Rabion.tscn
-res://Objetos/ElementalState.tscn
-res://Scripts/Rabion.gd

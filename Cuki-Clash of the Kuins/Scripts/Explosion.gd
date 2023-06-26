@@ -32,3 +32,5 @@ func color_changer(effName):
 		sprite.modulate = Color(0.5, 0, 0.5)
 	elif (effName == "Shock"):
 		sprite.modulate = Color(0.8, 0.8, 0.8)
+	else:
+		sprite.modulate = Color(1, 1, 1)
