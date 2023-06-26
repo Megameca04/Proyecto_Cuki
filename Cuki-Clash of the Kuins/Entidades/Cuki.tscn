@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://c1bw1m1tr8gem"]
+[gd_scene load_steps=25 format=3 uid="uid://c1bw1m1tr8gem"]
 
 [ext_resource type="Script" path="res://Scripts/Cuki.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://dicp13ihj0xno" path="res://Sprites/Aliados/Cuki/Cuki.png" id="2"]
@@ -456,7 +456,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.116853, 0.519997, 0, 1)
 
-[sub_resource type="Theme" id="Theme_dqjpc"]
+[sub_resource type="Theme" id="Theme_wnp53"]
 resource_local_to_scene = true
 ProgressBar/fonts/font = null
 ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
@@ -550,7 +550,7 @@ offset_left = -17.5
 offset_top = -38.3333
 offset_right = 15.5
 offset_bottom = -32.3333
-theme = SubResource("Theme_dqjpc")
+theme = SubResource("Theme_wnp53")
 
 [node name="Knockback_timer" type="Timer" parent="."]
 wait_time = 0.1

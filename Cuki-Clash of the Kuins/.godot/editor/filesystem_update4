@@ -1,8 +1,6 @@
 res://default_env.tres
 res://Pruebas.tscn
 res://Entidades/Cuki.tscn
-res://Entidades/blonk.tscn
-res://Entidades/Explosion.tscn
-res://Scripts/Cuki.gd
-res://Scripts/Rabion.gd
 res://Entidades/Rabion.tscn
+res://Objetos/ElementalState.tscn
+res://Scripts/Rabion.gd

@@ -4,8 +4,8 @@
 
 [node name="ElementalState" type="Node"]
 script = ExtResource("1_n7d4b")
-elemental_timer_time = 3.0
-elemental_damage_time = 0.5
+elemental_timer_time = 1.0
+elemental_damage_time = 2.0
 
 [node name="Elemental_timer" type="Timer" parent="."]
 wait_time = 4.435

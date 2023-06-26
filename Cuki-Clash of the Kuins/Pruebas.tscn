@@ -42,7 +42,7 @@ y_sort_enabled = true
 metadata/_edit_horizontal_guides_ = [-222.0]
 
 [node name="Rabion" parent="." instance=ExtResource("4_t0wj2")]
-position = Vector2(328, 161)
+position = Vector2(320, 144)
 
 [node name="Rabion2" parent="." instance=ExtResource("4_t0wj2")]
 position = Vector2(790, 80)
@@ -60,7 +60,7 @@ position = Vector2(237, 873)
 position = Vector2(-71, 1008)
 
 [node name="Cuki" parent="." instance=ExtResource("1")]
-position = Vector2(91, 116)
+position = Vector2(128, 144)
 
 [node name="Camera2D" type="Camera2D" parent="Cuki"]
 zoom = Vector2(1.5, 1.5)
@@ -80,7 +80,7 @@ position = Vector2(-70, 510)
 elementName = "Flame"
 
 [node name="Barril_b4" parent="." instance=ExtResource("3_l2s6e")]
-position = Vector2(85, 512)
+position = Vector2(176, 144)
 elementName = "Flame"
 
 [node name="Barril_b5" parent="." instance=ExtResource("3_l2s6e")]

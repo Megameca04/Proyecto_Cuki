@@ -18,7 +18,8 @@ var current_state = next_state
 var next_an = 0
 var charge = 0
 
-@export var speed = 200 
+@export var speed = 200
+var totalSpeed = 0
 
 var direction = Vector2.ZERO
 var movement = Vector2()
@@ -31,11 +32,10 @@ var knockback = Vector2()
 @onready var colision_s = $CollisionShape2D
 @onready var attack_node = $Attack_node
 @onready var charge_particles = $Charge_particles
+@onready var elemental_state = $ElementalState
 
 var can_spin:bool = false
 var can_charge: bool = false
-
-
 
 func _ready():
 	health.connect("changed",Callable(health_bar,"set_value"))
@@ -68,6 +68,7 @@ func CukiDirections():
 		match next_state:
 			STATES.dashing:
 				next_state = STATES.dashing
+				set_collision_mask_value(2, false)
 			STATES.hurt:
 				next_state = STATES.hurt
 			_:
@@ -136,8 +137,13 @@ func animations():
 				$Sprite2D.scale.x = 1
 			elif direction.x <= -1:
 				$Sprite2D.scale.x = -1
+	
 	if current_state != STATES.chargingA:
 		charge_particles.emitting = false
+	
+	set_collision_mask_value(2, current_state != STATES.dashing || current_state != STATES.dAttack)
+	hitbox_col.disabled = (current_state == STATES.dashing || current_state == STATES.dAttack)
+
 
 func attack(delta):
 	if Input.is_action_just_pressed("Atacar") and (next_state != STATES.dAttack or next_state != STATES.hurt) and (current_state != STATES.hurt):
