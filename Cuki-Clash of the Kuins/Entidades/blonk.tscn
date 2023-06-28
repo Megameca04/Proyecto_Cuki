@@ -83,7 +83,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.116853, 0.519997, 0, 1)
 
-[sub_resource type="Theme" id="Theme_2hmiv"]
+[sub_resource type="Theme" id="Theme_p3wnc"]
 resource_local_to_scene = true
 ProgressBar/fonts/font = null
 ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
@@ -140,7 +140,7 @@ offset_left = -16.0
 offset_top = -40.0
 offset_right = 24.0
 offset_bottom = -32.0
-theme = SubResource("Theme_2hmiv")
+theme = SubResource("Theme_p3wnc")
 
 [node name="Pause_attack_timer" type="Timer" parent="."]
 wait_time = 2.051

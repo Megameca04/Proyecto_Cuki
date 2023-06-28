@@ -1,8 +1,8 @@
 res://default_env.tres
-res://Entidades/Chooty.tscn
-res://Scripts/Chooty.gd
 res://Pruebas.tscn
+res://Entidades/Chooty.tscn
 res://Entidades/Rabion.tscn
 res://Entidades/blonk.tscn
 res://Entidades/explosive_eater.tscn
 res://Entidades/Cuki.tscn
+res://Scripts/Chooty.gd
