@@ -98,9 +98,9 @@ func _on_hitbox_area_entered(area):
 		attackedBySomething(1)
 	if area.is_in_group("expl_attack") || area.is_in_group("expl_bun"):
 		attackedBySomething(2)
-	elemental_state.contactWithElement(area.name)
-	if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):
-		attackedBySomething(1)
+		elemental_state.contactWithElement(area.name)
+		if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):
+			attackedBySomething(1)
 
 func _on_attack_area_body_entered(body):
 	if body != self:
@@ -120,5 +120,9 @@ func _on_pause_attack_timer_timeout():
 func _on_elemental_state_temporal_damage():
 	if (elemental_state.getTemporalState() == "Fire"):
 		health.current -= 1 
+		health_bar.show()
+		hide_timer.start()
 	if (elemental_state.getTemporalState() == "IntenseFire"):
 		health.current -= 1 * 2
+		health_bar.show()
+		hide_timer.start()

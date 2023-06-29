@@ -128,7 +128,7 @@ func _on_hitbox_area_entered(area):
 		if state == ExplosiveEaterState.Pursuing:
 			attackPlayer()
 		else:
-			attackedBySomething(600, 4, area)
+			attackedBySomething(300, 4, area)
 		if area.is_in_group("Elements"):
 			elemental_state.contactWithElement(area.name)
 			if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):

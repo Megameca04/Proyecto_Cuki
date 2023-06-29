@@ -14,9 +14,6 @@ func _ready():
 	add_to_group("Barrels")
 
 func _physics_process(delta):
-	
-	
-	
 	if !still:
 		set_velocity(movement*SPEED)
 		move_and_slide()
