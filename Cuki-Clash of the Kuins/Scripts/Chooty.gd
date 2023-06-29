@@ -8,21 +8,19 @@ var Cuki = null
 
 var Cuki_on_shoot_range = false
 var state = ChootyState.Patrol
-var can_shoot = true
-var can_move = true
 
 @onready var shoot_timer = $Shoot_timer
 @onready var vision_raycast = $Vision_Raycast
-@onready var vision_raycast_2 = $Vision_Raycast_2
 
 @onready var health = $Salud
 @onready var health_bar = $ProgressBar
 @onready var hide_timer = $Hide_timer
 @onready var elemental_state = $ElementalState # Referencia a la barra de estado de los elementos
 
-var speed = 150
+var speed = 100
 var movement = Vector2.ZERO
 var knockback = Vector2.ZERO
+var scape_position = Vector2.ZERO
 
 func _ready():
 	health.connect("changed",Callable(health_bar,"set_value"))
@@ -38,39 +36,44 @@ func _physics_process(delta):
 	chootyMovement()
 
 func chootyMovement():
-	if elemental_state.getMovementState() != "Paralyzed" && elemental_state.getMovementState() != "Frozen":
-		movement = Vector2.ZERO
-		if Cuki != null && state == ChootyState.Running:
-			movement = -position.direction_to(Cuki.position)
-			vision_raycast.target_position = movement * 100
+	movement = Vector2.ZERO
+	
+	if scape_position != Vector2.ZERO:
+		
+		if state != ChootyState.Resting:
 			if vision_raycast.is_colliding():
-				vision_raycast_2.target_position = movement.orthogonal() * 100
-				if vision_raycast_2.is_colliding():
-					movement += movement.orthogonal()
-				else:
-					movement -= movement.orthogonal()
-		else:
-			movement = Vector2.ZERO
-		if elemental_state.getMovementState() != "Tar":
-			if elemental_state.getMovementState() == "Ice":
-				set_velocity(movement * speed / 2)
+				var distance_runned = abs(global_position.distance_to(scape_position)-50)
+				var new_sp = to_global(-global_position.direction_to(scape_position).orthogonal().normalized() * distance_runned)
+				scape_position = new_sp
+				vision_raycast.target_position = to_local(scape_position)
+			
+			if global_position.distance_to(scape_position) >= 10:
+				movement = (global_position.direction_to(scape_position))*speed
 			else:
-				set_velocity(movement * speed)
-			move_and_slide()
-			movement = velocity
+				scape_position = Vector2.ZERO
+			
+			velocity = movement
+	else:
+		if Cuki != null:
+				if global_position.distance_to(Cuki.global_position) < 100 && scape_position == Vector2.ZERO && state != ChootyState.Resting:
+					scape_position = to_global(-position.direction_to(Cuki.position)*100)
+					vision_raycast.target_position = to_local(scape_position)
+				
+	move_and_slide()
+
 
 func chootyBehaviour():
 	if Cuki != null:
-		if position.distance_to(Cuki.position) > 100:
-			if can_shoot:
-				if state != ChootyState.Shooting:
+		if state != ChootyState.Resting:
+			if position.distance_to(Cuki.position) > 100 :
+				if state != ChootyState.Shooting and state != ChootyState.Running:
 					stateAndAnimationChange(ChootyState.Shooting)
-			else: 
-				stateAndAnimationChange(ChootyState.Resting)
-		else:
-			stateAndAnimationChange(ChootyState.Running)
+			else:
+				if state != ChootyState.Resting:
+					stateAndAnimationChange(ChootyState.Running)
 	else:
-		stateAndAnimationChange(ChootyState.Patrol)
+		if state != ChootyState.Resting:
+			stateAndAnimationChange(ChootyState.Patrol)
 
 func stateAndAnimationChange(chootyState):
 	state = chootyState
@@ -115,14 +118,13 @@ func _on_vision_field_body_exited(body):
 		Cuki = null
 
 func _on_shoot_timer_timeout():
-	can_shoot = true
+	stateAndAnimationChange(ChootyState.Patrol)
 
 func _on_animation_player_animation_finished(anim_name):
 	match anim_name:
 		"Shoot":
+			stateAndAnimationChange(ChootyState.Resting)
 			shoot_timer.start()
-			can_shoot = false
-			can_move = true
 
 func _on_hitbox_area_entered(area):
 	if area.is_in_group("C_attack"):
