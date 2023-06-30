@@ -4,6 +4,9 @@ var objective_position = Vector2.ZERO
 var movement = Vector2.ZERO
 var in_distance = 0
 
+const ELEMENTEFFECT = preload("res://Objetos/Element.tscn")
+var ele = null
+
 var speed = 200
 
 func _ready():

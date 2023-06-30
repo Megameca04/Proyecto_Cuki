@@ -22,6 +22,8 @@ var movement = Vector2.ZERO
 var knockback = Vector2.ZERO
 var scape_position = Vector2.ZERO
 
+@export var element_attack_name = ""
+
 func _ready():
 	health.connect("changed",Callable(health_bar,"set_value"))
 	health.connect("max_changed",Callable(health_bar,"set_max"))
@@ -82,8 +84,7 @@ func stateAndAnimationChange(chootyState):
 		ChootyState.Patrol:
 			$AnimationPlayer.play("Default")
 		ChootyState.Running:
-			if can_move:
-				$AnimationPlayer.play("Default")
+			$AnimationPlayer.play("Default")
 		ChootyState.Shooting:
 			$AnimationPlayer.play("Shoot")
 		ChootyState.Resting:
