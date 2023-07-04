@@ -15,8 +15,6 @@ var formacion = Vector2.ZERO
 
 @export var speed = 100 #velocidad del enemigo
 
-var in_knockback
-
 func _ready():
 	#conecta los nodos de salud y barra de salud para que muestre la vida graficamente
 	health.connect("changed",Callable(health_bar,"set_value"))
@@ -94,7 +92,6 @@ func animations():
 func _on_Area2D_area_entered(area): #si entra un area (ataques)
 	if elemental_state.getMovementState() != "Frozen":
 		if area.is_in_group("C_attack"): #si entra un enemigo, ajustar dirección del knockback
-			in_knockback = true #activa el knockback
 			#ajuste de componentes X e Y del vector del Knocback
 			knockback -= 350*Vector2(cos(get_angle_to(area.global_position)),sin(get_angle_to(area.global_position)))
 			$Knockback_timer.start() #activa el temporizador del knocback
@@ -123,7 +120,6 @@ func _on_hide_timer_timeout():
 	health_bar.hide()
 
 func _on_knockback_timer_timeout():
-	in_knockback = false
 	knockback = Vector2.ZERO
 
 func _on_elemental_state_temporal_damage():

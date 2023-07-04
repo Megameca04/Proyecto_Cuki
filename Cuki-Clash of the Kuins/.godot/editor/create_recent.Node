@@ -1,10 +1,10 @@
 Label
+Timer
 ProgressBar
 GPUParticles2D
 CollisionShape2D
 Area2D
 AudioStreamPlayer2D
-Timer
 Node2D
 TileMap
 Camera2D

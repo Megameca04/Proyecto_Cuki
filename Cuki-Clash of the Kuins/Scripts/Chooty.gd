@@ -60,9 +60,9 @@ func chootyMovement():
 			
 		if elemental_state.getMovementState() != "Tar":
 			if elemental_state.getMovementState() == "Ice":
-				set_velocity(movement*speed/2)
+				set_velocity(movement*speed/2 + knockback)
 			else:
-				set_velocity(movement*speed)
+				set_velocity(movement*speed + knockback)
 			move_and_slide()
 
 
@@ -103,8 +103,11 @@ func shoot_stone():
 func defeat():
 	self.queue_free()
 
-func attackedBySomething(healthLost):
+func attackedBySomething(knockbackForce, healthLost, something):
 	if elemental_state.getMovementState() != "Frozen":
+		if something != null:
+			knockback = -knockbackForce*Vector2(cos(get_angle_to(something.global_position)),sin(get_angle_to(something.global_position)))
+			$Knockback_timer.start()
 		health_bar.show()
 		hide_timer.start()
 		if elemental_state.getTemporalState() == "Venom":
@@ -131,15 +134,18 @@ func _on_animation_player_animation_finished(anim_name):
 
 func _on_hitbox_area_entered(area):
 	if area.is_in_group("C_attack"):
-		attackedBySomething(1)
+		attackedBySomething(300,1,area)
 	if area.is_in_group("expl_attack") || area.is_in_group("expl_bun"):
-		attackedBySomething(3)
+		attackedBySomething(650,3,area)
 	elemental_state.contactWithElement(area.name)
 	if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):
-		attackedBySomething(1)
+		attackedBySomething(0, 1, null)
 
 func _on_elemental_state_temporal_damage():
 	if (elemental_state.getTemporalState() == "Fire"):
-		attackedBySomething(1)
+		attackedBySomething(0, 1, null)
 	if (elemental_state.getTemporalState() == "IntenseFire"):
-		attackedBySomething(1 * 2)
+		attackedBySomething(0, 2, null)
+
+func _on_knockback_timer_timeout():
+	knockback = Vector2.ZERO

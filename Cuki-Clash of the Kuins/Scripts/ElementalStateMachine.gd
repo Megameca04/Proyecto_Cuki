@@ -26,6 +26,7 @@ func contactWithWater():
 		movementState = "None"
 	if (timedState == "Venom" || timedState == "Fire" || timedState == "IntenseFire"):
 		timedState = "None"
+		elemental_timer.stop()
 
 func contactWithTemporalState(elementalEvent):
 	if (timedState == "None"):

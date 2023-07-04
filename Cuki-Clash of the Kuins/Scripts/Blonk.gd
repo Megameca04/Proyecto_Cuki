@@ -23,6 +23,7 @@ func _ready():
 func _process(delta):
 	animationFace()
 	blonkBehaviour()
+	$Label.text = "TS: "+elemental_state.getTemporalState()+"\nMS: "+elemental_state.getMovementState()+"\nTl: "+str(elemental_state.elemental_timer.get_time_left())
 
 func _physics_process(delta):
 	blonkMovement()

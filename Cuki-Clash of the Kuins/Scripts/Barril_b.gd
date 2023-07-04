@@ -37,6 +37,5 @@ func blow_up():
 	expl.add_to_group("expl_attack")
 	expl.global_position = self.global_position
 	call_deferred("add_sibling",expl)
-	expl.element_appear(elementName)
 	queue_free()
 	

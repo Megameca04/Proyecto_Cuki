@@ -100,7 +100,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.116853, 0.519997, 0, 1)
 
-[sub_resource type="Theme" id="Theme_omgje"]
+[sub_resource type="Theme" id="Theme_ne4p0"]
 resource_local_to_scene = true
 ProgressBar/fonts/font = null
 ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
@@ -124,22 +124,20 @@ libraries = {
 }
 
 [node name="VisionField" type="Area2D" parent="."]
-collision_layer = 7
-collision_mask = 7
+collision_layer = 2
+collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VisionField"]
 shape = SubResource("CircleShape2D_7ydt5")
 
 [node name="AttackArea" type="Area2D" parent="."]
-collision_layer = 7
-collision_mask = 7
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
 shape = SubResource("CircleShape2D_jf8a7")
 
 [node name="Hitbox" type="Area2D" parent="."]
-collision_layer = 7
-collision_mask = 7
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_j4u7k")
@@ -153,11 +151,12 @@ offset_left = -16.0
 offset_top = -40.0
 offset_right = 24.0
 offset_bottom = -32.0
-theme = SubResource("Theme_omgje")
+theme = SubResource("Theme_ne4p0")
 
 [node name="Hide_timer" type="Timer" parent="."]
 
 [node name="Knockback_timer" type="Timer" parent="."]
+wait_time = 0.3
 
 [node name="AttackSpawner" type="Node2D" parent="."]
 
