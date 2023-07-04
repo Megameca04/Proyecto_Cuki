@@ -57,6 +57,7 @@ position = Vector2(237, 873)
 
 [node name="Chooty2" parent="." instance=ExtResource("3_3eqnr")]
 position = Vector2(-71, 1008)
+element_attack_name = "Flame"
 
 [node name="Cuki" parent="." instance=ExtResource("1")]
 position = Vector2(7, 873)

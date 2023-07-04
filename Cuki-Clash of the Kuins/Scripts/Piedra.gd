@@ -18,10 +18,16 @@ func _ready():
 
 func _physics_process(delta):
 	move_and_slide()
+	if (ele != null):
+		ele.position = self.position
 	
 	if global_position.distance_to(objective_position) <= 2:
+		if (ele != null):
+			ele.queue_free()
 		self.queue_free()
 	if is_on_wall():
+		if (ele != null):
+			ele.queue_free()
 		self.queue_free()
 	
 
@@ -34,3 +40,11 @@ func anim_y():
 	$Sprite2D.position.y = -100*(percent) + 100*pow(percent,2)
 	if percent > 0.9:
 		$Area2D/CollisionShape2D.disabled = false
+
+func createElementalEffect(effName):
+	ele = ELEMENTEFFECT.instantiate()
+	if (effName != ""):
+		ele.name = effName
+	ele.add_to_group("Piedra")
+	ele.global_position = self.global_position
+	call_deferred("add_sibling", ele)

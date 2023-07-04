@@ -182,7 +182,8 @@ func attack(delta):
 
 func attackedBySomething(knockbackForce, healthLost, something):
 	next_state = STATES.hurt
-	knockback -= knockbackForce*Vector2(cos(get_angle_to(something.position)),sin(get_angle_to(something.position)))
+	if (something != null):
+		knockback -= knockbackForce*Vector2(cos(get_angle_to(something.position)),sin(get_angle_to(something.position)))
 	$Knockback_timer.start()
 	$Health_bar.show()
 	health.current -= healthLost

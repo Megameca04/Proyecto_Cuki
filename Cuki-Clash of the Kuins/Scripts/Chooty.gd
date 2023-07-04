@@ -97,6 +97,7 @@ func shoot_stone():
 		if Cuki != null:
 			stone.objective_position = Cuki.global_position
 		call_deferred("add_sibling",stone)
+		stone.createElementalEffect(element_attack_name)
 
 func defeat():
 	self.queue_free()
@@ -132,7 +133,8 @@ func _on_hitbox_area_entered(area):
 		attackedBySomething(1)
 	if area.is_in_group("expl_attack") || area.is_in_group("expl_bun"):
 		attackedBySomething(3)
-	elemental_state.contactWithElement(area.name)
+	if !area.is_in_group("Piedra"):
+		elemental_state.contactWithElement(area.name)
 	if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):
 		attackedBySomething(1)
 
