@@ -1,10 +1,8 @@
 res://default_env.tres
+res://Objetos/ElementalState.tscn
+res://Shaders/PiedraFuego.gdshader
 res://Entidades/Piedra.tscn
-res://Scripts/Piedra.gd
-res://Scripts/Chooty.gd
 res://Pruebas.tscn
 res://Entidades/Cuki.tscn
 res://Entidades/Rabion.tscn
 res://Entidades/Explosion.tscn
-res://Objetos/ElementalState.tscn
-res://Scripts/Cuki.gd
