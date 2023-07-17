@@ -1,6 +1,9 @@
+AnimationPlayer
+ColorRect
 CollisionShape2D
-Sprite2D
 Area2D
+Sprite2D
+StaticBody2D
 TileMap
 Camera2D
 Label
@@ -8,7 +11,6 @@ Marker2D
 CharacterBody2D
 Timer
 RayCast2D
-AnimationPlayer
 Node2D
 Node
 CanvasLayer
