@@ -32,7 +32,8 @@ func _physics_process(delta):
 	
 
 func _process(delta):
-	anim_y()
+	if (ele.name != "Shock"):
+		anim_y()
 
 func anim_y():
 	var percent = (in_distance - global_position.distance_to(objective_position))/in_distance

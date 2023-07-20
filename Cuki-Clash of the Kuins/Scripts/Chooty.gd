@@ -99,6 +99,9 @@ func shoot_stone():
 		call_deferred("add_sibling",stone)
 		stone.createElementalEffect(element_attack_name)
 
+func shoot_ray_tar():
+	pass
+
 func defeat():
 	self.queue_free()
 
