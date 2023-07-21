@@ -7,6 +7,7 @@ var in_distance = 0
 const ELEMENTEFFECT = preload("res://Objetos/Element.tscn")
 var ele = null
 var Cuki = null
+@onready var aliveTimer = $AliveTimer
 
 var speed = 200
 
@@ -14,6 +15,7 @@ func _ready():
 	if (ele.name != "Shock"):
 		movement = global_position.direction_to(objective_position)
 	else:
+		aliveTimer.start()
 		if (Cuki != null):
 			movement = global_position.direction_to(Cuki.global_position)
 	
@@ -68,3 +70,10 @@ func _on_area_2d_body_entered(body):
 		if (ele.name == "Shock"):
 			if (body.name == "Cuki"):
 				Cuki = body
+
+
+func _on_alive_timer_timeout():
+	if (ele != null):
+		if (ele.name == "Shock"):
+			ele.queue_free()
+			self.queue_free()
