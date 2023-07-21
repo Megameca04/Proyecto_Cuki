@@ -95,7 +95,10 @@ func shoot_stone():
 		var stone = STONE.instantiate()
 		stone.global_position = global_position
 		if Cuki != null:
-			stone.objective_position = Cuki.global_position
+			if element_attack_name != "Shock":
+				stone.objective_position = Cuki.global_position
+			else:
+				stone.Cuki = Cuki
 		call_deferred("add_sibling",stone)
 		stone.createElementalEffect(element_attack_name)
 

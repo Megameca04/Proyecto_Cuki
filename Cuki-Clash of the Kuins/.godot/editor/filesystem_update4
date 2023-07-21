@@ -1,10 +1,10 @@
 res://default_env.tres
-res://Entidades/Chooty.tscn
-res://Scripts/Chooty.gd
-res://Entidades/Piedra.tscn
-res://Scripts/Piedra.gd
 res://Pruebas.tscn
 res://Entidades/Cuki.tscn
 res://Entidades/Rabion.tscn
 res://Entidades/Explosion.tscn
 res://Objetos/ElementalState.tscn
+res://Entidades/Piedra.tscn
+res://Entidades/Chooty.tscn
+res://Scripts/Piedra.gd
+res://Scripts/Chooty.gd

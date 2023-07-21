@@ -6,11 +6,16 @@ var in_distance = 0
 
 const ELEMENTEFFECT = preload("res://Objetos/Element.tscn")
 var ele = null
+var Cuki = null
 
 var speed = 200
 
 func _ready():
-	movement = global_position.direction_to(objective_position)
+	if (ele.name != "Shock"):
+		movement = global_position.direction_to(objective_position)
+	else:
+		if (Cuki != null):
+			movement = global_position.direction_to(Cuki.global_position)
 	
 	in_distance = global_position.distance_to(objective_position)
 	
@@ -20,6 +25,13 @@ func _physics_process(delta):
 	move_and_slide()
 	if (ele != null):
 		ele.position = self.position
+		if (ele.name == "Shock"):
+			if (Cuki != null):
+				movement = global_position.direction_to(Cuki.global_position)
+				set_velocity(movement*speed)
+				if global_position.distance_to(Cuki.global_position) <= 2:
+					ele.queue_free()
+					self.queue_free()
 	
 	if global_position.distance_to(objective_position) <= 2:
 		if (ele != null):
@@ -49,3 +61,10 @@ func createElementalEffect(effName):
 	ele.add_to_group("Piedra")
 	ele.global_position = self.global_position
 	call_deferred("add_sibling", ele)
+
+
+func _on_area_2d_body_entered(body):
+	if (ele != null):
+		if (ele.name == "Shock"):
+			if (body.name == "Cuki"):
+				Cuki = body
