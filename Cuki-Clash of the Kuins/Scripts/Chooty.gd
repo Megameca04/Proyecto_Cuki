@@ -92,15 +92,18 @@ func stateAndAnimationChange(chootyState):
 
 func shoot_stone():
 	if elemental_state.getMovementState() != "Paralyzed" && elemental_state.getMovementState() != "Frozen":
-		var stone = STONE.instantiate()
-		stone.global_position = global_position
-		if Cuki != null:
-			if element_attack_name != "Shock":
-				stone.objective_position = Cuki.global_position
-			else:
-				stone.Cuki = Cuki
-		call_deferred("add_sibling",stone)
-		stone.createElementalEffect(element_attack_name)
+		var rocks = 0
+		while (rocks < 4): # Hacer que este while solo este en el efecto hielo
+			var stone = STONE.instantiate()
+			stone.global_position = global_position
+			if Cuki != null:
+				if element_attack_name != "Shock":
+					stone.objective_position = Cuki.global_position + rocks * 4
+				else:
+					stone.Cuki = Cuki
+			call_deferred("add_sibling",stone)
+			stone.createElementalEffect(element_attack_name)
+			rocks += 1
 
 func shoot_ray_tar():
 	pass
