@@ -92,18 +92,43 @@ func stateAndAnimationChange(chootyState):
 
 func shoot_stone():
 	if elemental_state.getMovementState() != "Paralyzed" && elemental_state.getMovementState() != "Frozen":
-		var rocks = 0
-		while (rocks < 4): # Hacer que este while solo este en el efecto hielo
-			var stone = STONE.instantiate()
-			stone.global_position = global_position
-			if Cuki != null:
-				if element_attack_name != "Shock":
-					stone.objective_position = Cuki.global_position + rocks * 4
-				else:
-					stone.Cuki = Cuki
+		if element_attack_name == "Shock":
+			shock_stone()
+			return
+		if element_attack_name == "Freeze":
+			ice_stones()
+			return
+		if element_attack_name == "Tar":
+			shoot_ray_tar()
+			return
+		normal_stone()
+
+func normal_stone():
+	var stone = STONE.instantiate()
+	stone.global_position = global_position
+	if Cuki != null:
+		stone.objective_position = Cuki.global_position
+		call_deferred("add_sibling",stone)
+		stone.createElementalEffect(element_attack_name)
+
+func ice_stones():
+	var rocks = 0
+	while (rocks < 4):
+		var stone = STONE.instantiate()
+		stone.global_position = global_position
+		if Cuki != null:
+			stone.objective_position = Cuki.global_position * rocks
 			call_deferred("add_sibling",stone)
 			stone.createElementalEffect(element_attack_name)
 			rocks += 1
+
+func shock_stone():
+	var stone = STONE.instantiate()
+	stone.global_position = global_position
+	if Cuki != null:
+		stone.Cuki = Cuki
+		call_deferred("add_sibling",stone)
+		stone.createElementalEffect(element_attack_name)
 
 func shoot_ray_tar():
 	pass
