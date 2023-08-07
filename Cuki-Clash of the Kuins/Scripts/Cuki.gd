@@ -232,7 +232,6 @@ func _on_Anim_Sprite_animation_finished(anim_name):
 			charge = 0
 			var gs = GROUND_SLAM.instantiate()
 			gs.name = "None"
-			gs.element_appear("None")
 			gs.global_position = self.global_position
 			gs.add_to_group("Cuki_ground_slam")
 			gs.add_to_group("expl_attack")

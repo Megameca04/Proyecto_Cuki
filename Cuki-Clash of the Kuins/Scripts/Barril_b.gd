@@ -27,14 +27,13 @@ func _on_hitbox_area_entered(area):
 	if area.is_in_group("expl_attack"):
 		blow_up()
 
-func _on_hitbox_body_entered(body):
+func _on_hitbox_body_entered(_body):
 	if !still:
 		blow_up()
 
 func blow_up():
 	var expl = EXPL.instantiate()
 	expl.name = elementName
-	expl.add_to_group("expl_attack")
 	expl.global_position = self.global_position
 	call_deferred("add_sibling",expl)
 	queue_free()

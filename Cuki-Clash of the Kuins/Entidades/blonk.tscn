@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://gg8rb8xhhwk5"]
+[gd_scene load_steps=16 format=3]
 
 [ext_resource type="Script" path="res://Scripts/Blonk.gd" id="1_dscac"]
 [ext_resource type="Texture2D" uid="uid://uulcfvlwm8yg" path="res://Sprites/Enemigos/Blonk.png" id="1_vuri7"]
@@ -84,7 +84,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.116853, 0.519997, 0, 1)
 
-[sub_resource type="Theme" id="Theme_ign11"]
+[sub_resource type="Theme" id="Theme_2p77v"]
 resource_local_to_scene = true
 ProgressBar/fonts/font = null
 ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
@@ -120,6 +120,7 @@ shape = SubResource("CircleShape2D_r1kvj")
 [node name="AttackArea" type="Area2D" parent="."]
 position = Vector2(8, 8)
 scale = Vector2(10.9498, 10.5672)
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
 shape = SubResource("CircleShape2D_dq2lq")
@@ -141,7 +142,7 @@ offset_left = -16.0
 offset_top = -40.0
 offset_right = 24.0
 offset_bottom = -32.0
-theme = SubResource("Theme_ign11")
+theme = SubResource("Theme_2p77v")
 
 [node name="Pause_attack_timer" type="Timer" parent="."]
 wait_time = 2.051

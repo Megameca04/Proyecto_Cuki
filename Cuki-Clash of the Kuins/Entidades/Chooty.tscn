@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bo8b3iunrn026"]
+[gd_scene load_steps=15 format=3 uid="uid://frqnus88mbbb"]
 
 [ext_resource type="Script" path="res://Scripts/Chooty.gd" id="1_3j4sc"]
 [ext_resource type="Texture2D" uid="uid://ljpm51y6y4aw" path="res://Sprites/Enemigos/Chooty.png" id="1_xv04k"]
@@ -81,7 +81,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.116853, 0.519997, 0, 1)
 
-[sub_resource type="Theme" id="Theme_hhi8s"]
+[sub_resource type="Theme" id="Theme_oo2l8"]
 resource_local_to_scene = true
 ProgressBar/fonts/font = null
 ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
@@ -133,10 +133,10 @@ offset_left = -32.0
 offset_top = -56.0
 offset_right = 32.0
 offset_bottom = -40.0
-theme = SubResource("Theme_hhi8s")
+theme = SubResource("Theme_oo2l8")
 
 [node name="Salud" parent="." instance=ExtResource("4_wc8xc")]
-max_amount = 10
+max_amount = 3
 
 [node name="Label" type="Label" parent="."]
 offset_right = 40.0
