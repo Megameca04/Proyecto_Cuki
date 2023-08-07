@@ -2,3 +2,5 @@ res://default_env.tres
 res://Pruebas.tscn
 res://Tileset/Cueva.tres
 res://Entidades/Chooty.tscn
+res://Entidades/Puerta.tscn
+res://Entidades/Palanca.tscn

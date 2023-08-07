@@ -55,7 +55,7 @@ colorhex = "00ff00"
 position = Vector2(11, -9.53674e-06)
 scale = Vector2(1.6875, 1.70833)
 texture = ExtResource("2_oj2g2")
-hframes = 4
+hframes = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_tpxnq")
