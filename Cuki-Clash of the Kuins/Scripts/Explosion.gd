@@ -7,9 +7,13 @@ var ele = null
 func element_appear(effName):
 	ele = ELEMENTEFFECT.instantiate()
 	ele.name = effName
+	ele.set_element_name(effName)
 	ele.add_to_group("elements")
 	ele.global_position = self.global_position
 	call_deferred("add_sibling", ele)
+
+func get_element():
+	return ele.get_element_name()
 
 func _ready():
 	color_changer(ele.name)

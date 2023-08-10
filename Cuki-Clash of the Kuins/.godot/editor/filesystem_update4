@@ -6,4 +6,9 @@ res://Entidades/Rabion.tscn
 res://Entidades/Explosion.tscn
 res://Objetos/ElementalState.tscn
 res://Entidades/Chooty.tscn
+res://Objetos/Element.tscn
+res://Objetos/Element.gd
+res://Scripts/Explosion.gd
 res://Scripts/Chooty.gd
+res://Scripts/Blonk.gd
+res://Entidades/Cuki.tscn
