@@ -98,9 +98,6 @@ func shoot_stone():
 		if element_attack_name == "Freeze":
 			ice_stones()
 			return
-		if element_attack_name == "Tar":
-			shoot_ray_tar()
-			return
 		normal_stone()
 
 func normal_stone():

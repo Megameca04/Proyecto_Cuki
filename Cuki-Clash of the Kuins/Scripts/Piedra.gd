@@ -5,6 +5,7 @@ var movement = Vector2.ZERO
 var in_distance = 0
 
 const ELEMENTEFFECT = preload("res://Objetos/Element.tscn")
+const EXPL = preload("res://Entidades/Explosion.tscn")
 var ele = null
 var Cuki = null
 @onready var aliveTimer = $AliveTimer
@@ -21,7 +22,10 @@ func _ready():
 	
 	in_distance = global_position.distance_to(objective_position)
 	
-	set_velocity(movement*speed)
+	if (ele.name == "Tar"):
+		set_velocity(movement*(speed/2))
+	else:
+		set_velocity(movement*speed)
 
 func _physics_process(delta):
 	move_and_slide()
@@ -37,10 +41,14 @@ func _physics_process(delta):
 	
 	if global_position.distance_to(objective_position) <= 2:
 		if (ele != null):
+			if (ele.name == "Tar"):
+				blow_up()
 			ele.queue_free()
 		self.queue_free()
 	if is_on_wall():
 		if (ele != null):
+			if (ele.name == "Tar"):
+				blow_up()
 			ele.queue_free()
 		self.queue_free()
 	
@@ -64,6 +72,15 @@ func createElementalEffect(effName):
 	ele.global_position = self.global_position
 	call_deferred("add_sibling", ele)
 
+func blow_up():
+	var expl = EXPL.instantiate()
+	expl.name = ele.name
+	expl.add_to_group("expl_attack")
+	expl.global_position = self.global_position
+	call_deferred("add_sibling",expl)
+	expl.element_appear(ele.name)
+	self.queue_free()
+
 
 func _on_area_2d_body_entered(body):
 	if (ele != null):
@@ -77,3 +94,6 @@ func _on_alive_timer_timeout():
 		if (ele.name == "Shock"):
 			ele.queue_free()
 			self.queue_free()
+		if (ele.name == "Tar"):
+			blow_up()
+			
