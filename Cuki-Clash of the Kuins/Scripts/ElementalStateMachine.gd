@@ -16,6 +16,15 @@ func contactWithElement(elementalEvent):
 	if (elementalEvent == "Tar" || elementalEvent == "Shock"):
 		contactWithMovementState(elementalEvent)
 
+func contactWithElementGroup(elementalGroup):
+	for i in elementalGroup:
+		if (elementalGroup[i] == "Water"):
+			contactWithWater()
+		if (elementalGroup[i] == "Poison" || elementalGroup[i] == "Flame" || elementalGroup[i] == "Freeze"):
+			contactWithTemporalState(elementalGroup[i])
+		if (elementalGroup[i] == "Tar" || elementalGroup[i] == "Shock"):
+			contactWithMovementState(elementalGroup[i])
+
 func contactWithWater():
 	if (timedState == "Ice" && movementState != "Paralyzed" && movementState != "Tar"):
 		timedState = "None"
