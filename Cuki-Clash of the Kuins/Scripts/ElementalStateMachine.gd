@@ -17,7 +17,7 @@ func contactWithElement(elementalEvent):
 		contactWithMovementState(elementalEvent)
 
 func contactWithElementGroup(elementalGroup):
-	for i in elementalGroup:
+	for i in range(0, elementalGroup.size()):
 		if (elementalGroup[i] == "Water"):
 			contactWithWater()
 		if (elementalGroup[i] == "Poison" || elementalGroup[i] == "Flame" || elementalGroup[i] == "Freeze"):

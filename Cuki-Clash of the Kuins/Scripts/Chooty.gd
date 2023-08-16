@@ -165,7 +165,8 @@ func _on_hitbox_area_entered(area):
 	if area.is_in_group("expl_attack") || area.is_in_group("expl_bun"):
 		attackedBySomething(3)
 	if !area.is_in_group("Piedra"):
-		elemental_state.contactWithElement(area.name)
+		# elemental_state.contactWithElement(area.name)
+		elemental_state.contactWithElementGroup(area.get_groups())
 	if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):
 		attackedBySomething(1)
 

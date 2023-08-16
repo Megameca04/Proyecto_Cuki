@@ -75,6 +75,7 @@ func createElementalEffect(effName):
 		ele.name = effName
 		ele.set_element_name(effName)
 	ele.add_to_group("Piedra")
+	ele.add_to_group(effName)
 	ele.global_position = self.global_position
 	call_deferred("add_sibling", ele)
 
