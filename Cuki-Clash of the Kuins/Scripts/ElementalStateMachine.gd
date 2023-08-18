@@ -42,6 +42,10 @@ func contactWithWater():
 		timedState = "Wet"
 		elemental_timer.set_wait_time(elemental_timer_time)
 		elemental_timer.start()
+	if (movementState == "Paralyzed"):
+		timedState = "Electroshocked"
+		elemental_timer.set_wait_time(elemental_timer_time)
+		elemental_timer.start()
 
 func contactWithTemporalState(elementalEvent):
 	if (timedState == "None"):
@@ -76,6 +80,8 @@ func contactWithMovementState(elementalEvent):
 				movementState = "Tar"
 		if (elementalEvent == "Shock"):
 			movementState = "Paralyzed"
+			if (timedState == "Wet"):
+				timedState = "Electroshocked"
 		elemental_timer.set_wait_time(elemental_timer_time)
 		elemental_timer.start()
 
