@@ -1,14 +1,3 @@
 res://default_env.tres
-res://Entidades/Explosion.tscn
-res://Scripts/Explosion.gd
-res://Scripts/Piedra.gd
-res://Entidades/Cuki.tscn
-res://Scripts/Cuki.gd
-res://Entidades/Chooty.tscn
-res://Scripts/Chooty.gd
-res://Scripts/Blonk.gd
-res://Scripts/ExplosiveEater.gd
-res://Pruebas.tscn
 res://Objetos/ElementalState.tscn
-res://Objetos/Element.tscn
 res://Scripts/ElementalStateMachine.gd

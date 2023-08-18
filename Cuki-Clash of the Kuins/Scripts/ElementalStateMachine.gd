@@ -31,14 +31,21 @@ func contactWithWater():
 		movementState = "Frozen"
 		elemental_timer.set_wait_time(elemental_timer_time)
 		elemental_timer.start()
+		return
 	if (movementState == "Tar"):
 		movementState = "None"
+		return
 	if (timedState == "Venom" || timedState == "Fire" || timedState == "IntenseFire"):
 		timedState = "None"
+		return
+	if (timedState == "None"):
+		timedState = "Wet"
+		elemental_timer.set_wait_time(elemental_timer_time)
+		elemental_timer.start()
 
 func contactWithTemporalState(elementalEvent):
 	if (timedState == "None"):
-		if (elementalEvent == "Poison"):
+		if (elementalEvent == "Poison" && timedState != "Wet"):
 			timedState = "Venom"
 		if (elementalEvent == "Flame"):
 			timedState = "Fire"
@@ -50,6 +57,10 @@ func contactWithTemporalState(elementalEvent):
 				return
 		if (elementalEvent == "Freeze"):
 			timedState = "Ice"
+		elemental_timer.set_wait_time(elemental_timer_time)
+		elemental_timer.start()
+	if (timedState == "Wet" && elementalEvent == "Freeze"):
+		timedState = "Frozen"
 		elemental_timer.set_wait_time(elemental_timer_time)
 		elemental_timer.start()
 
