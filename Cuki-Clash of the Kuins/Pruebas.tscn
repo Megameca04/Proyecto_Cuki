@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cep4oemi8n8dk"]
+[gd_scene load_steps=11 format=3 uid="uid://cep4oemi8n8dk"]
 
 [ext_resource type="PackedScene" uid="uid://b1qp8t0uk54ou" path="res://Entidades/Cuki.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://cty4jbpf7flme" path="res://Entidades/Barril_b.tscn" id="3_l2s6e"]
@@ -9,13 +9,14 @@
 [ext_resource type="PackedScene" uid="uid://frqnus88mbbb" path="res://Entidades/Chooty.tscn" id="7_spxc7"]
 [ext_resource type="PackedScene" uid="uid://dwf5l2rmoctp3" path="res://Entidades/Puerta.tscn" id="8_53glx"]
 [ext_resource type="PackedScene" uid="uid://b5kwgau0s81tb" path="res://Entidades/Palanca.tscn" id="9_s3a5c"]
+[ext_resource type="PackedScene" uid="uid://burlcxw7l5brg" path="res://Entidades/Bateria.tscn" id="10_sde7b"]
 
 [node name="Node2D" type="Node2D"]
 y_sort_enabled = true
 texture_filter = 1
 
 [node name="Cuki" parent="." instance=ExtResource("1")]
-position = Vector2(16, 1248)
+position = Vector2(80, 336)
 
 [node name="Camera2D" type="Camera2D" parent="Cuki"]
 zoom = Vector2(1.5, 1.5)
@@ -38,6 +39,10 @@ motion_mode = 1
 
 [node name="Barril_b" parent="." instance=ExtResource("3_l2s6e")]
 position = Vector2(768, 640)
+
+[node name="Barril_b7" parent="." instance=ExtResource("3_l2s6e")]
+position = Vector2(128, 336)
+elementName = "Shock"
 
 [node name="Barril_b2" parent="." instance=ExtResource("3_l2s6e")]
 position = Vector2(848, 752)
@@ -77,3 +82,12 @@ rotation = 4.71239
 
 [node name="Palanca" parent="." instance=ExtResource("9_s3a5c")]
 position = Vector2(112, 688)
+
+[node name="Puerta2" parent="." instance=ExtResource("8_53glx")]
+position = Vector2(464, 192)
+rotation = 3.14159
+colorhex = "CC99FF"
+
+[node name="Bateria" parent="." instance=ExtResource("10_sde7b")]
+position = Vector2(320, 336)
+colorhex = "CC99FF"

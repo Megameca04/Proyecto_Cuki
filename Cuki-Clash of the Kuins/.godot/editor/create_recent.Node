@@ -1,6 +1,6 @@
-Label
 Timer
 ProgressBar
+Label
 GPUParticles2D
 CollisionShape2D
 Area2D
