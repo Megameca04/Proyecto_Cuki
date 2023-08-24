@@ -17,7 +17,8 @@ func get_element():
 	return ele.get_element_name()
 
 func _ready():
-	color_changer(ele.name)
+	if (ele != null):
+		color_changer(ele.get_element_name())
 
 func _on_animation_player_animation_finished(_anim_name):
 	if (ele != null):

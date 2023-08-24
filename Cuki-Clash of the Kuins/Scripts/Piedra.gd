@@ -43,16 +43,18 @@ func _physics_process(delta):
 	
 	if global_position.distance_to(objective_position) <= 2:
 		if (ele != null):
-			if (ele.get_element_name() != "Tar"):
+			if (ele.get_element_name() != "Tar" && ele.get_element_name() != "Water"):
 				ele.queue_free()
 				self.queue_free()
-			else:
+			if (ele.get_element_name() == "Tar"):
 				if (!reachedObjective):
 					reachedObjective = true
 					aliveTimer.start()
+			if (ele.get_element_name() == "Water"):
+				blow_up()
 	if is_on_wall():
 		if (ele != null):
-			if (ele.get_element_name() == "Tar"):
+			if (ele.get_element_name() == "Tar" || ele.get_element_name() == "Water"):
 				blow_up()
 			ele.queue_free()
 		self.queue_free()
@@ -92,9 +94,12 @@ func blow_up():
 
 func _on_area_2d_body_entered(body):
 	if (ele != null):
-		if (ele.name == "Shock"):
+		if (ele.get_element_name() == "Shock"):
 			if (body.name == "Cuki"):
 				Cuki = body
+		if (ele.get_element_name() == "Water"):
+			if (body.name == "Cuki"):
+				blow_up()
 
 
 func _on_alive_timer_timeout():
