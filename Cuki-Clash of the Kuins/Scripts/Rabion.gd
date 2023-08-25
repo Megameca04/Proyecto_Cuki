@@ -131,6 +131,8 @@ func _on_elemental_state_temporal_damage():
 		health.current -= 1 
 	if (elemental_state.getTemporalState() == "IntenseFire"):
 		health.current -= 1 * 2
+	if (elemental_state.getTemporalState() == "Electroshocked"):
+		health.current -= 1
 
 func _on_hitbox_body_entered(body):
 	if body.name == "Cuki":

@@ -255,6 +255,8 @@ func _on_elemental_state_temporal_damage():
 		attackedBySomething(0, 1, null)
 	if (elemental_state.getTemporalState() == "IntenseFire"):
 		attackedBySomething(0, 1 * 2, null)
+	if (elemental_state.getTemporalState() == "Electroshocked"):
+		attackedBySomething(0, 1, null)
 
 func _on_knockback_timer_timeout():
 	if current_state == STATES.hurt:

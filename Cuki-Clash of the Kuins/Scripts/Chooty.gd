@@ -175,3 +175,5 @@ func _on_elemental_state_temporal_damage():
 		attackedBySomething(1)
 	if (elemental_state.getTemporalState() == "IntenseFire"):
 		attackedBySomething(1 * 2)
+	if (elemental_state.getTemporalState() == "Electroshocked"):
+		attackedBySomething(1)

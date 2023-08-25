@@ -120,6 +120,8 @@ func _on_pause_attack_timer_timeout():
 
 func _on_elemental_state_temporal_damage():
 	if (elemental_state.getTemporalState() == "Fire"):
-		health.current -= 1 
+		attackedBySomething(1)
 	if (elemental_state.getTemporalState() == "IntenseFire"):
-		health.current -= 1 * 2
+		attackedBySomething(1 * 2)
+	if (elemental_state.getTemporalState() == "Electroshocked"):
+		attackedBySomething(1)
