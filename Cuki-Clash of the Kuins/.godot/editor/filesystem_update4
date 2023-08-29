@@ -1,6 +1,13 @@
 res://default_env.tres
-res://Pruebas.tscn
+res://Entidades/Palanca.tscn
 res://Tileset/Cueva.tres
+res://Scripts/Palanca.gd
+res://Entidades/Antorcha.tscn
+res://Scripts/Antorcha.gd
+res://Scripts/Bateria.gd
+res://Entidades/Bloque_hielo.tscn
 res://Entidades/Bateria.tscn
+res://Scripts/Bloque_hielo.gd
+res://Pruebas.tscn
 res://Entidades/Cuki.tscn
-res://Objetos/ElementalState.tscn
+res://Entidades/Barril_b.tscn

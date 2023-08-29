@@ -456,7 +456,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.116853, 0.519997, 0, 1)
 
-[sub_resource type="Theme" id="Theme_mrcn6"]
+[sub_resource type="Theme" id="Theme_2xpgg"]
 resource_local_to_scene = true
 ProgressBar/fonts/font = null
 ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
@@ -487,7 +487,7 @@ damping_max = 2.0
 y_sort_enabled = true
 texture_filter = 1
 scale = Vector2(1.5, 1.5)
-collision_mask = 6
+collision_mask = 22
 motion_mode = 1
 script = ExtResource("1")
 
@@ -551,7 +551,7 @@ offset_left = -17.5
 offset_top = -38.3333
 offset_right = 15.5
 offset_bottom = -32.3333
-theme = SubResource("Theme_mrcn6")
+theme = SubResource("Theme_2xpgg")
 
 [node name="Knockback_timer" type="Timer" parent="."]
 wait_time = 0.1
