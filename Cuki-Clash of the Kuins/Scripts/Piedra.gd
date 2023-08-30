@@ -91,16 +91,16 @@ func blow_up():
 	ele.queue_free()
 	self.queue_free()
 
+func crashed():
+	if (ele != null):
+		if (ele.get_element_name() == "Water" || ele.get_element_name() == "Tar"):
+			blow_up()
 
 func _on_area_2d_body_entered(body):
 	if (ele != null):
-		if (ele.get_element_name() == "Shock"):
-			if (body.name == "Cuki"):
+		if (body.name == "Cuki"):
+			if (ele.get_element_name() == "Shock"):
 				Cuki = body
-		if (ele.get_element_name() == "Water"):
-			if (body.name == "Cuki"):
-				blow_up()
-
 
 func _on_alive_timer_timeout():
 	if (ele != null):
@@ -109,4 +109,10 @@ func _on_alive_timer_timeout():
 			self.queue_free()
 		if (ele.get_element_name() == "Tar"):
 			blow_up()
-			
+
+
+func _on_area_2d_area_entered(area):
+	if (area.name == "Hitbox"):
+		if (ele != null):
+			if (ele.get_element_name() == "Water" || ele.get_element_name() == "Tar"):
+				blow_up()
