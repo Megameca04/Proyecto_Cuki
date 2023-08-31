@@ -110,9 +110,9 @@ func _on_alive_timer_timeout():
 		if (ele.get_element_name() == "Tar"):
 			blow_up()
 
-
 func _on_area_2d_area_entered(area):
 	if (area.name == "Hitbox"):
-		if (ele != null):
-			if (ele.get_element_name() == "Water" || ele.get_element_name() == "Tar"):
-				blow_up()
+		if (area.get_parent().name == "Cuki"):
+			if (ele != null):
+				if (ele.get_element_name() == "Water" || ele.get_element_name() == "Tar"):
+					blow_up()
