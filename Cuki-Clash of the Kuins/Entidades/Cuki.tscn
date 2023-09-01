@@ -456,7 +456,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.116853, 0.519997, 0, 1)
 
-[sub_resource type="Theme" id="Theme_uiuyw"]
+[sub_resource type="Theme" id="Theme_n8iow"]
 resource_local_to_scene = true
 ProgressBar/fonts/font = null
 ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
@@ -529,7 +529,7 @@ hframes = 3
 frame = 1
 
 [node name="Hitbox" type="Area2D" parent="."]
-collision_mask = 10
+collision_mask = 14
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("9")
@@ -551,7 +551,7 @@ offset_left = -17.5
 offset_top = -38.3333
 offset_right = 15.5
 offset_bottom = -32.3333
-theme = SubResource("Theme_uiuyw")
+theme = SubResource("Theme_n8iow")
 
 [node name="Knockback_timer" type="Timer" parent="."]
 wait_time = 0.1

@@ -8,7 +8,8 @@ const ELEMENTEFFECT = preload("res://Objetos/Element.tscn")
 const EXPL = preload("res://Entidades/Explosion.tscn")
 var ele = null
 var Cuki = null
-var reachedObjective = false
+#var reachedObjective = false
+
 @onready var aliveTimer = $AliveTimer
 
 var speed = 200
@@ -23,14 +24,14 @@ func _ready():
 	
 	in_distance = global_position.distance_to(objective_position)
 	
-	if (ele.get_element_name() == "Tar"):
-		set_velocity(movement*(speed/2))
-	else:
-		set_velocity(movement*speed)
+	# if (ele.get_element_name() == "Tar"):
+		#set_velocity(movement*(speed/2))
+	#else:
+	set_velocity(movement*speed)
 
 func _physics_process(delta):
-	if (!reachedObjective):
-		move_and_slide()
+	#if (!reachedObjective):
+	move_and_slide()
 	if (ele != null):
 		ele.position = self.position
 		if (ele.get_element_name() == "Shock"):
@@ -43,24 +44,27 @@ func _physics_process(delta):
 	
 	if global_position.distance_to(objective_position) <= 2:
 		if (ele != null):
-			if (ele.get_element_name() != "Tar" && ele.get_element_name() != "Water"):
+			# ele.get_element_name() != "Tar" && 
+			if (ele.get_element_name() != "Water"):
 				ele.queue_free()
 				self.queue_free()
-			if (ele.get_element_name() == "Tar"):
-				if (!reachedObjective):
-					reachedObjective = true
-					aliveTimer.start()
+			#if (ele.get_element_name() == "Tar"):
+			#	if (!reachedObjective):
+			#		reachedObjective = true
+			#		aliveTimer.start()
 			if (ele.get_element_name() == "Water"):
 				blow_up()
 	if is_on_wall():
 		if (ele != null):
-			if (ele.get_element_name() == "Tar" || ele.get_element_name() == "Water"):
+			# ele.get_element_name() == "Tar" || 
+			if (ele.get_element_name() == "Water"):
 				blow_up()
 			ele.queue_free()
 		self.queue_free()
 	
 
 func _process(delta):
+	# && ele.get_element_name() != "Tar"
 	if (ele.get_element_name() != "Shock"):
 		anim_y()
 
@@ -88,27 +92,15 @@ func blow_up():
 	expl.global_position = self.global_position
 	call_deferred("add_sibling",expl)
 	expl.element_appear(ele.get_element_name())
+	remove_from_group("Piedra")
 	ele.queue_free()
 	self.queue_free()
-
-func crashed():
-	if (ele != null):
-		if (ele.get_element_name() == "Water" || ele.get_element_name() == "Tar"):
-			blow_up()
 
 func _on_alive_timer_timeout():
 	if (ele != null):
 		if (ele.get_element_name() == "Shock"):
+			remove_from_group("Piedra")
 			ele.queue_free()
 			self.queue_free()
-		if (ele.get_element_name() == "Tar"):
-			blow_up()
-
-
-func _on_area_2d_area_entered(area):
-	if (ele != null):
-		if (area.get_parent().name == "Cuki"):
-			if (ele.get_element_name() == "Shock"):
-				Cuki = area.get_parent()
-			if (ele.get_element_name() == "Water" || ele.get_element_name() == "Tar"):
-					blow_up()
+		#if (ele.get_element_name() == "Tar"):
+		#	blow_up()

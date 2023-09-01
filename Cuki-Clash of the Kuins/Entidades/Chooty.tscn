@@ -81,7 +81,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.116853, 0.519997, 0, 1)
 
-[sub_resource type="Theme" id="Theme_ecvrp"]
+[sub_resource type="Theme" id="Theme_m52pr"]
 resource_local_to_scene = true
 ProgressBar/fonts/font = null
 ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
@@ -133,7 +133,7 @@ offset_left = -32.0
 offset_top = -56.0
 offset_right = 32.0
 offset_bottom = -40.0
-theme = SubResource("Theme_ecvrp")
+theme = SubResource("Theme_m52pr")
 
 [node name="Salud" parent="." instance=ExtResource("4_wc8xc")]
 max_amount = 3

@@ -238,9 +238,10 @@ func _on_Anim_Sprite_animation_finished(anim_name):
 			self.call_deferred("add_sibling",gs)
 
 func _on_hitbox_area_entered(area):
-	if area.is_in_group("expl_attack") and !area.is_in_group("Cuki_ground_slam"):
+	if area.is_in_group("expl_attack") and !area.is_in_group("Cuki_ground_slam") and !area.is_in_group("expl_attacked_Cuki"):
 		attackedBySomething(750, 1, area)
 		elemental_state.contactWithElement(area.name)
+		area.add_to_group("expl_attacked_Cuki")
 	if area.is_in_group("expl_blonk"):
 		attackedBySomething(750, 1, area)
 	if area.is_in_group("Piedra"):
