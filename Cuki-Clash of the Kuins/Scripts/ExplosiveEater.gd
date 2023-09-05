@@ -7,6 +7,7 @@ var barrelToGet = null
 var state = ExplosiveEaterState.Chill
 var movement = Vector2()
 var knockback = Vector2()
+var in_knockback = false
 const ATTACK = preload("res://Entidades/Explosion.tscn")
 @onready var health = $Salud
 @onready var health_bar = $ProgressBar
@@ -45,25 +46,19 @@ func stateAndAnimationChange(bunState):
 		$AnimationPlayer.play("Explode")
 
 func explosiveEaterMovement():
-	movement = Vector2.ZERO
 	if elemental_state.getMovementState() != "Paralyzed" && elemental_state.getMovementState() != "Frozen" && elemental_state.getMovementState() != "Tar":
-		match state:
-			ExplosiveEaterState.Pursuing:
-				movement = position.direction_to(Cuki.position)
-			ExplosiveEaterState.NormalRabion:
-				movement = position.direction_to(Cuki.position)
-			ExplosiveEaterState.SearchingBarrel:
-				if barrelToGet != null:
-					movement = position.direction_to(barrelToGet.position)
-				else:
-					checkClosestBarrel()
-			ExplosiveEaterState.Exploding:
-				movement = Vector2.ZERO
-		
+		if state == ExplosiveEaterState.Pursuing || state == ExplosiveEaterState.NormalRabion:
+			movement = position.direction_to(Cuki.position)
+		if state == ExplosiveEaterState.SearchingBarrel && barrelToGet != null:
+			movement = position.direction_to(barrelToGet.position)
+		if state == ExplosiveEaterState.SearchingBarrel && barrelToGet == null:
+			checkClosestBarrel()
+		if state == ExplosiveEaterState.Exploding:
+			movement = Vector2.ZERO
 		if (elemental_state.getMovementState() == "Ice"):
 			set_velocity(movement * explosiveEaterSpeed / 2 + knockback)
 		else:
-			set_velocity((movement * explosiveEaterSpeed) + knockback)
+			set_velocity(movement * explosiveEaterSpeed + knockback)
 		move_and_slide()
 		movement = velocity
 
@@ -96,9 +91,9 @@ func eatBarrel(body):
 
 func attackedBySomething(knockbackForce, healthLost, something):
 	if elemental_state.getMovementState() != "Frozen":
-		if something != null:
-			knockback = -knockbackForce*Vector2(cos(get_angle_to(something.global_position)),sin(get_angle_to(something.global_position)))
-			$Knockback_timer.start()
+		in_knockback = true
+		knockback -= knockbackForce*Vector2(cos(get_angle_to(something.position)),sin(get_angle_to(something.position)))
+		$Knockback_timer.start()
 		health_bar.show()
 		hide_timer.start()
 		if elemental_state.getMovementState() == "Venom":
@@ -134,15 +129,17 @@ func _on_hitbox_area_entered(area):
 			attackPlayer()
 		else:
 			attackedBySomething(600, 4, area)
-		
-		elemental_state.contactWithElement(area.name)
-		if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):
-			attackedBySomething(0, 1, null)
+		if area.is_in_group("Elements"):
+			# elemental_state.contactWithElement(area.name)
+			elemental_state.contactWithElementGroup(area.get_groups())
+			if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):
+				attackedBySomething(0, 1, area)
 
 func _on_hide_timer_timeout():
 	health_bar.hide()
 
 func _on_knockback_timer_timeout():
+	in_knockback = false
 	knockback = Vector2.ZERO
 
 func _on_elemental_state_temporal_damage():
@@ -150,3 +147,5 @@ func _on_elemental_state_temporal_damage():
 		attackedBySomething(0, 1, null)
 	if (elemental_state.getTemporalState() == "IntenseFire"):
 		attackedBySomething(0, 1 * 2, null)
+	if (elemental_state.getTemporalState() == "Electroshocked"):
+		attackedBySomething(0, 1, null)

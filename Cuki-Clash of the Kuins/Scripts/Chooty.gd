@@ -22,6 +22,8 @@ var movement = Vector2.ZERO
 var knockback = Vector2.ZERO
 var scape_position = Vector2.ZERO
 
+@export var element_attack_name = ""
+
 func _ready():
 	health.connect("changed",Callable(health_bar,"set_value"))
 	health.connect("max_changed",Callable(health_bar,"set_max"))
@@ -30,53 +32,49 @@ func _ready():
 
 func _process(delta):
 	chootyBehaviour()
-	if Cuki != null:
-		$Label.text = "Cuki: "+str(Cuki != null)+"\nFar away: "+str(global_position.distance_to(Cuki.global_position))+"\nState: "+str(state)+"\nScape: "+str(scape_position)
+	$Label.text = str(state)
 
 func _physics_process(delta):
 	chootyMovement()
 
 func chootyMovement():
-	if elemental_state.getMovementState() != "Paralyzed" &&elemental_state.getMovementState() != "Frozen":
-		movement = Vector2.ZERO
+	movement = Vector2.ZERO
+	
+	if scape_position != Vector2.ZERO:
 		
 		if state != ChootyState.Resting:
-			if scape_position != Vector2.ZERO:
-					if vision_raycast.is_colliding():
-						var distance_runned = abs(global_position.distance_to(scape_position)-50)
-						var new_sp = to_global(-global_position.direction_to(scape_position).orthogonal().normalized() * distance_runned)
-						scape_position = new_sp
-						vision_raycast.target_position = to_local(scape_position)
-					
-					if global_position.distance_to(scape_position) >= 10:
-						movement = (global_position.direction_to(scape_position))
-					else:
-						scape_position = Vector2.ZERO
-			else:
-				if Cuki != null:
-					if global_position.distance_to(Cuki.global_position) < 100:
-						scape_position = to_global(-position.direction_to(Cuki.position)*100)
-						vision_raycast.target_position = to_local(scape_position)
+			if vision_raycast.is_colliding():
+				var distance_runned = abs(global_position.distance_to(scape_position)-50)
+				var new_sp = to_global(-global_position.direction_to(scape_position).orthogonal().normalized() * distance_runned)
+				scape_position = new_sp
+				vision_raycast.target_position = to_local(scape_position)
 			
-		if elemental_state.getMovementState() != "Tar":
-			if elemental_state.getMovementState() == "Ice":
-				set_velocity(movement*speed/2 + knockback)
+			if global_position.distance_to(scape_position) >= 10:
+				movement = (global_position.direction_to(scape_position))*speed
 			else:
-				set_velocity(movement*speed + knockback)
-			move_and_slide()
+				scape_position = Vector2.ZERO
+			
+			velocity = movement
+	else:
+		if Cuki != null:
+				if global_position.distance_to(Cuki.global_position) < 100 && scape_position == Vector2.ZERO && state != ChootyState.Resting:
+					scape_position = to_global(-position.direction_to(Cuki.position)*100)
+					vision_raycast.target_position = to_local(scape_position)
+				
+	move_and_slide()
 
 
 func chootyBehaviour():
-	if state != ChootyState.Resting:
-		if Cuki != null:
-			if scape_position == Vector2.ZERO:
-				if global_position.distance_to(Cuki.global_position) > 100:
-					if state != ChootyState.Shooting:
-							stateAndAnimationChange(ChootyState.Shooting)
-			
+	if Cuki != null:
+		if state != ChootyState.Resting:
+			if position.distance_to(Cuki.position) > 100 :
+				if state != ChootyState.Shooting and state != ChootyState.Running:
+					stateAndAnimationChange(ChootyState.Shooting)
 			else:
-				stateAndAnimationChange(ChootyState.Running)
-		else:
+				if state != ChootyState.Resting:
+					stateAndAnimationChange(ChootyState.Running)
+	else:
+		if state != ChootyState.Resting:
 			stateAndAnimationChange(ChootyState.Patrol)
 
 func stateAndAnimationChange(chootyState):
@@ -86,7 +84,7 @@ func stateAndAnimationChange(chootyState):
 		ChootyState.Patrol:
 			$AnimationPlayer.play("Default")
 		ChootyState.Running:
-				$AnimationPlayer.play("Default")
+			$AnimationPlayer.play("Default")
 		ChootyState.Shooting:
 			$AnimationPlayer.play("Shoot")
 		ChootyState.Resting:
@@ -94,20 +92,49 @@ func stateAndAnimationChange(chootyState):
 
 func shoot_stone():
 	if elemental_state.getMovementState() != "Paralyzed" && elemental_state.getMovementState() != "Frozen":
+		if element_attack_name == "Shock":
+			shock_stone()
+			return
+		if element_attack_name == "Freeze":
+			ice_stones()
+			return
+		normal_stone()
+
+func normal_stone():
+	var stone = STONE.instantiate()
+	stone.global_position = global_position
+	if Cuki != null:
+		stone.objective_position = Cuki.global_position
+		call_deferred("add_sibling",stone)
+		stone.createElementalEffect(element_attack_name)
+
+func ice_stones():
+	var rocks = 0
+	while (rocks < 4):
 		var stone = STONE.instantiate()
 		stone.global_position = global_position
 		if Cuki != null:
-			stone.objective_position = Cuki.global_position
+			stone.objective_position = Cuki.global_position * rocks
+			call_deferred("add_sibling",stone)
+			stone.createElementalEffect(element_attack_name)
+			rocks += 1
+
+func shock_stone():
+	var stone = STONE.instantiate()
+	stone.global_position = global_position
+	if Cuki != null:
+		stone.Cuki = Cuki
 		call_deferred("add_sibling",stone)
+		stone.createElementalEffect(element_attack_name)
+
+func shoot_ray_tar():
+	pass
 
 func defeat():
 	self.queue_free()
 
-func attackedBySomething(knockbackForce, healthLost, something):
+func attackedBySomething(healthLost):
 	if elemental_state.getMovementState() != "Frozen":
-		if something != null:
-			knockback = -knockbackForce*Vector2(cos(get_angle_to(something.global_position)),sin(get_angle_to(something.global_position)))
-			$Knockback_timer.start()
 		health_bar.show()
 		hide_timer.start()
 		if elemental_state.getTemporalState() == "Venom":
@@ -134,18 +161,19 @@ func _on_animation_player_animation_finished(anim_name):
 
 func _on_hitbox_area_entered(area):
 	if area.is_in_group("C_attack"):
-		attackedBySomething(300,1,area)
+		attackedBySomething(1)
 	if area.is_in_group("expl_attack") || area.is_in_group("expl_bun"):
-		attackedBySomething(650,3,area)
-	elemental_state.contactWithElement(area.name)
+		attackedBySomething(3)
+	if !area.is_in_group("Piedra"):
+		# elemental_state.contactWithElement(area.name)
+		elemental_state.contactWithElementGroup(area.get_groups())
 	if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):
-		attackedBySomething(0, 1, null)
+		attackedBySomething(1)
 
 func _on_elemental_state_temporal_damage():
 	if (elemental_state.getTemporalState() == "Fire"):
-		attackedBySomething(0, 1, null)
+		attackedBySomething(1)
 	if (elemental_state.getTemporalState() == "IntenseFire"):
-		attackedBySomething(0, 2, null)
-
-func _on_knockback_timer_timeout():
-	knockback = Vector2.ZERO
+		attackedBySomething(1 * 2)
+	if (elemental_state.getTemporalState() == "Electroshocked"):
+		attackedBySomething(1)

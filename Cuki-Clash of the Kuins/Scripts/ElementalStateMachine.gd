@@ -16,21 +16,41 @@ func contactWithElement(elementalEvent):
 	if (elementalEvent == "Tar" || elementalEvent == "Shock"):
 		contactWithMovementState(elementalEvent)
 
+func contactWithElementGroup(elementalGroup):
+	for i in range(0, elementalGroup.size()):
+		if (elementalGroup[i] == "Water"):
+			contactWithWater()
+		if (elementalGroup[i] == "Poison" || elementalGroup[i] == "Flame" || elementalGroup[i] == "Freeze"):
+			contactWithTemporalState(elementalGroup[i])
+		if (elementalGroup[i] == "Tar" || elementalGroup[i] == "Shock"):
+			contactWithMovementState(elementalGroup[i])
+
 func contactWithWater():
 	if (timedState == "Ice" && movementState != "Paralyzed" && movementState != "Tar"):
 		timedState = "None"
 		movementState = "Frozen"
 		elemental_timer.set_wait_time(elemental_timer_time)
 		elemental_timer.start()
+		return
 	if (movementState == "Tar"):
 		movementState = "None"
+		return
 	if (timedState == "Venom" || timedState == "Fire" || timedState == "IntenseFire"):
 		timedState = "None"
-		elemental_timer.stop()
+		return
+	if (timedState == "None"):
+		timedState = "Wet"
+		elemental_timer.set_wait_time(elemental_timer_time)
+		elemental_timer.start()
+	if (movementState == "Paralyzed"):
+		timedState = "Electroshocked"
+		elemental_damage.start()
+		elemental_timer.set_wait_time(elemental_timer_time)
+		elemental_timer.start()
 
 func contactWithTemporalState(elementalEvent):
 	if (timedState == "None"):
-		if (elementalEvent == "Poison"):
+		if (elementalEvent == "Poison" && timedState != "Wet"):
 			timedState = "Venom"
 		if (elementalEvent == "Flame"):
 			timedState = "Fire"
@@ -42,6 +62,10 @@ func contactWithTemporalState(elementalEvent):
 				return
 		if (elementalEvent == "Freeze"):
 			timedState = "Ice"
+		elemental_timer.set_wait_time(elemental_timer_time)
+		elemental_timer.start()
+	if (timedState == "Wet" && elementalEvent == "Freeze"):
+		timedState = "Frozen"
 		elemental_timer.set_wait_time(elemental_timer_time)
 		elemental_timer.start()
 
@@ -57,6 +81,9 @@ func contactWithMovementState(elementalEvent):
 				movementState = "Tar"
 		if (elementalEvent == "Shock"):
 			movementState = "Paralyzed"
+			if (timedState == "Wet"):
+				timedState = "Electroshocked"
+				elemental_damage.start()
 		elemental_timer.set_wait_time(elemental_timer_time)
 		elemental_timer.start()
 

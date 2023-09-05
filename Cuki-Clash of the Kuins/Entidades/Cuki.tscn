@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://6wpanuw2c5wd" path="res://Objetos/ElementalState.tscn" id="6_0h1jq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_itqlg"]
-radius = 42.6667
+radius = 39.3559
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(21.8333, 43.3333)
@@ -456,7 +456,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.116853, 0.519997, 0, 1)
 
-[sub_resource type="Theme" id="Theme_8hike"]
+[sub_resource type="Theme" id="Theme_n8iow"]
 resource_local_to_scene = true
 ProgressBar/fonts/font = null
 ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
@@ -501,6 +501,7 @@ vframes = 5
 [node name="Spin_attack" type="Area2D" parent="." groups=["C_attack"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spin_attack"]
+position = Vector2(-1.33333, -2.66667)
 shape = SubResource("CircleShape2D_itqlg")
 disabled = true
 
@@ -528,7 +529,7 @@ hframes = 3
 frame = 1
 
 [node name="Hitbox" type="Area2D" parent="."]
-collision_mask = 2
+collision_mask = 14
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("9")
@@ -550,7 +551,7 @@ offset_left = -17.5
 offset_top = -38.3333
 offset_right = 15.5
 offset_bottom = -32.3333
-theme = SubResource("Theme_8hike")
+theme = SubResource("Theme_n8iow")
 
 [node name="Knockback_timer" type="Timer" parent="."]
 wait_time = 0.1
@@ -570,8 +571,11 @@ offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="ElementalState" parent="." instance=ExtResource("6_0h1jq")]
+elemental_timer_time = 4.0
+elemental_damage_time = 0.5
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
 [connection signal="animation_finished" from="Anim_Sprite" to="." method="_on_Anim_Sprite_animation_finished"]
 [connection signal="timeout" from="Knockback_timer" to="." method="_on_knockback_timer_timeout"]
+[connection signal="temporal_damage" from="ElementalState" to="." method="_on_elemental_state_temporal_damage"]

@@ -182,7 +182,8 @@ func attack(delta):
 
 func attackedBySomething(knockbackForce, healthLost, something):
 	next_state = STATES.hurt
-	knockback -= knockbackForce*Vector2(cos(get_angle_to(something.position)),sin(get_angle_to(something.position)))
+	if (something != null):
+		knockback -= knockbackForce*Vector2(cos(get_angle_to(something.position)),sin(get_angle_to(something.position)))
 	$Knockback_timer.start()
 	$Health_bar.show()
 	health.current -= healthLost
@@ -239,14 +240,16 @@ func _on_Anim_Sprite_animation_finished(anim_name):
 			self.call_deferred("add_sibling",gs)
 
 func _on_hitbox_area_entered(area):
-	if area.is_in_group("expl_attack") and !area.is_in_group("Cuki_ground_slam"):
+	if area.is_in_group("expl_attack") and !area.is_in_group("Cuki_ground_slam") and !area.is_in_group("expl_attacked_Cuki"):
 		attackedBySomething(750, 1, area)
 		elemental_state.contactWithElement(area.name)
+		area.add_to_group("expl_attacked_Cuki")
 	if area.is_in_group("expl_blonk"):
 		attackedBySomething(750, 1, area)
 	if area.is_in_group("Piedra"):
 		attackedBySomething(500, 1, area)
-	elemental_state.contactWithElement(area.name)
+	# elemental_state.contactWithElement(area.name)
+	elemental_state.contactWithElementGroup(area.get_groups())
 	if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):
 		attackedBySomething(0, 1, area)
 
@@ -255,6 +258,8 @@ func _on_elemental_state_temporal_damage():
 		attackedBySomething(0, 1, null)
 	if (elemental_state.getTemporalState() == "IntenseFire"):
 		attackedBySomething(0, 1 * 2, null)
+	if (elemental_state.getTemporalState() == "Electroshocked"):
+		attackedBySomething(0, 1, null)
 
 func _on_knockback_timer_timeout():
 	if current_state == STATES.hurt:

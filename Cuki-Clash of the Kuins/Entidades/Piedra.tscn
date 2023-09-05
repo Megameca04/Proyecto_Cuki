@@ -1,22 +1,31 @@
-[gd_scene load_steps=5 format=3 uid="uid://bw7d5jmymfqbm"]
+[gd_scene load_steps=7 format=3 uid="uid://bw7d5jmymfqbm"]
 
 [ext_resource type="Script" path="res://Scripts/Piedra.gd" id="1_ls63b"]
 [ext_resource type="Texture2D" uid="uid://b1lsi3waxb6jf" path="res://Sprites/Enemigos/P_piedra.png" id="1_pltlb"]
+[ext_resource type="Shader" path="res://Shaders/PiedraFuego.gdshader" id="2_jygee"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i5ddh"]
+shader = ExtResource("2_jygee")
+shader_parameter/red = 2.0
+shader_parameter/life = 5.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n68s3"]
 radius = 8.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_keb0u"]
-radius = 9.0
+radius = 22.0
 
 [node name="Piedra" type="CharacterBody2D" groups=["Enemy"]]
-collision_layer = 0
-collision_mask = 4
+collision_layer = 2
+collision_mask = 5
 motion_mode = 1
+wall_min_slide_angle = 0.0
+safe_margin = 0.001
 script = ExtResource("1_ls63b")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_i5ddh")
 texture = ExtResource("1_pltlb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -28,3 +37,8 @@ collision_layer = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_keb0u")
 disabled = true
+
+[node name="AliveTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="timeout" from="AliveTimer" to="." method="_on_alive_timer_timeout"]
