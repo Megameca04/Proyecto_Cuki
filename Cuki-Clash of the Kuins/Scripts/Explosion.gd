@@ -1,9 +1,10 @@
 extends Area2D
 
 @onready var sprite = $Sprite2D
+var element = ""
 
 func _ready():
-	color_changer(self.name)
+	color_changer(element)
 
 func _on_animation_player_animation_finished(_anim_name):
 	queue_free()

@@ -2,7 +2,6 @@ Timer
 CollisionShape2D
 Area2D
 Label
-Timer
 ProgressBar
 GPUParticles2D
 AudioStreamPlayer2D

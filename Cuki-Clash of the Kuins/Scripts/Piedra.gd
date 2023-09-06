@@ -4,103 +4,83 @@ var objective_position = Vector2.ZERO
 var movement = Vector2.ZERO
 var in_distance = 0
 
-const ELEMENTEFFECT = preload("res://Objetos/Element.tscn")
+const AZ = preload("res://Entidades/Piedra_a_z.tscn")
 const EXPL = preload("res://Entidades/Explosion.tscn")
-var ele = null
 var Cuki = null
-#var reachedObjective = false
+var element = ""
 
 @onready var aliveTimer = $AliveTimer
 
 var speed = 200
 
 func _ready():
-	if (ele.get_element_name() != "Shock"):
+	print(objective_position)
+	if (element != "Shock"):
 		movement = global_position.direction_to(objective_position)
 	else:
 		aliveTimer.start()
 		if (Cuki != null):
 			movement = global_position.direction_to(Cuki.global_position)
+			speed *= 0.75
 	
 	in_distance = global_position.distance_to(objective_position)
 	
-	# if (ele.get_element_name() == "Tar"):
-		#set_velocity(movement*(speed/2))
-	#else:
 	set_velocity(movement*speed)
 
 func _physics_process(delta):
-	#if (!reachedObjective):
 	move_and_slide()
-	if (ele != null):
-		ele.position = self.position
-		if (ele.get_element_name() == "Shock"):
-			if (Cuki != null):
-				movement = global_position.direction_to(Cuki.global_position)
-				set_velocity(movement*speed)
-				if global_position.distance_to(Cuki.global_position) <= 2:
-					ele.queue_free()
-					self.queue_free()
+	
+	if (element == "Shock"):
+		if (Cuki != null):
+			movement = global_position.direction_to(Cuki.global_position)
+			set_velocity(movement*speed)
+			if global_position.distance_to(Cuki.global_position) <= 2:
+				$S_wait_time.start()
+				set_physics_process(false)
 	
 	if global_position.distance_to(objective_position) <= 2:
-		if (ele != null):
-			# ele.get_element_name() != "Tar" && 
-			if (ele.get_element_name() != "Water"):
-				ele.queue_free()
-				self.queue_free()
-			#if (ele.get_element_name() == "Tar"):
-			#	if (!reachedObjective):
-			#		reachedObjective = true
-			#		aliveTimer.start()
-			if (ele.get_element_name() == "Water"):
-				blow_up()
+		if element == "Water":
+			blow_up()
+		else:
+			create_attack_zone(element)
+
 	if is_on_wall():
-		if (ele != null):
-			# ele.get_element_name() == "Tar" || 
-			if (ele.get_element_name() == "Water"):
-				blow_up()
-			ele.queue_free()
-		self.queue_free()
+		if element == "Water":
+			blow_up()
+		else:
+			create_attack_zone(element)
 	
 
 func _process(delta):
 	# && ele.get_element_name() != "Tar"
-	if (ele.get_element_name() != "Shock"):
+	if (element != "Shock"):
 		anim_y()
 
 func anim_y():
 	var percent = (in_distance - global_position.distance_to(objective_position))/in_distance
 	
 	$Sprite2D.position.y = -100*(percent) + 100*pow(percent,2)
-	if percent > 0.9:
-		$Area2D/CollisionShape2D.disabled = false
 
-func createElementalEffect(effName):
-	ele = ELEMENTEFFECT.instantiate()
-	if (effName != ""):
-		ele.name = effName
-		ele.set_element_name(effName)
-	ele.add_to_group("Piedra")
-	ele.add_to_group(effName)
-	ele.global_position = self.global_position
-	call_deferred("add_sibling", ele)
+func create_attack_zone(effName):
+	var az = AZ.instantiate()
+	az.element = effName
+	az.global_position = self.global_position
+	call_deferred("add_sibling", az)
+	self.queue_free()
 
 func blow_up():
 	var expl = EXPL.instantiate()
-	expl.name = ele.get_element_name()
+	expl.element = element
 	expl.add_to_group("expl_attack")
 	expl.global_position = self.global_position
 	call_deferred("add_sibling",expl)
-	expl.element_appear(ele.get_element_name())
-	remove_from_group("Piedra")
-	ele.queue_free()
 	self.queue_free()
 
 func _on_alive_timer_timeout():
-	if (ele != null):
-		if (ele.get_element_name() == "Shock"):
-			remove_from_group("Piedra")
-			ele.queue_free()
+	if (element != null):
+		if (element == "Shock"):
 			self.queue_free()
-		#if (ele.get_element_name() == "Tar"):
-		#	blow_up()
+			create_attack_zone("Shock")
+
+func _on_s_wait_time_timeout():
+	create_attack_zone(element)

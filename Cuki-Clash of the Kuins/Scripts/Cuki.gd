@@ -42,6 +42,8 @@ func _ready():
 	health.connect("max_changed",Callable(health_bar,"set_max"))
 	health.connect("depleted",Callable(self,"game_over"))
 	health.initialize()
+	
+	print(global_position)
 
 func _physics_process(delta):
 	CukiDirections()
@@ -144,7 +146,6 @@ func animations():
 	set_collision_mask_value(2, current_state != STATES.dashing || current_state != STATES.dAttack)
 	hitbox_col.disabled = (current_state == STATES.dashing || current_state == STATES.dAttack)
 
-
 func attack(delta):
 	if Input.is_action_just_pressed("Atacar") and (next_state != STATES.dAttack or next_state != STATES.hurt) and (current_state != STATES.hurt):
 		match current_state:
@@ -242,13 +243,12 @@ func _on_Anim_Sprite_animation_finished(anim_name):
 func _on_hitbox_area_entered(area):
 	if area.is_in_group("expl_attack") and !area.is_in_group("Cuki_ground_slam") and !area.is_in_group("expl_attacked_Cuki"):
 		attackedBySomething(750, 1, area)
-		elemental_state.contactWithElement(area.name)
-		area.add_to_group("expl_attacked_Cuki")
+		elemental_state.contactWithElement(area.element)
 	if area.is_in_group("expl_blonk"):
 		attackedBySomething(750, 1, area)
 	if area.is_in_group("Piedra"):
 		attackedBySomething(500, 1, area)
-	# elemental_state.contactWithElement(area.name)
+		elemental_state.contactWithElement(area.element)
 	elemental_state.contactWithElementGroup(area.get_groups())
 	if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):
 		attackedBySomething(0, 1, area)

@@ -106,17 +106,27 @@ func normal_stone():
 	if Cuki != null:
 		stone.objective_position = Cuki.global_position
 		call_deferred("add_sibling",stone)
-		stone.createElementalEffect(element_attack_name)
+		stone.element = element_attack_name
 
 func ice_stones():
 	var rocks = 0
-	while (rocks < 4):
+	while (rocks < 3):
 		var stone = STONE.instantiate()
+		var ang = 0
 		stone.global_position = global_position
 		if Cuki != null:
-			stone.objective_position = Cuki.global_position * rocks
+			match rocks:
+				0:
+					ang = stone.global_position.direction_to(Cuki.global_position).angle() + PI/12
+					stone.objective_position = to_global(Vector2(cos(ang),sin(ang))*stone.global_position.distance_to(Cuki.global_position))
+				1:
+					ang = stone.global_position.direction_to(Cuki.global_position).angle() 
+					stone.objective_position = to_global(Vector2(cos(ang),sin(ang))*stone.global_position.distance_to(Cuki.global_position))
+				2:
+					ang = stone.global_position.direction_to(Cuki.global_position).angle() - PI/12
+					stone.objective_position = to_global(Vector2(cos(ang),sin(ang))*stone.global_position.distance_to(Cuki.global_position))
 			call_deferred("add_sibling",stone)
-			stone.createElementalEffect(element_attack_name)
+			stone.element = element_attack_name
 			rocks += 1
 
 func shock_stone():
@@ -125,7 +135,7 @@ func shock_stone():
 	if Cuki != null:
 		stone.Cuki = Cuki
 		call_deferred("add_sibling",stone)
-		stone.createElementalEffect(element_attack_name)
+		stone.element = element_attack_name
 
 func shoot_ray_tar():
 	pass
@@ -165,7 +175,6 @@ func _on_hitbox_area_entered(area):
 	if area.is_in_group("expl_attack") || area.is_in_group("expl_bun"):
 		attackedBySomething(3)
 	if !area.is_in_group("Piedra"):
-		# elemental_state.contactWithElement(area.name)
 		elemental_state.contactWithElementGroup(area.get_groups())
 	if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):
 		attackedBySomething(1)

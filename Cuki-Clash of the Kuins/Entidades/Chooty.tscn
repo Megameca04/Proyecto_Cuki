@@ -81,7 +81,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.116853, 0.519997, 0, 1)
 
-[sub_resource type="Theme" id="Theme_m52pr"]
+[sub_resource type="Theme" id="Theme_1vod6"]
 resource_local_to_scene = true
 ProgressBar/fonts/font = null
 ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
@@ -90,7 +90,7 @@ ProgressBar/styles/fill = SubResource("StyleBoxFlat_lkb8y")
 [node name="Chooty" type="CharacterBody2D" groups=["Enemy"]]
 texture_filter = 1
 collision_layer = 2
-collision_mask = 5
+collision_mask = 29
 motion_mode = 1
 script = ExtResource("1_3j4sc")
 
@@ -111,6 +111,7 @@ shape = SubResource("CircleShape2D_ajwvp")
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 2
+collision_mask = 25
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_x5lgt")
@@ -133,7 +134,7 @@ offset_left = -32.0
 offset_top = -56.0
 offset_right = 32.0
 offset_bottom = -40.0
-theme = SubResource("Theme_m52pr")
+theme = SubResource("Theme_1vod6")
 
 [node name="Salud" parent="." instance=ExtResource("4_wc8xc")]
 max_amount = 3
