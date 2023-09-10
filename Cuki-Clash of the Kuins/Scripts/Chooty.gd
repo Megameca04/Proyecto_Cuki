@@ -3,6 +3,8 @@ extends CharacterBody2D
 enum ChootyState {Patrol, Running, Shooting, Resting}
 
 const STONE = preload("res://Entidades/Piedra.tscn")
+const BUBBLE = preload("res://Entidades/Burbuja_tar.tscn")
+const DART = preload("res://Entidades/Dardo_veneno.tscn")
 
 var Cuki = null
 
@@ -92,13 +94,17 @@ func stateAndAnimationChange(chootyState):
 
 func shoot_stone():
 	if elemental_state.getMovementState() != "Paralyzed" && elemental_state.getMovementState() != "Frozen":
-		if element_attack_name == "Shock":
-			shock_stone()
-			return
-		if element_attack_name == "Freeze":
-			ice_stones()
-			return
-		normal_stone()
+		match element_attack_name:
+			"Shock":
+				shock_stone()
+			"Freeze":
+				ice_stones()
+			"Tar":
+				tar_bubble()
+			"Poison":
+				shoot_dart()
+			_:
+				normal_stone()
 
 func normal_stone():
 	var stone = STONE.instantiate()
@@ -129,6 +135,15 @@ func ice_stones():
 			stone.element = element_attack_name
 			rocks += 1
 
+func tar_bubble():
+	var bubble = BUBBLE.instantiate()
+	bubble.global_position = global_position
+	if Cuki != null:
+		bubble.objective_position = Cuki.global_position
+		call_deferred("add_sibling",bubble)
+		bubble.element = element_attack_name
+	
+
 func shock_stone():
 	var stone = STONE.instantiate()
 	stone.global_position = global_position
@@ -137,8 +152,12 @@ func shock_stone():
 		call_deferred("add_sibling",stone)
 		stone.element = element_attack_name
 
-func shoot_ray_tar():
-	pass
+func shoot_dart():
+	if Cuki != null:
+		var dart = DART.instantiate()
+		dart.objective = Cuki.global_position
+		call_deferred("add_child", dart)
+	
 
 func defeat():
 	self.queue_free()
