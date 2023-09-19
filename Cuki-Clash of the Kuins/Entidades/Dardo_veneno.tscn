@@ -4,7 +4,7 @@
 
 [sub_resource type="Animation" id="Animation_cawpb"]
 resource_name = "Disparar_dardo"
-length = 0.5
+length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -12,7 +12,7 @@ tracks/0/path = NodePath("Line2D:default_color")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.5),
+"times": PackedFloat32Array(0, 0.1, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(0.654902, 0, 0.670588, 0.47451), Color(0.654902, 0, 0.670588, 1), Color(1, 0.584314, 1, 0)]
@@ -24,7 +24,7 @@ _data = {
 }
 
 [node name="Dardo_veneno" type="RayCast2D"]
-collision_mask = 31
+collision_mask = 23
 script = ExtResource("1_i57nw")
 
 [node name="Line2D" type="Line2D" parent="."]

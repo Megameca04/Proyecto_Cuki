@@ -118,6 +118,9 @@ func _on_attack_area_body_entered(body):
 		if body.get_name() == "Cuki" && state == ExplosiveEaterState.Pursuing:
 			stateAndAnimationChange(ExplosiveEaterState.Exploding)
 
+func elemental_damage(element):
+	elemental_state.contactWithElement(element)
+
 func _on_hitbox_area_entered(area):
 	if area.is_in_group("C_attack"):
 		if state == ExplosiveEaterState.Pursuing:

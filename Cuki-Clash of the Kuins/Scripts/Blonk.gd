@@ -23,7 +23,6 @@ func _ready():
 func _process(delta):
 	animationFace()
 	blonkBehaviour()
-	$Label.text = "TS: "+elemental_state.getTemporalState()+"\nMS: "+elemental_state.getMovementState()+"\nTl: "+str(elemental_state.elemental_timer.get_time_left())
 
 func _physics_process(delta):
 	blonkMovement()
@@ -76,7 +75,11 @@ func attackPlayer():
 func defeat():
 	self.queue_free()
 
-func attackedBySomething(healthLost):
+func elemental_damage(element):
+	elemental_state.contactWithElement(element)
+
+func attackedBySomething(knockbackForce, healthLost, something):
+	health.current -= healthLost
 	if elemental_state.getMovementState() != "Frozen":
 		health_bar.show()
 		hide_timer.start()
@@ -96,13 +99,13 @@ func _on_vision_field_body_exited(body):
 
 func _on_hitbox_area_entered(area):
 	if area.is_in_group("C_attack"):
-		attackedBySomething(1)
+		attackedBySomething(0,1,null)
 	if area.is_in_group("expl_attack") || area.is_in_group("expl_bun"):
-		attackedBySomething(2)
+		attackedBySomething(0,2,null)
 	# elemental_state.contactWithElement(area.name)
 	elemental_state.contactWithElementGroup(area.get_groups())
 	if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):
-		attackedBySomething(1)
+		attackedBySomething(0,1,null)
 
 func _on_attack_area_body_entered(body):
 	if body != self:
@@ -121,8 +124,8 @@ func _on_pause_attack_timer_timeout():
 
 func _on_elemental_state_temporal_damage():
 	if (elemental_state.getTemporalState() == "Fire"):
-		attackedBySomething(1)
+		attackedBySomething(0,1,null)
 	if (elemental_state.getTemporalState() == "IntenseFire"):
-		attackedBySomething(1 * 2)
+		attackedBySomething(0,2,null)
 	if (elemental_state.getTemporalState() == "Electroshocked"):
-		attackedBySomething(1)
+		attackedBySomething(0,1,null)

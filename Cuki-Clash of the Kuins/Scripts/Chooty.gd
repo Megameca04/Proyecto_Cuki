@@ -162,6 +162,9 @@ func shoot_dart():
 func defeat():
 	self.queue_free()
 
+func elemental_damage(element):
+	elemental_state.contactWithElement(element)
+
 func attackedBySomething(healthLost):
 	if elemental_state.getMovementState() != "Frozen":
 		health_bar.show()

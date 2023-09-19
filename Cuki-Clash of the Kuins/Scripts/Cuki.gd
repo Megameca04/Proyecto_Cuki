@@ -253,6 +253,9 @@ func _on_hitbox_area_entered(area):
 	if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):
 		attackedBySomething(0, 1, area)
 
+func elemental_damage(element):
+	elemental_state.contactWithElement(element)
+
 func _on_elemental_state_temporal_damage():
 	if (elemental_state.getTemporalState() == "Fire"):
 		attackedBySomething(0, 1, null)

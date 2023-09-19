@@ -89,18 +89,13 @@ func animations():
 		$Sprite2D.scale.x = -1
 		$CollisionShape2D.scale.x = -1
 
-func _on_Area2D_area_entered(area): #si entra un area (ataques)
+func _on_Area2D_area_entered(area): 
 	if elemental_state.getMovementState() != "Frozen":
-		if area.is_in_group("C_attack"): #si entra un enemigo, ajustar dirección del knockback
-			#ajuste de componentes X e Y del vector del Knocback
-			knockback -= 350*Vector2(cos(get_angle_to(area.global_position)),sin(get_angle_to(area.global_position)))
-			$Knockback_timer.start() #activa el temporizador del knocback
-			health_bar.show() #mostrar salud
-			hide_timer.start() #cuando se desactiva la salud
+		if area.is_in_group("C_attack"):
 			if elemental_state.getTemporalState() == "Venom":
-				health.current -= 1 * 2 #reduce salud
+				attackedBySomething(350,2,area)
 			else:
-				health.current -= 1 #reduce salud
+				attackedBySomething(350,1,area)
 	
 		if area.is_in_group("expl_attack") || area.is_in_group("expl_bun"):
 			knockback -= 600*Vector2(cos(get_angle_to(area.global_position)),sin(get_angle_to(area.global_position)))
@@ -115,6 +110,15 @@ func _on_Area2D_area_entered(area): #si entra un area (ataques)
 	if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):
 		health.current -= 1 #reduce salud
 	
+
+func elemental_damage(element):
+	elemental_state.contactWithElement(element)
+
+func attackedBySomething(knockbackForce, healthLost, something):
+	if (something != null):
+		knockback -= knockbackForce*Vector2(cos(get_angle_to(something.position)),sin(get_angle_to(something.position)))
+	$Knockback_timer.start()
+	health.current -= healthLost
 
 func _on_hide_timer_timeout():
 	health_bar.hide()
