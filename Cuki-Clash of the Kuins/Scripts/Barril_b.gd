@@ -35,6 +35,7 @@ func blow_up():
 	var expl = EXPL.instantiate()
 	expl.name = elementName
 	expl.global_position = self.global_position
+	expl.add_to_group(elementName)
 	call_deferred("add_sibling",expl)
 	queue_free()
 	

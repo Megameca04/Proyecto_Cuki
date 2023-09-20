@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cep4oemi8n8dk"]
+[gd_scene load_steps=13 format=3 uid="uid://cep4oemi8n8dk"]
 
 [ext_resource type="PackedScene" uid="uid://b1qp8t0uk54ou" path="res://Entidades/Cuki.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://cty4jbpf7flme" path="res://Entidades/Barril_b.tscn" id="3_l2s6e"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://b5kwgau0s81tb" path="res://Entidades/Palanca.tscn" id="9_s3a5c"]
 [ext_resource type="PackedScene" uid="uid://h3m2qalip2d0" path="res://Entidades/Bloque_hielo.tscn" id="10_ga7iw"]
 [ext_resource type="PackedScene" uid="uid://dc5uxbl31juw4" path="res://Entidades/Antorcha.tscn" id="11_outpb"]
+[ext_resource type="PackedScene" uid="uid://dmxd3ybvofss6" path="res://Entidades/Motor.tscn" id="12_yxs3j"]
 
 [node name="Node2D" type="Node2D"]
 y_sort_enabled = true
@@ -43,10 +44,10 @@ position = Vector2(768, 640)
 
 [node name="Barril_b7" parent="." instance=ExtResource("3_l2s6e")]
 position = Vector2(128, 400)
-elementName = "Flame"
+elementName = "Tar"
 
 [node name="Barril_b8" parent="." instance=ExtResource("3_l2s6e")]
-position = Vector2(288, 400)
+position = Vector2(112, 336)
 elementName = "Flame"
 
 [node name="Barril_b2" parent="." instance=ExtResource("3_l2s6e")]
@@ -98,3 +99,6 @@ position = Vector2(240, 400)
 
 [node name="Antorcha" parent="." instance=ExtResource("11_outpb")]
 position = Vector2(240, 400)
+
+[node name="Motor" parent="." instance=ExtResource("12_yxs3j")]
+position = Vector2(160, 368)
