@@ -1,13 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://b5kwgau0s81tb"]
+[gd_scene load_steps=11 format=3 uid="uid://burlcxw7l5brg"]
 
-[ext_resource type="Script" path="res://Scripts/Palanca.gd" id="1_pml65"]
-[ext_resource type="Texture2D" uid="uid://dso8qkwogtl30" path="res://Sprites/Objetos/Puerta y palanca.png" id="1_xl3ty"]
+[ext_resource type="Script" path="res://Scripts/Bateria.gd" id="1_7lrqx"]
+[ext_resource type="Texture2D" uid="uid://dso8qkwogtl30" path="res://Sprites/Objetos/Puerta y palanca.png" id="2_h4jlk"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cis52"]
-size = Vector2(30, 24)
+[sub_resource type="CircleShape2D" id="CircleShape2D_2oj64"]
+radius = 16.0078
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p55ce"]
-size = Vector2(32, 32)
+size = Vector2(32, 36.5945)
 
 [sub_resource type="Animation" id="Animation_eko72"]
 resource_name = "Off"
@@ -22,7 +22,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [3, 2]
+"values": [12, 13]
 }
 
 [sub_resource type="Animation" id="Animation_5fs3s"]
@@ -38,7 +38,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [2, 3]
+"values": [13, 12]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1xl6p"]
@@ -47,43 +47,53 @@ _data = {
 "On": SubResource("Animation_5fs3s")
 }
 
-[node name="Palanca" type="StaticBody2D" groups=["Palanca"]]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sf8en"]
+bg_color = Color(0.972549, 0.392157, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qcr8d"]
+bg_color = Color(0, 0.721569, 0.266667, 1)
+
+[sub_resource type="Theme" id="Theme_7bifc"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_sf8en")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_qcr8d")
+
+[node name="Bateria" type="StaticBody2D" groups=["Palanca"]]
 texture_filter = 1
 collision_layer = 4
 collision_mask = 7
-script = ExtResource("1_pml65")
-colorhex = "00ff00"
+script = ExtResource("1_7lrqx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(0, -1.5)
-shape = SubResource("RectangleShape2D_cis52")
+scale = Vector2(1, 0.36)
+shape = SubResource("CircleShape2D_2oj64")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -10)
-texture = ExtResource("1_xl3ty")
+position = Vector2(0, -20)
+texture = ExtResource("2_h4jlk")
 hframes = 8
-vframes = 3
-frame = 3
+vframes = 2
+frame = 13
 
 [node name="Hitbox" type="Area2D" parent="."]
+scale = Vector2(1, 1.01108)
 collision_layer = 4
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(0, -10)
+position = Vector2(0, -14.3411)
 shape = SubResource("RectangleShape2D_p55ce")
 
 [node name="Color" type="ColorRect" parent="."]
 offset_left = -10.0
-offset_top = -5.0
+offset_top = -24.0
 offset_right = 10.0
-offset_bottom = 2.0
+offset_bottom = -17.0
 
 [node name="Estado" type="ColorRect" parent="."]
 offset_left = -10.0
-offset_top = -5.0
+offset_top = -24.0
 offset_right = 10.0
-offset_bottom = 2.0
+offset_bottom = -17.0
 color = Color(0, 0, 0, 0.392157)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -91,4 +101,18 @@ libraries = {
 "": SubResource("AnimationLibrary_1xl6p")
 }
 
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -14.0
+offset_top = -4.0
+offset_right = 14.0
+theme = SubResource("Theme_7bifc")
+max_value = 5.0
+value = 2.5
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

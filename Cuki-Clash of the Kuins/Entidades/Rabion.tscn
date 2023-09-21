@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b6wi067d3baqe"]
+[gd_scene load_steps=15 format=3]
 
 [ext_resource type="Script" path="res://Scripts/Rabion.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://0ettfhn1kxgs" path="res://Sprites/Enemigos/Rabion.PNG" id="2"]
@@ -76,7 +76,7 @@ ProgressBar/styles/fill = SubResource("StyleBoxFlat_ub6uk")
 
 [node name="Rabion" type="CharacterBody2D" groups=["Conejos", "Enemy"]]
 collision_layer = 2
-collision_mask = 6
+collision_mask = 30
 motion_mode = 1
 script = ExtResource("1")
 
@@ -104,6 +104,7 @@ shape = SubResource("4")
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 2
+collision_mask = 25
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("7")

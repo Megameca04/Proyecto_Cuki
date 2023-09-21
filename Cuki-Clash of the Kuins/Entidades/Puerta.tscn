@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dso8qkwogtl30" path="res://Sprites/Objetos/Puerta y palanca.png" id="2_oj2g2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tpxnq"]
-size = Vector2(19, 32)
+size = Vector2(32, 64)
 
 [sub_resource type="Animation" id="Animation_jxhqd"]
 resource_name = "Abre"
@@ -52,12 +52,12 @@ script = ExtResource("1_2qqmw")
 colorhex = "00ff00"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(7, 0)
+position = Vector2(11, -9.53674e-06)
+scale = Vector2(1.6875, 1.70833)
 texture = ExtResource("2_oj2g2")
-hframes = 4
+hframes = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_tpxnq")
 
 [node name="ColorRect" type="ColorRect" parent="."]

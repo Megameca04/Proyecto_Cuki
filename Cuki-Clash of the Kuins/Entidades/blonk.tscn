@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://gg8rb8xhhwk5"]
+[gd_scene load_steps=16 format=3]
 
 [ext_resource type="Script" path="res://Scripts/Blonk.gd" id="1_dscac"]
 [ext_resource type="Texture2D" uid="uid://uulcfvlwm8yg" path="res://Sprites/Enemigos/Blonk.png" id="1_vuri7"]
@@ -120,6 +120,7 @@ shape = SubResource("CircleShape2D_r1kvj")
 [node name="AttackArea" type="Area2D" parent="."]
 position = Vector2(8, 8)
 scale = Vector2(10.9498, 10.5672)
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
 shape = SubResource("CircleShape2D_dq2lq")

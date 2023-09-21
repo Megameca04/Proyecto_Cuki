@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://c1bw1m1tr8gem"]
+[gd_scene load_steps=25 format=3 uid="uid://b1qp8t0uk54ou"]
 
 [ext_resource type="Script" path="res://Scripts/Cuki.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://dicp13ihj0xno" path="res://Sprites/Aliados/Cuki/Cuki.png" id="2"]
@@ -487,7 +487,7 @@ damping_max = 2.0
 y_sort_enabled = true
 texture_filter = 1
 scale = Vector2(1.5, 1.5)
-collision_mask = 6
+collision_mask = 22
 motion_mode = 1
 script = ExtResource("1")
 
@@ -499,6 +499,7 @@ hframes = 3
 vframes = 5
 
 [node name="Spin_attack" type="Area2D" parent="." groups=["C_attack"]]
+collision_mask = 18
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spin_attack"]
 position = Vector2(-1.33333, -2.66667)
@@ -512,7 +513,7 @@ position = Vector2(-3.27534e-05, 0)
 
 [node name="Bat_zone" type="Area2D" parent="Attack_node" groups=["C_attack"]]
 position = Vector2(-1.90735e-06, 0)
-collision_mask = 2
+collision_mask = 18
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Attack_node/Bat_zone"]
 position = Vector2(29.75, -0.333332)

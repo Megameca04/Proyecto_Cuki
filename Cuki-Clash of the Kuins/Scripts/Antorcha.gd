@@ -19,5 +19,7 @@ func _process(delta):
 	$Estado.visible = !state
 
 func _on_hitbox_area_entered(area):
-	if area.is_in_group("C_attack"):
-		state = !state
+	if area.name == "Flame":
+		state = true
+	elif area.name == "Water":
+		state = false

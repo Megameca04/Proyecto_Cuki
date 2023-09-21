@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bo8b3iunrn026"]
+[gd_scene load_steps=15 format=3 uid="uid://frqnus88mbbb"]
 
 [ext_resource type="Script" path="res://Scripts/Chooty.gd" id="1_3j4sc"]
 [ext_resource type="Texture2D" uid="uid://ljpm51y6y4aw" path="res://Sprites/Enemigos/Chooty.png" id="1_xv04k"]
