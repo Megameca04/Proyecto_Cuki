@@ -4,7 +4,6 @@ extends Area2D
 
 func _ready():
 	color_changer(self.name)
-	print(self.name)
 
 func _on_animation_player_animation_finished(_anim_name):
 	queue_free()

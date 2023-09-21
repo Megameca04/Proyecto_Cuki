@@ -1,8 +1,6 @@
 extends StaticBody2D
 
-var OFFCOLOR:String = "ffffff"
-var ONCOLOR:String = "00ff00"
-var OVERHEATEDCOLOR:String = "ff0000"
+var can_be_used = true
 
 enum MotorState
 {
@@ -11,23 +9,25 @@ enum MotorState
 	OVERHEATED
 }
 
-var motorState = MotorState.OFF
+@export var colorhex:String = ""
+@export var motorState = MotorState.OFF
 
 var state:
 	set(new_state):
-		#if state == true:
-			#$AnimationPlayer.play("On")
-		#else:
-			#$AnimationPlayer.play("Off")
-		state = new_state
+		if can_be_used:
+			if state == true:
+				$AnimationPlayer.play("On")
+			else:
+				$AnimationPlayer.play("Off")
+			state = new_state
 
 func refreshColorState():
 	if motorState == MotorState.OFF:
-		$StateColor.color = Color(OFFCOLOR)
+		$AnimationPlayer.play("Off")
 	if motorState == MotorState.ON:
-		$StateColor.color = Color(ONCOLOR)
+		$AnimationPlayer.play("On")
 	if motorState == MotorState.OVERHEATED:
-		$StateColor.color = Color(OVERHEATEDCOLOR)
+		$AnimationPlayer.play("Overheat")
 
 func setMotorState(newMotorState):
 	motorState = newMotorState
@@ -39,6 +39,7 @@ func setMotorState(newMotorState):
 		state = false
 
 func _ready():
+	$Color.color = Color(colorhex)
 	refreshColorState()
 
 func _on_area_2d_area_entered(area):
