@@ -1,28 +1,28 @@
-[gd_scene load_steps=11 format=3 uid="uid://cep4oemi8n8dk"]
+[gd_scene load_steps=10 format=3 uid="uid://cep4oemi8n8dk"]
 
 [ext_resource type="PackedScene" uid="uid://b1qp8t0uk54ou" path="res://Entidades/Cuki.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://cty4jbpf7flme" path="res://Entidades/Barril_b.tscn" id="3_l2s6e"]
-[ext_resource type="PackedScene" path="res://Entidades/Rabion.tscn" id="4_t0wj2"]
-[ext_resource type="PackedScene" path="res://Entidades/blonk.tscn" id="5_w6h26"]
+[ext_resource type="PackedScene" uid="uid://3ekxyrpwp712" path="res://Entidades/Rabion.tscn" id="4_t0wj2"]
+[ext_resource type="PackedScene" uid="uid://cqhkk0g3dp5pe" path="res://Entidades/blonk.tscn" id="5_w6h26"]
 [ext_resource type="TileSet" uid="uid://dor6kp4tlmn0p" path="res://Tileset/Cueva.tres" id="6_311sy"]
 [ext_resource type="PackedScene" uid="uid://bqjvl2384r77f" path="res://Entidades/explosive_eater.tscn" id="6_ccqc4"]
 [ext_resource type="PackedScene" uid="uid://frqnus88mbbb" path="res://Entidades/Chooty.tscn" id="7_spxc7"]
 [ext_resource type="PackedScene" uid="uid://dwf5l2rmoctp3" path="res://Entidades/Puerta.tscn" id="8_53glx"]
 [ext_resource type="PackedScene" uid="uid://b5kwgau0s81tb" path="res://Entidades/Palanca.tscn" id="9_s3a5c"]
-[ext_resource type="PackedScene" uid="uid://dmxd3ybvofss6" path="res://Entidades/Motor.tscn" id="12_yxs3j"]
 
 [node name="Node2D" type="Node2D"]
 y_sort_enabled = true
 texture_filter = 1
 
 [node name="Cuki" parent="." instance=ExtResource("1")]
-position = Vector2(96, 368)
+position = Vector2(800, 688)
 
 [node name="Camera2D" type="Camera2D" parent="Cuki"]
+visible = false
 zoom = Vector2(1.5, 1.5)
 
 [node name="Rabion" parent="." instance=ExtResource("4_t0wj2")]
-position = Vector2(784, 192)
+position = Vector2(950, 626)
 
 [node name="Rabion2" parent="." instance=ExtResource("4_t0wj2")]
 position = Vector2(1152, 96)
@@ -31,41 +31,29 @@ position = Vector2(1152, 96)
 position = Vector2(1136, 320)
 
 [node name="Blonk" parent="." instance=ExtResource("5_w6h26")]
-position = Vector2(1072, 736)
+position = Vector2(-16, 1216)
 
 [node name="ExplosiveEater" parent="." instance=ExtResource("6_ccqc4")]
-position = Vector2(384, 1248)
+position = Vector2(208, 704)
 motion_mode = 1
 
 [node name="Barril_b" parent="." instance=ExtResource("3_l2s6e")]
-position = Vector2(768, 640)
-
-[node name="Barril_b7" parent="." instance=ExtResource("3_l2s6e")]
-position = Vector2(160, 368)
-elementName = "Tar"
-
-[node name="Barril_b9" parent="." instance=ExtResource("3_l2s6e")]
-position = Vector2(240, 320)
-elementName = "Ice"
-
-[node name="Barril_b8" parent="." instance=ExtResource("3_l2s6e")]
-position = Vector2(336, 368)
-elementName = "Flame"
+position = Vector2(272, 1248)
 
 [node name="Barril_b2" parent="." instance=ExtResource("3_l2s6e")]
-position = Vector2(848, 752)
+position = Vector2(144, 1088)
 
 [node name="Barril_b3" parent="." instance=ExtResource("3_l2s6e")]
-position = Vector2(-16, 1152)
+position = Vector2(800, 800)
 
 [node name="Barril_b4" parent="." instance=ExtResource("3_l2s6e")]
-position = Vector2(400, 1056)
+position = Vector2(112, 624)
 
 [node name="Barril_b5" parent="." instance=ExtResource("3_l2s6e")]
-position = Vector2(144, 1232)
+position = Vector2(1088, 672)
 
 [node name="Barril_b6" parent="." instance=ExtResource("3_l2s6e")]
-position = Vector2(640, 192)
+position = Vector2(992, 208)
 
 [node name="TileMap" type="TileMap" parent="."]
 texture_filter = 1
@@ -82,7 +70,8 @@ layer_1/z_index = 0
 layer_1/tile_data = PackedInt32Array(131074, 65536, 3, 131075, 65536, 3, 131076, 65536, 3, 131078, 65536, 3, 196615, 131072, 4, 327687, 131072, 4, 393223, 0, 5, 393224, 65536, 5, 393225, 65536, 5, 393226, 65536, 5, 393228, 65536, 5, 393229, 65536, 5, 131079, 131072, 3, -327685, 458752, 0, -196612, 393216, 0, -65538, 393216, 0, -262142, 458752, 0, -196590, 262144, 0, 917497, 327680, 0, 458747, 327680, 0, 524284, 327680, 0, 1179649, 458752, 0, 1179654, 458752, 0, 1179664, 262144, 0, 1179666, 393216, 0, 1179667, 262144, 0, 983060, 458752, 0, 786449, 458752, 0, 65553, 458752, 0, 21, 262144, 0, -65512, 327680, 0, -65508, 262144, 0)
 
 [node name="Chooty" parent="." instance=ExtResource("7_spxc7")]
-position = Vector2(160, 992)
+position = Vector2(1024, 736)
+element_attack_name = "Tar"
 
 [node name="Puerta" parent="." instance=ExtResource("8_53glx")]
 position = Vector2(160, 816)
@@ -90,12 +79,3 @@ rotation = 4.71239
 
 [node name="Palanca" parent="." instance=ExtResource("9_s3a5c")]
 position = Vector2(112, 688)
-
-[node name="Puerta2" parent="." instance=ExtResource("8_53glx")]
-position = Vector2(464, 192)
-rotation = 3.14159
-colorhex = "CC99FF"
-
-[node name="Motor" parent="." instance=ExtResource("12_yxs3j")]
-position = Vector2(240, 368)
-colorhex = "CC99FF"

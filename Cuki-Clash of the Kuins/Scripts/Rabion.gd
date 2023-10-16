@@ -116,7 +116,7 @@ func elemental_damage(element):
 
 func attackedBySomething(knockbackForce, healthLost, something):
 	if (something != null):
-		knockback -= knockbackForce*Vector2(cos(get_angle_to(something.position)),sin(get_angle_to(something.position)))
+		knockback = -knockbackForce*Vector2(cos(get_angle_to(something.global_position)),sin(get_angle_to(something.global_position)))
 	$Knockback_timer.start()
 	health.current -= healthLost
 

@@ -456,7 +456,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.116853, 0.519997, 0, 1)
 
-[sub_resource type="Theme" id="Theme_aya44"]
+[sub_resource type="Theme" id="Theme_mp6f4"]
 resource_local_to_scene = true
 ProgressBar/fonts/font = null
 ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
@@ -499,6 +499,7 @@ hframes = 3
 vframes = 5
 
 [node name="Spin_attack" type="Area2D" parent="." groups=["C_attack"]]
+visible = false
 collision_mask = 18
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spin_attack"]
@@ -512,6 +513,7 @@ y_sort_enabled = true
 position = Vector2(-3.27534e-05, 0)
 
 [node name="Bat_zone" type="Area2D" parent="Attack_node" groups=["C_attack"]]
+visible = false
 position = Vector2(-1.90735e-06, 0)
 collision_mask = 18
 
@@ -530,12 +532,14 @@ hframes = 3
 frame = 1
 
 [node name="Hitbox" type="Area2D" parent="."]
+visible = false
 collision_mask = 14
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("9")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("8")
 
 [node name="Anim_Sprite" type="AnimationPlayer" parent="."]
@@ -552,7 +556,7 @@ offset_left = -17.5
 offset_top = -38.3333
 offset_right = 15.5
 offset_bottom = -32.3333
-theme = SubResource("Theme_aya44")
+theme = SubResource("Theme_mp6f4")
 
 [node name="Knockback_timer" type="Timer" parent="."]
 wait_time = 0.1

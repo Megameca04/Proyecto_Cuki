@@ -34,7 +34,8 @@ func _ready():
 
 func _process(delta):
 	chootyBehaviour()
-	$Label.text = str(state)
+	if Cuki != null:
+		$Label.text = str(global_position.distance_to(Cuki.global_position))+"\n"+str(state)
 
 func _physics_process(delta):
 	chootyMovement()
@@ -46,31 +47,31 @@ func chootyMovement():
 		
 		if state != ChootyState.Resting:
 			if vision_raycast.is_colliding():
-				var distance_runned = abs(global_position.distance_to(scape_position)-50)
+				var distance_runned = abs(global_position.distance_to(scape_position)-100)
 				var new_sp = to_global(-global_position.direction_to(scape_position).orthogonal().normalized() * distance_runned)
 				scape_position = new_sp
 				vision_raycast.target_position = to_local(scape_position)
 			
-			if global_position.distance_to(scape_position) >= 10:
-				movement = (global_position.direction_to(scape_position))*speed
+			if global_position.distance_to(scape_position) > 5:
+				movement = (global_position.direction_to(scape_position))
 			else:
 				scape_position = Vector2.ZERO
 			
-			velocity = movement
+			velocity = (movement + knockback ).normalized()*speed
 	else:
 		if Cuki != null:
-				if global_position.distance_to(Cuki.global_position) < 100 && scape_position == Vector2.ZERO && state != ChootyState.Resting:
+			if state != ChootyState.Resting:
+				if global_position.distance_to(Cuki.global_position) < 80 && scape_position == Vector2.ZERO:
 					scape_position = to_global(-position.direction_to(Cuki.position)*100)
 					vision_raycast.target_position = to_local(scape_position)
 				
 	move_and_slide()
 
-
 func chootyBehaviour():
 	if Cuki != null:
 		if state != ChootyState.Resting:
-			if position.distance_to(Cuki.position) > 100 :
-				if state != ChootyState.Shooting and state != ChootyState.Running:
+			if position.distance_to(Cuki.position) > 80 :
+				if state != ChootyState.Shooting and state == ChootyState.Running:
 					stateAndAnimationChange(ChootyState.Shooting)
 			else:
 				if state != ChootyState.Resting:
@@ -142,7 +143,6 @@ func tar_bubble():
 		bubble.objective_position = Cuki.global_position
 		call_deferred("add_sibling",bubble)
 		bubble.element = element_attack_name
-	
 
 func shock_stone():
 	var stone = STONE.instantiate()
@@ -157,7 +157,6 @@ func shoot_dart():
 		var dart = DART.instantiate()
 		dart.objective = Cuki.global_position
 		call_deferred("add_child", dart)
-	
 
 func defeat():
 	self.queue_free()
@@ -165,10 +164,11 @@ func defeat():
 func elemental_damage(element):
 	elemental_state.contactWithElement(element)
 
-func attackedBySomething(healthLost):
+func attackedBySomething(healthLost, something, knockbackForce):
 	if elemental_state.getMovementState() != "Frozen":
 		health_bar.show()
 		hide_timer.start()
+		knockback =  -knockbackForce*Vector2(cos(get_angle_to(something.global_position)),sin(get_angle_to(something.global_position)))
 		if elemental_state.getTemporalState() == "Venom":
 			health.current -= healthLost * 2
 		else:
@@ -193,18 +193,18 @@ func _on_animation_player_animation_finished(anim_name):
 
 func _on_hitbox_area_entered(area):
 	if area.is_in_group("C_attack"):
-		attackedBySomething(1)
+		attackedBySomething(1,area,100)
 	if area.is_in_group("expl_attack") || area.is_in_group("expl_bun"):
-		attackedBySomething(3)
+		attackedBySomething(3,area,300)
 	if !area.is_in_group("Piedra"):
 		elemental_state.contactWithElementGroup(area.get_groups())
 	if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):
-		attackedBySomething(1)
+		attackedBySomething(1,area,100)
 
 func _on_elemental_state_temporal_damage():
 	if (elemental_state.getTemporalState() == "Fire"):
-		attackedBySomething(1)
+		attackedBySomething(1,Vector2.ZERO,0)
 	if (elemental_state.getTemporalState() == "IntenseFire"):
-		attackedBySomething(1 * 2)
+		attackedBySomething(2,Vector2.ZERO,0)
 	if (elemental_state.getTemporalState() == "Electroshocked"):
-		attackedBySomething(1)
+		attackedBySomething(1,Vector2.ZERO,0)

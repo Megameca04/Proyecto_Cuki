@@ -9,7 +9,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_w5s3q"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ajwvp"]
-radius = 204.0
+radius = 200.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x5lgt"]
 radius = 11.0
@@ -81,7 +81,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.116853, 0.519997, 0, 1)
 
-[sub_resource type="Theme" id="Theme_n16qw"]
+[sub_resource type="Theme" id="Theme_8qxtm"]
 resource_local_to_scene = true
 ProgressBar/fonts/font = null
 ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
@@ -101,15 +101,18 @@ hframes = 3
 frame = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_w5s3q")
 
 [node name="Vision_field" type="Area2D" parent="."]
+visible = false
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Vision_field"]
 shape = SubResource("CircleShape2D_ajwvp")
 
 [node name="Hitbox" type="Area2D" parent="."]
+visible = false
 collision_layer = 2
 collision_mask = 25
 
@@ -117,6 +120,7 @@ collision_mask = 25
 shape = SubResource("CircleShape2D_x5lgt")
 
 [node name="Vision_Raycast" type="RayCast2D" parent="."]
+visible = false
 collision_mask = 4
 
 [node name="Shoot_timer" type="Timer" parent="."]
@@ -135,7 +139,7 @@ offset_left = -32.0
 offset_top = -56.0
 offset_right = 32.0
 offset_bottom = -40.0
-theme = SubResource("Theme_n16qw")
+theme = SubResource("Theme_8qxtm")
 
 [node name="Salud" parent="." instance=ExtResource("4_wc8xc")]
 max_amount = 3
