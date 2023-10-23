@@ -1,5 +1,7 @@
 extends Area2D
 
+enum DifficultyLevels { EASY, NORMAL, HARD }
+@export var difficulty:DifficultyLevels
 @export var rounds = 0
 @export var easyEnemiesDictionary = {}
 @export var normalEnemiesDictionary = {}
