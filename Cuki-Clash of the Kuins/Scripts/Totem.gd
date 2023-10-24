@@ -11,14 +11,23 @@ var randomQuantityEnemies = 0
 var randomEnemyIndex = 0
 var randomEnemyState = 0
 
-func detectPlayer():
-	pass
+func detectPlayer(groupName):
+	if (groupName == "Player"):
+		generateEnemies()
 
-func detectEnemies():
-	pass
+func detectEnemies(groupName):
+	if (groupName == "Enemies"):
+		pass
 
-func detectBarrels():
-	pass
+func detectBarrels(groupName):
+	if (groupName == "Barrels"):
+		pass
 
 func generateEnemies():
 	pass
+
+func _on_body_entered(body):
+	for i in body.get_groups():
+		detectPlayer(i)
+		detectEnemies(i)
+		detectBarrels(i)

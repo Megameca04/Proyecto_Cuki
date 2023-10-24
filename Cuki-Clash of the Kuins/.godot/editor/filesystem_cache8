@@ -1,6 +1,6 @@
 2a60927148abd1d33b818b535e306557
-::res://::1698099033
-default_env.tres::Environment::6631317262926085604::1698090544::0::1::::<><>::
+::res://::1698166058
+default_env.tres::Environment::6631317262926085604::1698099304::0::1::::<><>::
 icon.png::CompressedTexture2D::8107812734285409254::1695150453::1695150453::1::::<><>::
 Pruebas.tscn::PackedScene::5086348431193309548::1698081969::0::1::::<><>::uid://c1bw1m1tr8gem<>uid://yfaphak8gtm2<>uid://cty4jbpf7flme<>uid://b6wi067d3baqe<>uid://gg8rb8xhhwk5<>uid://c66oom3xhf7kf<>uid://bo8b3iunrn026
 ::res://Entidades/::1698090386
@@ -15,12 +15,12 @@ Piedra.tscn::PackedScene::3996871549009678166::1695174300::0::1::::<><>::res://S
 Puerta.tscn::PackedScene::8715581098358426134::1698081969::0::1::::<><>::res://Scripts/Puerta.gd<>uid://dso8qkwogtl30
 Rabion.tscn::PackedScene::4608223205682533452::1698081969::0::1::::<><>::res://Scripts/Rabion.gd<>uid://0ettfhn1kxgs<>uid://fyyh6totk12a<>uid://dljqaqas8it2e<>uid://6wpanuw2c5wd
 Totem.tscn::PackedScene::220357976535760652::1698090386::0::1::::<><>::res://Scripts/Totem.gd
-::res://Objetos/::1698090544
+::res://Objetos/::1698099304
 CukiHealthbar.tscn::PackedScene::7950891044004337142::1695150453::0::1::::<><>::
 Element.tscn::PackedScene::561625818705417587::1695174300::0::1::::<><>::
-ElementalState.tscn::PackedScene::2222181932995230567::1698090544::0::1::::<><>::res://Scripts/ElementalStateMachine.gd
+ElementalState.tscn::PackedScene::2222181932995230567::1698099304::0::1::::<><>::res://Scripts/ElementalStateMachine.gd
 Salud.tscn::PackedScene::401960650908374654::1695150453::0::1::::<><>::res://Scripts/Salud.gd
-::res://Scripts/::1698090544
+::res://Scripts/::1698099304
 Barril_b.gd::GDScript::-1::1698081969::0::1::::<>CharacterBody2D<>::
 Blonk.gd::GDScript::-1::1695174300::0::1::::<>CharacterBody2D<>::
 Chooty.gd::GDScript::-1::1695174300::0::1::::<>CharacterBody2D<>::
@@ -33,7 +33,7 @@ Piedra.gd::GDScript::-1::1695150453::0::1::::<>CharacterBody2D<>::
 Puerta.gd::GDScript::-1::1695150453::0::1::::<>StaticBody2D<>::
 Rabion.gd::GDScript::-1::1695174300::0::1::::<>CharacterBody2D<>::
 Salud.gd::GDScript::-1::1695150453::0::1::::<>Node<>::
-Totem.gd::GDScript::-1::1698090544::0::1::::<>Area2D<>::
+Totem.gd::GDScript::-1::1698099304::0::1::::<>Area2D<>::
 ::res://Sprites/::1695150453
 ::res://Sprites/Aliados/::1695150453
 ::res://Sprites/Aliados/Cuki/::1695174300

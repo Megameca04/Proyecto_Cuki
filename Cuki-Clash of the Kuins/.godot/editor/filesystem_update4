@@ -1,3 +1,4 @@
 res://default_env.tres
-res://Objetos/ElementalState.tscn
+res://Entidades/Cuki.tscn
 res://Scripts/Totem.gd
+res://Entidades/Totem.tscn
