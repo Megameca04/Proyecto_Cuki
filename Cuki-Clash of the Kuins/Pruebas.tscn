@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cep4oemi8n8dk"]
+[gd_scene load_steps=11 format=3 uid="uid://cep4oemi8n8dk"]
 
 [ext_resource type="PackedScene" uid="uid://c1bw1m1tr8gem" path="res://Entidades/Cuki.tscn" id="1"]
 [ext_resource type="Texture2D" uid="uid://yfaphak8gtm2" path="res://Sprites/Tilesets/Calabozo/Tileset Calabozo.png" id="3_c7ptk"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://gg8rb8xhhwk5" path="res://Entidades/blonk.tscn" id="5_w6h26"]
 [ext_resource type="PackedScene" uid="uid://c66oom3xhf7kf" path="res://Entidades/explosive_eater.tscn" id="6_ccqc4"]
 [ext_resource type="PackedScene" uid="uid://bo8b3iunrn026" path="res://Entidades/Chooty.tscn" id="7_spxc7"]
+[ext_resource type="PackedScene" uid="uid://de0i72vr6rc3" path="res://Entidades/Totem.tscn" id="8_jxlva"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x75un"]
 texture = ExtResource("3_c7ptk")
@@ -72,3 +73,6 @@ layer_0/tile_data = PackedInt32Array(65536, 1, 1, 131072, 1, 1, 196608, 1, 1, 26
 
 [node name="Chooty" parent="." instance=ExtResource("7_spxc7")]
 position = Vector2(1168, 96)
+
+[node name="Totem" parent="." instance=ExtResource("8_jxlva")]
+position = Vector2(736, 64)

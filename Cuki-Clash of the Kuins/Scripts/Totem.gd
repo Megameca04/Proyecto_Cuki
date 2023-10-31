@@ -16,7 +16,7 @@ func detectPlayer(groupName):
 		generateEnemies()
 
 func detectEnemies(groupName):
-	if (groupName == "Enemies"):
+	if (groupName == "Enemy"):
 		pass
 
 func detectBarrels(groupName):
