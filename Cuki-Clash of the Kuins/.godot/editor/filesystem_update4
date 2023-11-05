@@ -1,10 +1,10 @@
 res://default_env.tres
-res://Entidades/Barril_b.tscn
 res://Entidades/Totem.tscn
 res://Scripts/Totem.gd
 res://Pruebas.tscn
 res://Entidades/blonk.tscn
 res://Objetos/ElementalState.tscn
 res://Entidades/Cuki.tscn
+res://Entidades/Barril_b.tscn
 res://Entidades/Rabion.tscn
 res://Entidades/Chooty.tscn
