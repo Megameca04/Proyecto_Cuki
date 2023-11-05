@@ -16,13 +16,25 @@ var randomEnemyIndex = 0
 var randomEnemyState = 0
 var Cuki = null
 
+func _ready():
+	randomize()
+
 func detectPlayer(player):
 	if (player.name == "Cuki"):
 		Cuki = player
 		generateEnemies()
 
 func generateEnemies():
-	var enemy = rabion.instantiate()
+	var enemy = null
+	var enemyDeterminator = randi() % 4
+	if (easyEnemiesDictionary[enemyDeterminator] == "Rabion"):
+		enemy = rabion.instantiate()
+	if (easyEnemiesDictionary[enemyDeterminator] == "Blonk"):
+		enemy = blonk.instantiate()
+	if (easyEnemiesDictionary[enemyDeterminator] == "Chooty"):
+		enemy = chooty.instantiate()
+	if (easyEnemiesDictionary[enemyDeterminator] == "Explosive_Eater"):
+		enemy = explosive_eater.instantiate()
 	enemy.global_position = Vector2.ZERO
 	self.call_deferred("add_child", enemy)
 
