@@ -24,6 +24,7 @@ func _ready():
 
 func _process(delta): #ciclo principal del juego
 	animations()
+	print(global_position)
 
 func _physics_process(delta): #ciclo del movimiento
 	formando()
@@ -45,7 +46,7 @@ func calcularMovimiento():
 	movement = Vector2.ZERO
 	if elemental_state.getMovementState() != "Paralyzed" && elemental_state.getMovementState() != "Frozen":
 		if Cuki != null:
-			movement = position.direction_to(Cuki.position) #direction_to da un vector unitario, este se multiplica por la velocidad
+			movement = global_position.direction_to(Cuki.global_position) #direction_to da un vector unitario, este se multiplica por la velocidad
 		else:
 			movement = Vector2.ZERO
 		movement = ((1.5*movement)+formacion).normalized()

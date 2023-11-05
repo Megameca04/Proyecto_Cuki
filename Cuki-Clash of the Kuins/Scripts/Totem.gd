@@ -23,9 +23,8 @@ func detectPlayer(player):
 
 func generateEnemies():
 	var enemy = rabion.instantiate()
-	enemy.global_position = Vector2(0, 0)
-	enemy.global_position = self.global_position
-	#self.call_deferred("add_child", enemy)
+	enemy.global_position = Vector2.ZERO
+	self.call_deferred("add_child", enemy)
 
 func _on_body_entered(body):
 	detectPlayer(body)
