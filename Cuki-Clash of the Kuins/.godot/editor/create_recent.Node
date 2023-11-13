@@ -1,11 +1,12 @@
+Node
 AnimationPlayer
+CollisionShape2D
+Sprite2D
+Area2D
 Line2D
 RayCast2D
 Timer
-CollisionShape2D
-Sprite2D
 CharacterBody2D
-Area2D
 Label
 ProgressBar
 GPUParticles2D
@@ -14,5 +15,4 @@ Node2D
 TileMap
 Camera2D
 Marker2D
-Node
 CanvasLayer

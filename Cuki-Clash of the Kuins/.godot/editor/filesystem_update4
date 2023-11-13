@@ -1,7 +1,8 @@
 res://default_env.tres
-res://Entidades/Cuki.tscn
+res://Entidades/Vida.tscn
 res://Tileset/Cueva.tres
-res://Entidades/Chooty.tscn
-res://Entidades/Barril_b.tscn
+res://Scripts/GenerAyudas.gd
 res://Entidades/Rabion.tscn
+res://Scripts/Rabion.gd
 res://Pruebas.tscn
+res://Objetos/gener_ayudas.tscn
