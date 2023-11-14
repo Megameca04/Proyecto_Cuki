@@ -15,7 +15,7 @@ var state:
 func _ready():
 	$Color.color = Color(colorhex)
 
-func _process(delta):
+func _process(_delta):
 	$Estado.visible = !state
 
 func _on_hitbox_area_entered(area):

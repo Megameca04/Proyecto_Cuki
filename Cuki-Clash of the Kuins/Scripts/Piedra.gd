@@ -27,7 +27,7 @@ func _ready():
 	
 	set_velocity(movement*speed)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	move_and_slide()
 	
 	if (element == "Shock"):
@@ -51,7 +51,7 @@ func _physics_process(delta):
 			create_attack_zone(element)
 	
 
-func _process(delta):
+func _process(_delta):
 	# && ele.get_element_name() != "Tar"
 	if (element != "Shock"):
 		anim_y()

@@ -18,7 +18,7 @@ func _ready():
 			palancas +=1
 	$ColorRect.color = Color(colorhex)
 
-func _process(delta):
+func _process(_delta):
 	var palancas_activas:int = 0
 	for i in get_tree().get_nodes_in_group("Palanca"):
 		if i.colorhex == self.colorhex and i.state == true:

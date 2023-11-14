@@ -22,10 +22,10 @@ func _ready():
 	health.connect("depleted",Callable(self,"defeat"))
 	health.initialize()
 
-func _process(delta): #ciclo principal del juego
+func _process(_delta): #ciclo principal del juego
 	animations()
 
-func _physics_process(delta): #ciclo del movimiento
+func _physics_process(_delta): #ciclo del movimiento
 	formando()
 	calcularMovimiento()
 	moviendose()
@@ -60,7 +60,7 @@ func moviendose():
 		movement = velocity #realiza el movimiento
 
 func defeat():
-	$GenerAyudas.generar_vida(1)
+	$GenerAyudas.generar_vida(0)
 	self.queue_free()
 
 func _on_VisionField_body_entered(body): #si un cuerpo entra al area de visión

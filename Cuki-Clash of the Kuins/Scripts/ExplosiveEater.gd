@@ -22,10 +22,10 @@ func _ready():
 	health.connect("depleted",Callable(self,"defeat"))
 	health.initialize()
 
-func _process(delta):
+func _process(_delta):
 	animationFace()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	explosiveEaterMovement()
 
 func animationFace():

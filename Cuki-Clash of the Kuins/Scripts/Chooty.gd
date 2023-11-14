@@ -32,12 +32,12 @@ func _ready():
 	health.connect("depleted",Callable(self,"defeat"))
 	health.initialize()
 
-func _process(delta):
+func _process(_delta):
 	chootyBehaviour()
 	if Cuki != null:
 		$Label.text = str(global_position.distance_to(Cuki.global_position))+"\n"+str(state)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	chootyMovement()
 
 func chootyMovement():

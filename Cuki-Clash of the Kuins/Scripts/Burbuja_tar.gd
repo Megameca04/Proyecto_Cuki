@@ -14,7 +14,7 @@ func _ready():
 	aliveTimer.start()
 	movement = global_position.direction_to(objective_position)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	
 	if speed > 0:
 		speed -= abs(pow(aliveTimer.time_left/2,3/2))

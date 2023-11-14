@@ -6,7 +6,7 @@ var objective = Vector2.ZERO
 func _ready():
 	target_position = to_local(objective)
 
-func _process(delta):
+func _process(_delta):
 	if $Line2D.get_point_count() < 2:
 		$Line2D.add_point(Vector2.ZERO,0)
 		if is_colliding():

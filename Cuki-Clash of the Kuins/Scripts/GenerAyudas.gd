@@ -10,9 +10,8 @@ func generar_vida(muerte):
 		0:
 			var elec = rng.randi_range(1,10)
 			
-			if elec == 1:
+			if elec <= 10:
 				var cor = CORAZON.instantiate()
-				
-				cor.global_position = get_parent().global_position
-				get_parent().add_sibling(cor)
+				cor.position = get_parent().position
+				get_parent().get_parent().call_deferred("add_child",cor)
 	

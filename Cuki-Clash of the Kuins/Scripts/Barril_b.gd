@@ -13,7 +13,7 @@ const EXPL = preload("res://Entidades/Explosion.tscn")
 func _ready():
 	add_to_group("Barrels")
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if !still:
 		set_velocity(movement*SPEED)
 		move_and_slide()

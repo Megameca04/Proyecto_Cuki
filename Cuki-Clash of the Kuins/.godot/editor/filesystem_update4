@@ -1,8 +1,8 @@
+res://Scripts/Vida.gd
 res://default_env.tres
 res://Entidades/Vida.tscn
 res://Tileset/Cueva.tres
-res://Scripts/GenerAyudas.gd
-res://Entidades/Rabion.tscn
-res://Scripts/Rabion.gd
 res://Pruebas.tscn
 res://Objetos/gener_ayudas.tscn
+res://Entidades/Rabion.tscn
+res://Entidades/Cuki.tscn
