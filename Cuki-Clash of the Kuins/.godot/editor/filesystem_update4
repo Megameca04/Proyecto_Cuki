@@ -1,5 +1,5 @@
 res://default_env.tres
-res://Pruebas.tscn
 res://Entidades/Totem.tscn
-res://Entidades/Rabion.tscn
 res://Scripts/Totem.gd
+res://Pruebas.tscn
+res://Entidades/Rabion.tscn

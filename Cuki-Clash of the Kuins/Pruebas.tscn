@@ -50,3 +50,4 @@ layer_0/tile_data = PackedInt32Array(65536, 1, 1, 131072, 1, 1, 196608, 1, 1, 26
 
 [node name="Totem" parent="." instance=ExtResource("8_jxlva")]
 position = Vector2(736, 64)
+rounds = 2
