@@ -29,7 +29,7 @@ func detectPlayer(player):
 		activated = true
 
 func generateEnemies():
-	if enemiesGenerated == false:
+	if enemiesGenerated == false && activated == true:
 		enemiesGenerated = true
 		var enemy = null
 		randomQuantityEnemies = 0
@@ -52,12 +52,15 @@ func generateEnemies():
 			enemy.add_to_group("totem_enemies")
 			self.call_deferred("add_sibling", enemy)
 
+func roundEnding():
+	currentRound += 1
+	enemiesGenerated = false
+	if (currentRound == rounds):
+		self.queue_free()
+
 func _process(delta):
 	if activated == true && get_tree().get_nodes_in_group("totem_enemies").size() == 0:
-		currentRound += 1
-		enemiesGenerated = false
-		if (currentRound == rounds):
-			self.queue_free()
+		roundEnding()
 		generateEnemies()
 
 func _on_body_entered(body):
