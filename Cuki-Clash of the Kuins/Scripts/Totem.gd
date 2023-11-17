@@ -45,12 +45,12 @@ func generateEnemies():
 				enemy = chooty.instantiate()
 			if (easyEnemiesDictionary[randomEnemyIndex] == "Explosive_Eater"):
 				enemy = explosive_eater.instantiate()
-			var newPosition = Vector2.ZERO
+			var newPosition = self.global_position
 			while newPosition == Vector2.ZERO || newPosition == Cuki.position:
-				newPosition = Vector2(randi() % 50, randi() & 50)
+				newPosition += Vector2(randi() % 50, randi() % 50)
 			enemy.global_position = newPosition
 			enemy.add_to_group("totem_enemies")
-			self.call_deferred("add_child", enemy)
+			self.call_deferred("add_sibling", enemy)
 
 func _process(delta):
 	if activated == true && get_tree().get_nodes_in_group("totem_enemies").size() == 0:
