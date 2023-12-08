@@ -7,7 +7,7 @@ enum DifficultyLevels { EASY, NORMAL, HARD }
 @onready var blonk = preload("res://Entidades/blonk.tscn")
 @onready var chooty = preload("res://Entidades/Chooty.tscn")
 @onready var explosive_eater = preload("res://Entidades/explosive_eater.tscn")
-var easyEnemiesDictionary = {0:"Rabion", 1:"Blonk", 2:"Chooty", 3:"Explosive_Eater"}
+var easyEnemiesDictionary = {0:"Rabion", 1:"Blonk", 2:"Chooty", 3:"Explosive_Eater"} # La cantidad de enemigos que aparecen. Subdificultad por rounds. En cada round hay un tope de enemigos que pueden salir. Determina que tipo de enemigos puede salir.
 var normalEnemiesDictionary = {0:"Rabion", 1:"Blonk", 2:"Chooty", 3:"Explosive_Eater"}
 var hardEnemiesDictionary = {0:"Rabion", 1:"Blonk", 2:"Chooty", 3:"Explosive_Eater"}
 var enemyStates = {0:"Freeze", 1:"Poison", 2:"Flame", 3:"Water", 4:"Tar", 5:"Shock"}
