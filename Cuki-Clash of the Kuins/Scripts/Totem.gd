@@ -7,6 +7,7 @@ enum DifficultyLevels { EASY, NORMAL, HARD }
 @onready var blonk = preload("res://Entidades/blonk.tscn")
 @onready var chooty = preload("res://Entidades/Chooty.tscn")
 @onready var explosive_eater = preload("res://Entidades/explosive_eater.tscn")
+@onready var barrel_to_eat = preload("res://Entidades/Barril_b.tscn")
 var easyEnemiesDictionary = {0:"Rabion", 1:"Blonk", 2:"Chooty", 3:"Explosive_Eater"} # La cantidad de enemigos que aparecen. Subdificultad por rounds. En cada round hay un tope de enemigos que pueden salir. Determina que tipo de enemigos puede salir.
 var normalEnemiesDictionary = {0:"Rabion", 1:"Blonk", 2:"Chooty", 3:"Explosive_Eater"}
 var hardEnemiesDictionary = {0:"Rabion", 1:"Blonk", 2:"Chooty", 3:"Explosive_Eater"}
@@ -32,19 +33,24 @@ func generateEnemies():
 	if enemiesGenerated == false && activated == true:
 		enemiesGenerated = true
 		var enemy = null
+		var barrel = null
 		randomQuantityEnemies = 0
 		while randomQuantityEnemies == 0:
-			randomQuantityEnemies = randi() % 10
+			randomQuantityEnemies = randi() % 3
 		for n in randomQuantityEnemies:
 			randomEnemyIndex = randi() % 4
 			if (easyEnemiesDictionary[randomEnemyIndex] == "Rabion"):
 				enemy = rabion.instantiate()
+				barrel = null
 			if (easyEnemiesDictionary[randomEnemyIndex] == "Blonk"):
 				enemy = blonk.instantiate()
+				barrel = null
 			if (easyEnemiesDictionary[randomEnemyIndex] == "Chooty"):
 				enemy = chooty.instantiate()
+				barrel = null
 			if (easyEnemiesDictionary[randomEnemyIndex] == "Explosive_Eater"):
 				enemy = explosive_eater.instantiate()
+				barrel = barrel_to_eat.instantiate()
 			var newPosition = Vector2.ZERO
 			while newPosition == Vector2.ZERO || newPosition.distance_to(Cuki.position) < 130:
 				newPosition = self.global_position
@@ -52,6 +58,11 @@ func generateEnemies():
 			enemy.global_position = newPosition
 			enemy.add_to_group("totem_enemies")
 			self.call_deferred("add_sibling", enemy)
+			if (barrel != null):
+				newPosition = self.global_position
+				newPosition += Vector2(randi() % 100, randi() % 100)
+				barrel.global_position = newPosition
+				self.call_deferred("add_sibling", barrel)
 
 func roundEnding():
 	currentRound += 1

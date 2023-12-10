@@ -1,5 +1,5 @@
 2a60927148abd1d33b818b535e306557
-::res://::1702078302
+::res://::1702225466
 default_env.tres::Environment::6631317262926085604::1700832949::0::1::::<><>::
 icon.png::CompressedTexture2D::8107812734285409254::1698955857::1698955857::1::::<><>::
 Pruebas.tscn::PackedScene::5086348431193309548::1700832949::0::1::::<><>::uid://c1bw1m1tr8gem<>uid://yfaphak8gtm2<>uid://de0i72vr6rc3
@@ -20,7 +20,7 @@ CukiHealthbar.tscn::PackedScene::7950891044004337142::1698955857::0::1::::<><>::
 Element.tscn::PackedScene::561625818705417587::1698955857::0::1::::<><>::
 ElementalState.tscn::PackedScene::2222181932995230567::1699215962::0::1::::<><>::res://Scripts/ElementalStateMachine.gd
 Salud.tscn::PackedScene::401960650908374654::1698955857::0::1::::<><>::res://Scripts/Salud.gd
-::res://Scripts/::1700495584
+::res://Scripts/::1702079476
 Barril_b.gd::GDScript::-1::1699201300::0::1::::<>CharacterBody2D<>::
 Blonk.gd::GDScript::-1::1699201300::0::1::::<>CharacterBody2D<>::
 Chooty.gd::GDScript::-1::1699201300::0::1::::<>CharacterBody2D<>::
@@ -33,7 +33,7 @@ Piedra.gd::GDScript::-1::1699201300::0::1::::<>CharacterBody2D<>::
 Puerta.gd::GDScript::-1::1698955857::0::1::::<>StaticBody2D<>::
 Rabion.gd::GDScript::-1::1699222887::0::1::::<>CharacterBody2D<>::
 Salud.gd::GDScript::-1::1698955857::0::1::::<>Node<>::
-Totem.gd::GDScript::-1::1700495584::0::1::::<>Area2D<>::
+Totem.gd::GDScript::-1::1702079476::0::1::::<>Area2D<>::
 ::res://Sprites/::1698955857
 ::res://Sprites/Aliados/::1698955857
 ::res://Sprites/Aliados/Cuki/::1698955857
