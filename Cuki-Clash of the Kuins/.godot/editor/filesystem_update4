@@ -1,8 +1,7 @@
-res://Scripts/Vida.gd
 res://default_env.tres
-res://Entidades/Vida.tscn
-res://Tileset/Cueva.tres
 res://Pruebas.tscn
-res://Objetos/gener_ayudas.tscn
-res://Entidades/Rabion.tscn
+res://Tileset/Cueva.tres
+res://Scripts/Componentes/ElementalStateMachine.gd
 res://Entidades/Cuki.tscn
+res://Objetos/ElementalState.tscn
+res://Scripts/Cuki.gd

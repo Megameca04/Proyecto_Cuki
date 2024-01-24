@@ -55,7 +55,7 @@ func _physics_process(delta):
 
 func CukiDirections():
 	direction = Vector2.ZERO
-	if (current_state == STATES.walk || current_state == STATES.idle || current_state == STATES.dashing) && elemental_state.getMovementState() != "Paralyzed" && elemental_state.getMovementState() != "Frozen":
+	if (current_state == STATES.walk || current_state == STATES.idle || current_state == STATES.dashing) && elemental_state.getState() != 2 && elemental_state.getState() != 9:
 
 		if Input.is_action_pressed("ui_up"):
 			direction.y = -1
@@ -81,18 +81,18 @@ func CukiDirections():
 			next_state = STATES.idle
 
 func calcularMovimiento():
-	if elemental_state.getMovementState() != "Tar":
+	if elemental_state.getState() != 6:
 		movement = Vector2.ZERO
 		movement = direction.normalized()
 		if current_state == STATES.dashing:
 			movement *= 2
-		if elemental_state.getTemporalState() == "Ice":
+		if elemental_state.getState() == 4:
 			totalSpeed = speed / 2
 		else:
 			totalSpeed = speed
 
 func moviendose():
-	if elemental_state.getMovementState() != "Tar":
+	if elemental_state.getState() != 6:
 		set_velocity((movement*totalSpeed) + knockback)
 		move_and_slide()
 		movement = velocity
@@ -249,7 +249,7 @@ func _on_hitbox_area_entered(area):
 		attackedBySomething(500, 1, area)
 		elemental_state.contactWithElement(area.element)
 	elemental_state.contactWithElementGroup(area.get_groups())
-	if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):
+	if (area.name == "Water" && elemental_state.getState() == 2):
 		attackedBySomething(0, 1, area)
 	if area.is_in_group("Vida"):
 		health.current += 1
@@ -259,11 +259,11 @@ func elemental_damage(element):
 	elemental_state.contactWithElement(element)
 
 func _on_elemental_state_temporal_damage():
-	if (elemental_state.getTemporalState() == "Fire"):
+	if (elemental_state.getState() == 1):
 		attackedBySomething(0, 1, null)
-	if (elemental_state.getTemporalState() == "IntenseFire"):
+	if (elemental_state.getState() == 7):
 		attackedBySomething(0, 1 * 2, null)
-	if (elemental_state.getTemporalState() == "Electroshocked"):
+	if (elemental_state.getState() == 8):
 		attackedBySomething(0, 1, null)
 
 func _on_knockback_timer_timeout():

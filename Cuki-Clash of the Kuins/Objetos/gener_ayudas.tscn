@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://c0wjgvhp87sex"]
 
-[ext_resource type="Script" path="res://Scripts/GenerAyudas.gd" id="1_gpht2"]
+[ext_resource type="Script" path="res://Scripts/Componentes/GenerAyudas.gd" id="1_gpht2"]
+
 
 [node name="GenerAyudas" type="Node"]
 script = ExtResource("1_gpht2")

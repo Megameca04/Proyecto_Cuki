@@ -1,10 +1,11 @@
 [gd_scene load_steps=16 format=3 uid="uid://cqhkk0g3dp5pe"]
 
-[ext_resource type="Script" path="res://Scripts/Blonk.gd" id="1_dscac"]
+[ext_resource type="Script" path="res://Scripts/Enemigos/Blonk.gd" id="1_dscac"]
 [ext_resource type="Texture2D" uid="uid://uulcfvlwm8yg" path="res://Sprites/Enemigos/Blonk.png" id="1_vuri7"]
 [ext_resource type="PackedScene" uid="uid://fyyh6totk12a" path="res://Objetos/Salud.tscn" id="2_58cjs"]
 [ext_resource type="PackedScene" uid="uid://dljqaqas8it2e" path="res://Objetos/CukiHealthbar.tscn" id="3_f8wit"]
 [ext_resource type="PackedScene" uid="uid://6wpanuw2c5wd" path="res://Objetos/ElementalState.tscn" id="5_3uoyk"]
+
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ycrju"]
 radius = 32.0
