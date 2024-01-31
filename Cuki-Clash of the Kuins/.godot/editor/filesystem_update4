@@ -2,6 +2,6 @@ res://default_env.tres
 res://Pruebas.tscn
 res://Tileset/Cueva.tres
 res://Scripts/Componentes/ElementalStateMachine.gd
-res://Entidades/Cuki.tscn
 res://Objetos/ElementalState.tscn
-res://Scripts/Cuki.gd
+res://Entidades/Cuki.tscn
+res://Objetos/Salud.tscn

@@ -51,7 +51,7 @@ func _physics_process(delta):
 	moviendose()
 	attack(delta)
 	animations()
-	$Label.text = str(current_state)
+	$Label.text = str(elemental_state.getState())
 
 func CukiDirections():
 	direction = Vector2.ZERO

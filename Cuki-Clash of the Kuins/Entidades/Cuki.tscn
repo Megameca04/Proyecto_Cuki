@@ -497,6 +497,7 @@ position = Vector2(0, -7.33333)
 texture = ExtResource("2")
 hframes = 3
 vframes = 5
+frame = 1
 
 [node name="Spin_attack" type="Area2D" parent="." groups=["C_attack"]]
 visible = false
@@ -522,6 +523,7 @@ shape = SubResource("1")
 disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Attack_node/Bat_zone"]
+visible = false
 z_as_relative = false
 y_sort_enabled = true
 position = Vector2(25.3334, 0)
@@ -575,6 +577,7 @@ offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="ElementalState" parent="." instance=ExtResource("6_0h1jq")]
+state_length = 5
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
