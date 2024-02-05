@@ -27,8 +27,8 @@ enum Elements {
 var _current_element : int = Elements.NONE
 
 #Referencia a los nodos que miden duración del efecto y la repetición de daño
-@onready var _StateTimeLength : Timer = $StateLenght
-@onready var _DamageCycle : Timer  = $DamageCycle
+@onready var _state_time_length : Timer = $StateLenght
+@onready var _damage_cycle : Timer  = $DamageCycle
 
 ##Funcion que detecta cual debe ser la respuesta según el elemento aplicado.
 func contactWithElement(elementalEvent):
@@ -64,81 +64,107 @@ func contactWithElementGroup(elementalGroup):
 		if (elementalGroup[i] == "Tar" or elementalGroup[i] == "Shock"):
 			contactWithMovementState(elementalGroup[i])
 
-
+##Funcion que detecta cual debe ser la respuesta a ser golpeado con el elemento
+##Agua dependiendo del estado actual.
 func contactWithWater():
 	
-	if (_current_element == Elements.FREEZE and _current_element != Elements.PARALYZED and _current_element != Elements.TAR):
+	#Si la entidad tiene el efecto de congelamiento y no está ni paralizada ni con alquitran
+	if (
+			_current_element == Elements.FREEZE and _current_element != Elements.PARALYZED
+			and _current_element != Elements.TAR
+	):
 		_current_element = Elements.ICEBLOCK
-		_StateTimeLength.set_wait_time(state_length)
-		_StateTimeLength.start()
+		_state_time_length.set_wait_time(state_length)
+		_state_time_length.start()
 		return
 	
-	if (_current_element == Elements.TAR):
+	#Si la entidad tiene el efecto de alquitran
+	if _current_element == Elements.TAR:
 		_current_element = Elements.NONE
 		return
 	
-	if (_current_element == Elements.POISON or _current_element == Elements.FIRE or _current_element == Elements.INTENSEFIRE):
+	#Si la entidad tiene el efecto de Veneno, y no tiene el efecto de Fuego o
+	#Fuego intenso
+	if (
+			_current_element == Elements.POISON or _current_element == Elements.FIRE
+			or _current_element == Elements.INTENSEFIRE
+		):
 		_current_element = Elements.NONE
 		return
-		
-	if (_current_element == Elements.NONE):
+	
+	#Si la entidad no tiene un efecto
+	if _current_element == Elements.NONE:
 		_current_element = Elements.WET
-		_StateTimeLength.set_wait_time(state_length)
-		_StateTimeLength.start()
+		_state_time_length.set_wait_time(state_length)
+		_state_time_length.start()
 	
-	if (_current_element == Elements.PARALYZED):
+	#Si la entidad tiene el efecto de Paralizado
+	if _current_element == Elements.PARALYZED:
 		_current_element = Elements.ELECTROSHOCK
-		_DamageCycle.start()
-		_StateTimeLength.set_wait_time(state_length)
-		_StateTimeLength.start()
+		_damage_cycle.start()
+		_state_time_length.set_wait_time(state_length)
+		_state_time_length.start()
 
+##Funcion que detecta cual debe ser la respuesta a un elemento si este tiene un
+##efecto persistente en un intervalo de tiempo
 func contactWithTemporalState(elementalEvent : String):
 	
 	var current_state_length = state_length
 	
+	#Si no hay un efecto activo en la entidad
 	if _current_element == Elements.NONE:
 		
+		#Si el elemento recibido es Veneno y la entidad no está mojada
 		if (elementalEvent == "Poison" && _current_element != Elements.WET):
 			_current_element = Elements.POISON
 		
-		if (elementalEvent == "Flame"):
+		#Si el elemento recibido es Fuego 
+		if elementalEvent == "Flame":
 			
-			if (_current_element == Elements.TAR):
+			#Si el elemento actual es Alquitran
+			if _current_element == Elements.TAR:
 				_current_element = Elements.INTENSEFIRE
-				_StateTimeLength.set_wait_time(_StateTimeLength.get_wait_time() - state_length / 2)
+				_state_time_length.set_wait_time(_state_time_length.get_wait_time() - state_length / 2)
 			
 			else:
 				_current_element = Elements.FIRE
-				_StateTimeLength.set_wait_time(state_length)
-				_StateTimeLength.start()
+				_state_time_length.set_wait_time(state_length)
+				_state_time_length.start()
 				
 			
-			_DamageCycle.start()
+			_damage_cycle.start()
 			return
 		
-		if (elementalEvent == "Freeze"):
+		#Si el elemento recibido es Congelado
+		if elementalEvent == "Freeze":
 			_current_element = Elements.FREEZE
 		
-		_StateTimeLength.set_wait_time(state_length)
-		_StateTimeLength.start()
+		_state_time_length.set_wait_time(state_length)
+		_state_time_length.start()
 	
+	#Si el elemento actual es mojado y el efecto recibido es congelado
 	if (_current_element == Elements.WET && elementalEvent == "Freeze"):
 		
 		_current_element = Elements.ICEBLOCK
-		_StateTimeLength.set_wait_time(state_length)
-		_StateTimeLength.start()
+		_state_time_length.set_wait_time(state_length)
+		_state_time_length.start()
 
+##Funcion que detecta cual debe ser la respuesta a un elemento si este afecta
+##la movilidad de la entidad
 func contactWithMovementState(elementalEvent):
 	
-	if (_current_element == Elements.NONE):
+	#Si no hay un efecto activo en la entidad
+	if _current_element == Elements.NONE:
 		
+		#Si el elemento recibido es Alquitran 
 		if (elementalEvent == "Tar"):
 			
+			#Si el elemento actual es Fuego
 			if (_current_element == Elements.FIRE):
 				 
 				_current_element = Elements.NONE
 				_current_element = Elements.INTENSEFIRE
-				_StateTimeLength.set_wait_time(_StateTimeLength.get_wait_time() - state_length / 2)
+				_state_time_length.set_wait_time(_state_time_length.get_wait_time() - state_length / 2)
 				return
 				
 			else:
@@ -146,22 +172,25 @@ func contactWithMovementState(elementalEvent):
 				_current_element = Elements.TAR
 			
 		
+		#Si el elemento recibido es Paralisis
 		if (elementalEvent == "Shock"):
 			
 			_current_element = Elements.PARALYZED
 			
+			#Si el elemento actual es Agua
 			if (_current_element == Elements.WET):
 				
 				_current_element = Elements.ELECTROSHOCK
-				_DamageCycle.start()
-			
+				_damage_cycle.start()
 		
-		_StateTimeLength.set_wait_time(state_length)
-		_StateTimeLength.start()
+		_state_time_length.set_wait_time(state_length)
+		_state_time_length.start()
 
+##Funcion que establece el elemento actual a Ningugo
 func cureEverything():
 	_current_element = Elements.NONE
 
+##Función que retorna el elemento actual
 func getState():
 	return _current_element
 
@@ -170,4 +199,4 @@ func _on_elemental_timer_timeout():
 
 func _on_elemental_damage_timeout():
 	emit_signal("temporal_damage")
-	_DamageCycle.start()
+	_damage_cycle.start()

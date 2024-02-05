@@ -1,7 +1,8 @@
 extends Area2D
 
+var element : int
+
 @onready var sprite = $Sprite2D
-var element = ""
 
 func _ready():
 	color_changer(element)
