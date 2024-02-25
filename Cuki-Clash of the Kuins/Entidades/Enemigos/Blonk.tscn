@@ -1,0 +1,164 @@
+[gd_scene load_steps=15 format=3 uid="uid://cqhkk0g3dp5pe"]
+
+[ext_resource type="Script" path="res://Scripts/Enemigos/Blonk.gd" id="1_dscac"]
+[ext_resource type="Texture2D" uid="uid://uulcfvlwm8yg" path="res://Sprites/Enemigos/Blonk.png" id="1_vuri7"]
+[ext_resource type="PackedScene" uid="uid://fyyh6totk12a" path="res://Componentes/Salud.tscn" id="3_vwfp1"]
+[ext_resource type="PackedScene" uid="uid://dljqaqas8it2e" path="res://Componentes/CukiHealthbar.tscn" id="4_t0sql"]
+[ext_resource type="PackedScene" uid="uid://6wpanuw2c5wd" path="res://Componentes/ElementalState.tscn" id="5_bq65e"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ycrju"]
+radius = 35.0
+
+[sub_resource type="Animation" id="Animation_8g83p"]
+resource_name = "Attacking"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.3, 0.5, 0.8, 2.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 0, 1, 0, 1]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.9),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"attackPlayer"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_0xq8l"]
+resource_name = "Moving"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g0jmw"]
+_data = {
+"Attacking": SubResource("Animation_8g83p"),
+"Moving": SubResource("Animation_0xq8l")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r1kvj"]
+radius = 139.014
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dq2lq"]
+radius = 4.38364
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_al1jy"]
+bg_color = Color(0, 0.27451, 0.0823529, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1.38376e-07, 0.215617, 0.0876136, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lkb8y"]
+bg_color = Color(0.2, 0.721569, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.116853, 0.519997, 0, 1)
+
+[sub_resource type="Theme" id="Theme_u0qc1"]
+resource_local_to_scene = true
+ProgressBar/fonts/font = null
+ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_lkb8y")
+
+[node name="Blonk" type="CharacterBody2D" groups=["Enemy"]]
+texture_filter = 1
+collision_layer = 2
+collision_mask = 6
+script = ExtResource("1_dscac")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -22)
+texture = ExtResource("1_vuri7")
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_ycrju")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_g0jmw")
+}
+
+[node name="VisionField" type="Area2D" parent="."]
+position = Vector2(8, 8)
+scale = Vector2(1.04, 1)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionField"]
+shape = SubResource("CircleShape2D_r1kvj")
+
+[node name="AttackArea" type="Area2D" parent="."]
+scale = Vector2(10.9498, 10.5672)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_dq2lq")
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2(4, -11)
+collision_layer = 2
+collision_mask = 25
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitbox"]
+polygon = PackedVector2Array(-36, -4, 28, -37, 28, 11, -12, 28, -36, 7)
+
+[node name="Salud" parent="." instance=ExtResource("3_vwfp1")]
+max_amount = 15
+
+[node name="ProgressBar" parent="." instance=ExtResource("4_t0sql")]
+visible = false
+offset_left = -16.0
+offset_top = -40.0
+offset_right = 24.0
+offset_bottom = -32.0
+theme = SubResource("Theme_u0qc1")
+
+[node name="Pause_attack_timer" type="Timer" parent="."]
+wait_time = 2.051
+
+[node name="Hide_timer" type="Timer" parent="."]
+
+[node name="ElementalState" parent="." instance=ExtResource("5_bq65e")]
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[connection signal="body_entered" from="VisionField" to="." method="_on_vision_field_body_entered"]
+[connection signal="body_exited" from="VisionField" to="." method="_on_vision_field_body_exited"]
+[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_exited" from="AttackArea" to="." method="_on_attack_area_body_exited"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="timeout" from="Pause_attack_timer" to="." method="_on_pause_attack_timer_timeout"]
+[connection signal="timeout" from="Hide_timer" to="." method="_on_hide_timer_timeout"]
+[connection signal="temporal_damage" from="ElementalState" to="." method="_on_elemental_state_temporal_damage"]

@@ -31,18 +31,18 @@ var _current_element : int = Elements.NONE
 @onready var _damage_cycle : Timer  = $DamageCycle
 
 ##Funcion que detecta cual debe ser la respuesta según el elemento aplicado.
-func contactWithElement(elementalEvent):
+func contactWithElement(elementalEvent : int):
 	
 	#Cuando el elemento es Agua 
-	if (elementalEvent == "Water"):
+	if (elementalEvent == 3):
 		contactWithWater()
 	
 	#Cuando el elemento incluye un efecto que dura en el tiempo
-	if (elementalEvent == "Poison" or elementalEvent == "Flame" or elementalEvent == "Freeze"):
+	if (elementalEvent == 5 or elementalEvent == 1 or elementalEvent == 4):
 		contactWithTemporalState(elementalEvent)
 	
 	#Cuando el elemento afecta el movimiento de la entidad
-	if (elementalEvent == "Tar" or elementalEvent == "Shock"):
+	if (elementalEvent == 6 or elementalEvent == 2):
 		contactWithMovementState(elementalEvent)
 
 ##Funcion que detecta cual debe ser la respuesta según un conjunto de elementos
@@ -107,7 +107,7 @@ func contactWithWater():
 
 ##Funcion que detecta cual debe ser la respuesta a un elemento si este tiene un
 ##efecto persistente en un intervalo de tiempo
-func contactWithTemporalState(elementalEvent : String):
+func contactWithTemporalState(elementalEvent : int):
 	
 	var current_state_length = state_length
 	
@@ -115,11 +115,11 @@ func contactWithTemporalState(elementalEvent : String):
 	if _current_element == Elements.NONE:
 		
 		#Si el elemento recibido es Veneno y la entidad no está mojada
-		if (elementalEvent == "Poison" && _current_element != Elements.WET):
+		if (elementalEvent == 5 && _current_element != Elements.WET):
 			_current_element = Elements.POISON
 		
 		#Si el elemento recibido es Fuego 
-		if elementalEvent == "Flame":
+		if elementalEvent == 1:
 			
 			#Si el elemento actual es Alquitran
 			if _current_element == Elements.TAR:
@@ -129,21 +129,20 @@ func contactWithTemporalState(elementalEvent : String):
 			else:
 				_current_element = Elements.FIRE
 				_state_time_length.set_wait_time(state_length)
-				_state_time_length.start()
-				
 			
+			_state_time_length.start()
 			_damage_cycle.start()
 			return
 		
 		#Si el elemento recibido es Congelado
-		if elementalEvent == "Freeze":
+		if elementalEvent == 4:
 			_current_element = Elements.FREEZE
 		
 		_state_time_length.set_wait_time(state_length)
 		_state_time_length.start()
 	
 	#Si el elemento actual es mojado y el efecto recibido es congelado
-	if (_current_element == Elements.WET && elementalEvent == "Freeze"):
+	if (_current_element == Elements.WET && elementalEvent == 4):
 		
 		_current_element = Elements.ICEBLOCK
 		_state_time_length.set_wait_time(state_length)
@@ -189,6 +188,7 @@ func contactWithMovementState(elementalEvent):
 ##Funcion que establece el elemento actual a Ningugo
 func cureEverything():
 	_current_element = Elements.NONE
+	_damage_cycle.stop()
 
 ##Función que retorna el elemento actual
 func getState():

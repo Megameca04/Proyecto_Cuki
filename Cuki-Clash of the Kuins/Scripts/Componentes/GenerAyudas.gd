@@ -1,6 +1,6 @@
 extends Node
 
-const CORAZON = preload("res://Entidades/Vida.tscn")
+const CORAZON = preload("res://Entidades/Elementos combates/Vida.tscn")
 
 var rng = RandomNumberGenerator.new() 
 

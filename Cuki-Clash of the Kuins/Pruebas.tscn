@@ -1,29 +1,30 @@
-[gd_scene load_steps=6 format=3 uid="uid://cep4oemi8n8dk"]
+[gd_scene load_steps=7 format=3 uid="uid://cep4oemi8n8dk"]
 
-[ext_resource type="PackedScene" uid="uid://b1qp8t0uk54ou" path="res://Entidades/Cuki.tscn" id="1"]
-[ext_resource type="PackedScene" uid="uid://cty4jbpf7flme" path="res://Entidades/Barril_b.tscn" id="3_l2s6e"]
+[ext_resource type="PackedScene" uid="uid://b1qp8t0uk54ou" path="res://Entidades/Aliados/Cuki.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://cty4jbpf7flme" path="res://Entidades/Elementos combates/Barril.tscn" id="3_l2s6e"]
+[ext_resource type="PackedScene" uid="uid://frqnus88mbbb" path="res://Entidades/Enemigos/Chooty.tscn" id="6_16leo"]
 [ext_resource type="TileSet" uid="uid://dor6kp4tlmn0p" path="res://Tileset/Cueva.tres" id="6_311sy"]
-[ext_resource type="PackedScene" uid="uid://dwf5l2rmoctp3" path="res://Entidades/Puerta.tscn" id="8_53glx"]
-[ext_resource type="PackedScene" uid="uid://b5kwgau0s81tb" path="res://Entidades/Palanca.tscn" id="9_s3a5c"]
+[ext_resource type="PackedScene" uid="uid://dwf5l2rmoctp3" path="res://Entidades/Elementos puzzles/Puerta.tscn" id="8_53glx"]
+[ext_resource type="PackedScene" uid="uid://b5kwgau0s81tb" path="res://Entidades/Elementos puzzles/Palanca.tscn" id="9_s3a5c"]
 
 [node name="Node2D" type="Node2D"]
 y_sort_enabled = true
 texture_filter = 1
 
 [node name="Cuki" parent="." instance=ExtResource("1")]
-position = Vector2(384, 64)
+position = Vector2(280, 176)
 
 [node name="Camera2D" type="Camera2D" parent="Cuki"]
 visible = false
 zoom = Vector2(1.5, 1.5)
 
 [node name="Barril_b6" parent="." instance=ExtResource("3_l2s6e")]
-position = Vector2(432, 64)
-elementName = "Flame"
+position = Vector2(320, 128)
+element = 1
 
 [node name="Barril_b7" parent="." instance=ExtResource("3_l2s6e")]
 position = Vector2(79, 64)
-elementName = "Water"
+element = 3
 
 [node name="TileMap" type="TileMap" parent="."]
 texture_filter = 1
@@ -40,3 +41,6 @@ rotation = 4.71239
 
 [node name="Palanca" parent="." instance=ExtResource("9_s3a5c")]
 position = Vector2(112, 688)
+
+[node name="Chooty" parent="." instance=ExtResource("6_16leo")]
+position = Vector2(120, 240)

@@ -1,18 +1,25 @@
 extends CharacterBody2D
 
-enum BlonkState { Patrol, Attacking, Resting }
+enum BlonkState {
+		PATROL,
+		ATTACKING,
+		RESTING
+	}
+
+const ATTACK = preload("res://Entidades/Elementos combates/Explosion.tscn")
+
+@export var blonkSpeed = 50
+
 var Cuki = null
 var CukiOnAttackRange = null
-var state = BlonkState.Patrol
+var state = BlonkState.PATROL
 var movement = Vector2()
-const ATTACK = preload("res://Entidades/Explosion.tscn")
+
 @onready var health = $Salud
 @onready var health_bar = $ProgressBar
 @onready var hide_timer = $Hide_timer
 @onready var pause_attack_timer = $Pause_attack_timer
-@onready var attack_spawner = $AttackSpawner
-@onready var elemental_state = $ElementalState # Referencia a la barra de estado de los elementos
-@export var blonkSpeed = 50
+@onready var elemental_state = $ElementalState 
 
 func _ready():
 	health.connect("changed",Callable(health_bar,"set_value"))
@@ -28,25 +35,35 @@ func _physics_process(_delta):
 	blonkMovement()
 
 func blonkMovement():
-	if elemental_state.getMovementState() != "Paralyzed" && elemental_state.getMovementState() != "Frozen" && elemental_state.getMovementState() != "Tar":
+	if (
+			elemental_state.getState() != 2 and elemental_state.getState() != 9
+			and elemental_state.getState() != 6
+		):
+		
 		movement = Vector2.ZERO
-		if Cuki != null && state == BlonkState.Patrol:
+		
+		if Cuki != null && state == BlonkState.PATROL:
 			movement = position.direction_to(Cuki.position)
 		else:
 			movement = Vector2.ZERO
-		if (elemental_state.getMovementState() == "Ice"):
+		
+		if elemental_state.getState() == 4:
 			set_velocity(movement * blonkSpeed / 2)
 		else:
 			set_velocity(movement * blonkSpeed)
-		move_and_slide()
+		
 		movement = velocity
+		move_and_slide()
 
 func blonkBehaviour():
-	if elemental_state.getMovementState() != "Paralyzed" && elemental_state.getMovementState() != "Frozen":
-		if CukiOnAttackRange != null && state == BlonkState.Patrol:
-			stateAndAnimationChange(BlonkState.Attacking)
+	
+	if elemental_state.getState() != 2 and elemental_state.getState() != 9:
+		
+		if CukiOnAttackRange != null and state == BlonkState.PATROL:
+			stateAndAnimationChange(BlonkState.ATTACKING)
 
 func animationFace():
+	
 	if movement.x <= 1:
 		$Sprite2D.scale.x = -1
 		$CollisionShape2D.scale.x = -1
@@ -56,20 +73,24 @@ func animationFace():
 
 func stateAndAnimationChange(blonkState):
 	state = blonkState
-	if blonkState == BlonkState.Patrol:
-		$AnimationPlayer.play("Moving")
-	elif blonkState == BlonkState.Attacking:
-		$AnimationPlayer.play("Attacking")
-	elif blonkState == BlonkState.Resting:
-		$AnimationPlayer.play("Moving")
+	
+	match blonkState:
+		BlonkState.PATROL:
+			$AnimationPlayer.play("Moving")
+		BlonkState.ATTACKING:
+			$AnimationPlayer.play("Attacking")
+		BlonkState.RESTING:
+			$AnimationPlayer.play("Moving")
 
 func attackPlayer():
-	if elemental_state.getMovementState() != "Paralyzed" && elemental_state.getMovementState() != "Frozen":
+	if elemental_state.getState() != 2 && elemental_state.getState() != 9:
+		
 		var atk = ATTACK.instantiate()
+		
 		atk.add_to_group("expl_blonk")
-		atk.global_position = attack_spawner.global_position
+		atk.global_position = global_position
 		call_deferred("add_sibling",atk)
-		stateAndAnimationChange(BlonkState.Resting)
+		stateAndAnimationChange(BlonkState.RESTING)
 		pause_attack_timer.start()
 
 func defeat():
@@ -80,10 +101,10 @@ func elemental_damage(element):
 
 func attackedBySomething(knockbackForce, healthLost, something):
 	health.current -= healthLost
-	if elemental_state.getMovementState() != "Frozen":
+	if elemental_state.getState() != 9:
 		health_bar.show()
 		hide_timer.start()
-		if elemental_state.getTemporalState() == "Venom":
+		if elemental_state.getState() == 5:
 			health.current -= healthLost * 2
 		else:
 			health.current -= healthLost
@@ -98,13 +119,20 @@ func _on_vision_field_body_exited(body):
 		Cuki = null
 
 func _on_hitbox_area_entered(area):
+	
 	if area.is_in_group("C_attack"):
 		attackedBySomething(0,1,null)
-	if area.is_in_group("expl_attack") || area.is_in_group("expl_bun"):
+	
+	if (
+			(area.is_in_group("expl_attack") or area.is_in_group("expl_bun"))
+			and !area.is_in_group("expl_blonk")
+		):
+		
 		attackedBySomething(0,2,null)
-	# elemental_state.contactWithElement(area.name)
-	elemental_state.contactWithElementGroup(area.get_groups())
-	if (area.name == "Water" && elemental_state.getMovementState() == "Paralyzed"):
+		
+		elemental_state.contactWithElement(area.element)
+	
+	if (area.name == "Water" && elemental_state.getState() == 2):
 		attackedBySomething(0,1,null)
 
 func _on_attack_area_body_entered(body):
@@ -120,12 +148,12 @@ func _on_hide_timer_timeout():
 	health_bar.hide()
 
 func _on_pause_attack_timer_timeout():
-	stateAndAnimationChange(BlonkState.Patrol)
+	stateAndAnimationChange(BlonkState.PATROL)
 
 func _on_elemental_state_temporal_damage():
-	if (elemental_state.getTemporalState() == "Fire"):
+	if (elemental_state.getState() == 1):
 		attackedBySomething(0,1,null)
-	if (elemental_state.getTemporalState() == "IntenseFire"):
+	if (elemental_state.getState() == 7):
 		attackedBySomething(0,2,null)
-	if (elemental_state.getTemporalState() == "Electroshocked"):
+	if (elemental_state.getState() == 8):
 		attackedBySomething(0,1,null)
