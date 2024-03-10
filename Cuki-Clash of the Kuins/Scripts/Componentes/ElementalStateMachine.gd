@@ -156,7 +156,7 @@ func contactWithMovementState(elementalEvent):
 	if _current_element == Elements.NONE:
 		
 		#Si el elemento recibido es Alquitran 
-		if (elementalEvent == "Tar"):
+		if (elementalEvent == 6):
 			
 			#Si el elemento actual es Fuego
 			if (_current_element == Elements.FIRE):
@@ -172,7 +172,7 @@ func contactWithMovementState(elementalEvent):
 			
 		
 		#Si el elemento recibido es Paralisis
-		if (elementalEvent == "Shock"):
+		if (elementalEvent == 2):
 			
 			_current_element = Elements.PARALYZED
 			

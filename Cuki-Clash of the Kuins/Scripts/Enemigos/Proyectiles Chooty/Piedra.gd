@@ -67,7 +67,7 @@ func anim_y():
 	var percent = (in_distance - global_position.distance_to(objective_position))/in_distance
 	
 	$Sprite2D.position.y = -100*(percent) + 100*pow(percent,2)
-	print("SP: "+str($Sprite2D.global_position)+"/GP: "+str(global_position))
+	#print("SP: "+str($Sprite2D.global_position)+"/GP: "+str(global_position))
 
 func create_attack_zone():
 	var az = ZonaAtaque.instantiate()

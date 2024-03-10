@@ -44,3 +44,4 @@ position = Vector2(112, 688)
 
 [node name="Chooty" parent="." instance=ExtResource("6_16leo")]
 position = Vector2(120, 240)
+element = 2

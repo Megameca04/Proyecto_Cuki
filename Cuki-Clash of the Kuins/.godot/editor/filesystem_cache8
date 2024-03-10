@@ -1,7 +1,8 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1707772393
+::res://::1709586974
 default_env.tres::Environment::6631317262926085604::1707769980::0::1::::<><>::
 icon.png::CompressedTexture2D::8107812734285409254::1698009340::1698009340::1::::<><>::
+new_script.gd::GDScript::-1::1709228925::0::1::::<>Node<>::
 Pruebas.tscn::PackedScene::5086348431193309548::1707769979::0::1::::<><>::uid://b1qp8t0uk54ou::::res://Entidades/Aliados/Cuki.tscn<>uid://cty4jbpf7flme::::res://Entidades/Elementos combates/Barril.tscn<>uid://frqnus88mbbb::::res://Entidades/Enemigos/Chooty.tscn<>uid://dor6kp4tlmn0p::::res://Tileset/Cueva.tres<>uid://dwf5l2rmoctp3::::res://Entidades/Elementos puzzles/Puerta.tscn<>uid://b5kwgau0s81tb::::res://Entidades/Elementos puzzles/Palanca.tscn
 ::res://Componentes/::1707769979
 CukiHealthbar.tscn::PackedScene::7950891044004337142::1698009340::0::1::::<><>::
