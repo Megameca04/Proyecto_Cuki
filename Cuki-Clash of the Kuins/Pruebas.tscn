@@ -43,5 +43,5 @@ rotation = 4.71239
 position = Vector2(112, 688)
 
 [node name="Chooty" parent="." instance=ExtResource("6_16leo")]
-position = Vector2(120, 240)
-element = 2
+position = Vector2(120, 344)
+element = 6

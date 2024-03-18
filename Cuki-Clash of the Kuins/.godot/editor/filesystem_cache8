@@ -1,9 +1,8 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1709586974
-default_env.tres::Environment::6631317262926085604::1707769980::0::1::::<><>::
+::res://::1710789533
+default_env.tres::Environment::6631317262926085604::1709588090::0::1::::<><>::
 icon.png::CompressedTexture2D::8107812734285409254::1698009340::1698009340::1::::<><>::
-new_script.gd::GDScript::-1::1709228925::0::1::::<>Node<>::
-Pruebas.tscn::PackedScene::5086348431193309548::1707769979::0::1::::<><>::uid://b1qp8t0uk54ou::::res://Entidades/Aliados/Cuki.tscn<>uid://cty4jbpf7flme::::res://Entidades/Elementos combates/Barril.tscn<>uid://frqnus88mbbb::::res://Entidades/Enemigos/Chooty.tscn<>uid://dor6kp4tlmn0p::::res://Tileset/Cueva.tres<>uid://dwf5l2rmoctp3::::res://Entidades/Elementos puzzles/Puerta.tscn<>uid://b5kwgau0s81tb::::res://Entidades/Elementos puzzles/Palanca.tscn
+Pruebas.tscn::PackedScene::5086348431193309548::1709588090::0::1::::<><>::uid://b1qp8t0uk54ou::::res://Entidades/Aliados/Cuki.tscn<>uid://cty4jbpf7flme::::res://Entidades/Elementos combates/Barril.tscn<>uid://frqnus88mbbb::::res://Entidades/Enemigos/Chooty.tscn<>uid://dor6kp4tlmn0p::::res://Tileset/Cueva.tres<>uid://dwf5l2rmoctp3::::res://Entidades/Elementos puzzles/Puerta.tscn<>uid://b5kwgau0s81tb::::res://Entidades/Elementos puzzles/Palanca.tscn
 ::res://Componentes/::1707769979
 CukiHealthbar.tscn::PackedScene::7950891044004337142::1698009340::0::1::::<><>::
 ElementalState.tscn::PackedScene::2222181932995230567::1707769979::0::1::::<><>::res://Scripts/Componentes/ElementalStateMachine.gd
@@ -36,9 +35,9 @@ ZonaAtaquePiedra.tscn::PackedScene::1543802727933446364::1707141086::0::1::::<><
 ::res://Scripts/::1707141120
 ::res://Scripts/Aliados/::1707164784
 Cuki.gd::GDScript::-1::1707164784::0::1::::<>CharacterBody2D<>::
-::res://Scripts/Componentes/::1707141572
+::res://Scripts/Componentes/::1709587239
 Element.gd::GDScript::-1::1706795882::0::1::::<>Area2D<>::
-ElementalStateMachine.gd::GDScript::-1::1707140482::0::1::::ElementalState<>Node<>::
+ElementalStateMachine.gd::GDScript::-1::1709587239::0::1::::ElementalState<>Node<>::
 GenerAyudas.gd::GDScript::-1::1707141572::0::1::::<>Node<>::
 Salud.gd::GDScript::-1::1706795882::0::1::::Salud<>Node<>::
 ::res://Scripts/Elementos combate/::1707768286
@@ -52,15 +51,15 @@ Bloque_hielo.gd::GDScript::-1::1698009340::0::1::::<>Area2D<>::
 Motor.gd::GDScript::-1::1698009340::0::1::::<>StaticBody2D<>::
 Palanca.gd::GDScript::-1::1700135600::0::1::::<>StaticBody2D<>::
 Puerta.gd::GDScript::-1::1700135600::0::1::::<>StaticBody2D<>::
-::res://Scripts/Enemigos/::1707769113
+::res://Scripts/Enemigos/::1709588090
 Blonk.gd::GDScript::-1::1707749171::0::1::::<>CharacterBody2D<>::
 Bum.gd::GDScript::-1::1700135600::0::1::::<>CharacterBody2D<>::
-Chooty.gd::GDScript::-1::1707769113::0::1::::<>CharacterBody2D<>::
+Chooty.gd::GDScript::-1::1709588090::0::1::::<>CharacterBody2D<>::
 Rabion.gd::GDScript::-1::1707165014::0::1::::<>CharacterBody2D<>::
-::res://Scripts/Enemigos/Proyectiles Chooty/::1707769979
+::res://Scripts/Enemigos/Proyectiles Chooty/::1709587135
 Burbuja_tar.gd::GDScript::-1::1707768286::0::1::::<>CharacterBody2D<>::
 Dardo_veneno.gd::GDScript::-1::1707768286::0::1::::<>RayCast2D<>::
-Piedra.gd::GDScript::-1::1707769979::0::1::::<>CharacterBody2D<>::
+Piedra.gd::GDScript::-1::1709587135::0::1::::<>CharacterBody2D<>::
 Piedra_a_z.gd::GDScript::-1::1707758380::0::1::::<>Area2D<>::
 ::res://Shaders/::1698009340
 PiedraFuego.gdshader::Shader::-1::1698009340::0::1::::<><>::
@@ -91,5 +90,5 @@ Wall_2.png::CompressedTexture2D::458347075969167493::1698009340::1698009340::1::
 Wall_5 copia2.PNG::CompressedTexture2D::810886419073145844::1698009340::1698009340::1::::<><>::
 Wall_5 copia.png::CompressedTexture2D::2123980897586032144::1698009340::1698009340::1::::<><>::
 Wall_6.png::CompressedTexture2D::8775742135347421078::1698009340::1698009340::1::::<><>::
-::res://Tileset/::1707769113
-Cueva.tres::TileSet::8178901202073622597::1707769113::0::1::::<><>::uid://dcauxnmmttfy0::::res://Sprites/Tilesets/Cuki_Minas_.png
+::res://Tileset/::1709587093
+Cueva.tres::TileSet::8178901202073622597::1709587093::0::1::::<><>::uid://dcauxnmmttfy0::::res://Sprites/Tilesets/Cuki_Minas_.png

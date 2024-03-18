@@ -41,6 +41,7 @@ var scape_position = Vector2.ZERO
 @onready var health_bar = $ProgressBar
 @onready var hide_timer = $Hide_timer
 @onready var elemental_state = $ElementalState
+@onready var animations = $AnimationPlayer
 
 func _ready():
 	health.connect("changed",Callable(health_bar,"set_value"))
@@ -112,13 +113,13 @@ func stateAndAnimationChange(chootyState):
 	
 	match chootyState:
 		ChootyState.PATROL:
-			$AnimationPlayer.play("Default")
+			animations.play("Default")
 		ChootyState.RUNNING:
-			$AnimationPlayer.play("Default")
+			animations.play("Default")
 		ChootyState.SHOOTING:
-			$AnimationPlayer.play("Shoot")
+			animations.play("Shoot")
 		ChootyState.RESTING:
-			$AnimationPlayer.play("Default")
+			animations.play("Default")
 
 func shoot_stone():
 	
@@ -182,7 +183,6 @@ func tar_bubble():
 	if Cuki != null:
 		bubble.objective_position = Cuki.global_position
 		call_deferred("add_sibling",bubble)
-		bubble.element = element
 
 func shock_stone():
 	var stone = PROJECTILES["S"].instantiate()

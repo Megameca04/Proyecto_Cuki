@@ -1,6 +1,11 @@
 res://default_env.tres
 res://Pruebas.tscn
 res://Tileset/Cueva.tres
-res://Scripts/Enemigos/Proyectiles Chooty/Piedra.gd
-res://Scripts/Componentes/ElementalStateMachine.gd
 res://Scripts/Enemigos/Chooty.gd
+res://Scripts/Enemigos/Bum.gd
+res://Entidades/Aliados/Cuki.tscn
+res://Entidades/Enemigos/Bum.tscn
+res://Entidades/Enemigos/Rabion.tscn
+res://Entidades/Enemigos/Proyectiles Chooty/BurbujaTar.tscn
+res://Scripts/Enemigos/Proyectiles Chooty/Dardo_veneno.gd
+res://Entidades/Enemigos/Proyectiles Chooty/DardoVeneno.tscn

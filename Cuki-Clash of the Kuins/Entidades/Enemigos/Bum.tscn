@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://dljqaqas8it2e" path="res://Componentes/CukiHealthbar.tscn" id="3_8p41f"]
 [ext_resource type="PackedScene" uid="uid://6wpanuw2c5wd" path="res://Componentes/ElementalState.tscn" id="5_bmhe3"]
 
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_obhf7"]
 radius = 16.0
 

@@ -26,7 +26,7 @@ func _on_animation_player_animation_finished(anim_name):
 		
 		if cuerpo.is_in_group("Enemy") or cuerpo.name == "Cuki":
 			get_collider().attackedBySomething(0,1,self)
-			get_collider().elemental_damage("Poison")
+			get_collider().elemental_damage(5)
 	
 	self.queue_free()
 
