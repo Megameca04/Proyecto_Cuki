@@ -1,6 +1,6 @@
 extends StaticBody2D
 
-@export var colorhex:String = ""
+@export var colorhex : String = ""
 var can_be_used = true
 
 var state:
@@ -20,7 +20,7 @@ func _process(delta):
 	$ProgressBar.value = $Timer.time_left
 
 func _on_hitbox_area_entered(area):
-	if area.name == "Shock":
+	if area.element == 2:
 		state = true
 		$Timer.start()
 

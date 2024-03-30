@@ -1,11 +1,15 @@
 res://default_env.tres
-res://Pruebas.tscn
+res://Entidades/Elementos puzzles/Bateria.tscn
 res://Tileset/Cueva.tres
-res://Scripts/Enemigos/Chooty.gd
-res://Scripts/Enemigos/Bum.gd
-res://Entidades/Aliados/Cuki.tscn
-res://Entidades/Enemigos/Bum.tscn
-res://Entidades/Enemigos/Rabion.tscn
+res://Scripts/Elementos puzzles/Antorcha.gd
+res://Scripts/Elementos puzzles/Bateria.gd
+res://Entidades/Elementos puzzles/Motor.tscn
+res://Scripts/Elementos puzzles/Bloque_hielo.gd
+res://Scripts/Elementos puzzles/Motor.gd
+res://Pruebas.tscn
+res://Scripts/Elementos puzzles/Puerta.gd
 res://Entidades/Enemigos/Proyectiles Chooty/BurbujaTar.tscn
-res://Scripts/Enemigos/Proyectiles Chooty/Dardo_veneno.gd
 res://Entidades/Enemigos/Proyectiles Chooty/DardoVeneno.tscn
+res://Entidades/Elementos combates/Explosion.tscn
+res://Entidades/Elementos puzzles/Palanca.tscn
+res://Entidades/Elementos puzzles/Puerta.tscn

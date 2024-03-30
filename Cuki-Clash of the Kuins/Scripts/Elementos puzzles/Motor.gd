@@ -43,10 +43,10 @@ func _ready():
 	refreshColorState()
 
 func _on_area_2d_area_entered(area):
-	if area.name == "Tar" && motorState != MotorState.OVERHEATED:
+	if area.element == 6 and motorState != MotorState.OVERHEATED:
 		setMotorState(MotorState.ON)
-	if area.name == "Flame":
+	if area.element == 1:
 		setMotorState(MotorState.OVERHEATED)
-	if area.name == "Ice" && motorState == MotorState.OVERHEATED:
+	if area.element == 4 and motorState == MotorState.OVERHEATED:
 		setMotorState(MotorState.ON)
 	refreshColorState()

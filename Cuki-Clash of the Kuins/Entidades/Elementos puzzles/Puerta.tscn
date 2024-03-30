@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://Scripts/Elementos puzzles/Puerta.gd" id="1_2qqmw"]
 [ext_resource type="Texture2D" uid="uid://dso8qkwogtl30" path="res://Sprites/Objetos/Puerta y palanca.png" id="2_oj2g2"]
 
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tpxnq"]
 size = Vector2(32, 64)
 

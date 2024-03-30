@@ -1,6 +1,6 @@
 extends StaticBody2D
 
-@export var colorhex:String = ""
+@export var colorhex : String = ""
 
 var state = false:
 	set(new_state):

@@ -2,17 +2,17 @@
 
 [ext_resource type="PackedScene" uid="uid://b1qp8t0uk54ou" path="res://Entidades/Aliados/Cuki.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://cty4jbpf7flme" path="res://Entidades/Elementos combates/Barril.tscn" id="3_l2s6e"]
-[ext_resource type="PackedScene" uid="uid://frqnus88mbbb" path="res://Entidades/Enemigos/Chooty.tscn" id="6_16leo"]
+[ext_resource type="PackedScene" uid="uid://burlcxw7l5brg" path="res://Entidades/Elementos puzzles/Bateria.tscn" id="5_8j28c"]
+[ext_resource type="PackedScene" uid="uid://h3m2qalip2d0" path="res://Entidades/Elementos puzzles/Bloque_hielo.tscn" id="6_6xalv"]
 [ext_resource type="TileSet" uid="uid://dor6kp4tlmn0p" path="res://Tileset/Cueva.tres" id="6_311sy"]
 [ext_resource type="PackedScene" uid="uid://dwf5l2rmoctp3" path="res://Entidades/Elementos puzzles/Puerta.tscn" id="8_53glx"]
-[ext_resource type="PackedScene" uid="uid://b5kwgau0s81tb" path="res://Entidades/Elementos puzzles/Palanca.tscn" id="9_s3a5c"]
 
 [node name="Node2D" type="Node2D"]
 y_sort_enabled = true
 texture_filter = 1
 
 [node name="Cuki" parent="." instance=ExtResource("1")]
-position = Vector2(280, 176)
+position = Vector2(288, 704)
 
 [node name="Camera2D" type="Camera2D" parent="Cuki"]
 visible = false
@@ -39,9 +39,17 @@ layer_1/tile_data = PackedInt32Array(131074, 65536, 3, 131075, 65536, 3, 131076,
 position = Vector2(160, 816)
 rotation = 4.71239
 
-[node name="Palanca" parent="." instance=ExtResource("9_s3a5c")]
-position = Vector2(112, 688)
+[node name="Barril" parent="." instance=ExtResource("3_l2s6e")]
+position = Vector2(128, 664)
+element = 1
 
-[node name="Chooty" parent="." instance=ExtResource("6_16leo")]
-position = Vector2(120, 344)
-element = 6
+[node name="Barril2" parent="." instance=ExtResource("3_l2s6e")]
+position = Vector2(176, 720)
+element = 2
+
+[node name="Bateria" parent="." instance=ExtResource("5_8j28c")]
+position = Vector2(120, 728)
+colorhex = "00ff00"
+
+[node name="Bloque de Hielo" parent="." instance=ExtResource("6_6xalv")]
+position = Vector2(120, 720)

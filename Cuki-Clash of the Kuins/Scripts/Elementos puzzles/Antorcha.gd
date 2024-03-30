@@ -1,6 +1,6 @@
 extends StaticBody2D
 
-@export var colorhex:String = ""
+@export var colorhex : String = ""
 var can_be_used = true
 
 var state:
@@ -19,7 +19,7 @@ func _process(delta):
 	$Estado.visible = !state
 
 func _on_hitbox_area_entered(area):
-	if area.name == "Flame":
+	if area.element == 1:
 		state = true
-	elif area.name == "Water":
+	elif area.element == 3:
 		state = false
