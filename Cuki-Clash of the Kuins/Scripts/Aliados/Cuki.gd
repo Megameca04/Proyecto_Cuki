@@ -351,9 +351,13 @@ func _on_hitbox_area_entered(area):
 		elemental_state.contactWithElement(area.element)
 		elemental_state.contactWithElementGroup(area.get_groups())
 	
-	if area.is_in_group("Vida"):
-		health.current += 1
-		health_bar.show()
+	if area.is_in_group("item_ayuda"):
+		match area.tipo:
+			0:
+				health.current += 1
+				health_bar.show()
+			1:
+				pass
 
 func elemental_damage(element):
 	elemental_state.contactWithElement(element)

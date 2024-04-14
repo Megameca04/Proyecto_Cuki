@@ -1,68 +1,69 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1711047582
-default_env.tres::Environment::6631317262926085604::1711044088::0::1::::<><>::
+::res://::1712606715
+default_env.tres::Environment::6631317262926085604::1712603987::0::1::::<><>::
 icon.png::CompressedTexture2D::8107812734285409254::1698009340::1698009340::1::::<><>::
-Pruebas.tscn::PackedScene::5086348431193309548::1711044088::0::1::::<><>::uid://b1qp8t0uk54ou::::res://Entidades/Aliados/Cuki.tscn<>uid://cty4jbpf7flme::::res://Entidades/Elementos combates/Barril.tscn<>uid://burlcxw7l5brg::::res://Entidades/Elementos puzzles/Bateria.tscn<>uid://h3m2qalip2d0::::res://Entidades/Elementos puzzles/Bloque_hielo.tscn<>uid://dor6kp4tlmn0p::::res://Tileset/Cueva.tres<>uid://dwf5l2rmoctp3::::res://Entidades/Elementos puzzles/Puerta.tscn
-::res://Componentes/::1707769979
-CukiHealthbar.tscn::PackedScene::7950891044004337142::1698009340::0::1::::<><>::
-ElementalState.tscn::PackedScene::2222181932995230567::1707769979::0::1::::<><>::res://Scripts/Componentes/ElementalStateMachine.gd
-GenerAyudas.tscn::PackedScene::6573537051155547415::1707165175::0::1::::<><>::res://Scripts/Componentes/GenerAyudas.gd
-Salud.tscn::PackedScene::401960650908374654::1707137118::0::1::::<><>::res://Scripts/Componentes/Salud.gd
-::res://Entidades/::1707141377
-::res://Entidades/Aliados/::1710790115
-Cuki.tscn::PackedScene::4245331385924306100::1710790115::0::1::::<><>::res://Scripts/Aliados/Cuki.gd<>uid://dicp13ihj0xno::::res://Sprites/Aliados/Cuki/Cuki.png<>uid://ksv0uls0ckvx::::res://Sprites/Efectos/Slash.png<>uid://fyyh6totk12a::::res://Componentes/Salud.tscn<>uid://dljqaqas8it2e::::res://Componentes/CukiHealthbar.tscn<>uid://6wpanuw2c5wd::::res://Componentes/ElementalState.tscn
-::res://Entidades/Elementos combates/::1711044088
-Barril.tscn::PackedScene::6157751403507189456::1707769979::0::1::::<><>::uid://b0qvf717halgi::::res://Sprites/Enemigos/Barril.png<>res://Scripts/Elementos combate/Barril.gd
-Explosion.tscn::PackedScene::3552599243559140964::1711044088::0::1::::<><>::res://Scripts/Elementos combate/Explosion.gd<>uid://6m0j5v1pvvou::::res://Sprites/Efectos/Explosion.png
-Vida.tscn::PackedScene::7088790733968517231::1707140954::0::1::::<><>::res://Scripts/Elementos combate/Vida.gd<>uid://blqp1teld5n5d::::res://Sprites/Objetos/Vida_y_carga.png
-::res://Entidades/Elementos puzzles/::1711043952
-Antorcha.tscn::PackedScene::7362826554915816065::1707140912::0::1::::<><>::res://Scripts/Elementos puzzles/Antorcha.gd<>uid://dso8qkwogtl30::::res://Sprites/Objetos/Puerta y palanca.png
-Bateria.tscn::PackedScene::3825964680273570412::1711043339::0::1::::<><>::res://Scripts/Elementos puzzles/Bateria.gd<>uid://dso8qkwogtl30::::res://Sprites/Objetos/Puerta y palanca.png
-Bloque_hielo.tscn::PackedScene::549902143813233731::1707140912::0::1::::<><>::uid://dso8qkwogtl30::::res://Sprites/Objetos/Puerta y palanca.png<>res://Scripts/Elementos puzzles/Bloque_hielo.gd
-Motor.tscn::PackedScene::8049242279364981555::1711043952::0::1::::<><>::res://Scripts/Elementos puzzles/Motor.gd<>uid://dso8qkwogtl30::::res://Sprites/Objetos/Puerta y palanca.png
-Palanca.tscn::PackedScene::4514076291036317623::1711043952::0::1::::<><>::res://Scripts/Elementos puzzles/Palanca.gd<>uid://dso8qkwogtl30::::res://Sprites/Objetos/Puerta y palanca.png
-Puerta.tscn::PackedScene::8715581098358426134::1711043952::0::1::::<><>::res://Scripts/Elementos puzzles/Puerta.gd<>uid://dso8qkwogtl30::::res://Sprites/Objetos/Puerta y palanca.png
-::res://Entidades/Enemigos/::1710790672
-Blonk.tscn::PackedScene::5910939861369258018::1707757630::0::1::::<><>::res://Scripts/Enemigos/Blonk.gd<>uid://uulcfvlwm8yg::::res://Sprites/Enemigos/Blonk.png<>uid://fyyh6totk12a::::res://Componentes/Salud.tscn<>uid://dljqaqas8it2e::::res://Componentes/CukiHealthbar.tscn<>uid://6wpanuw2c5wd::::res://Componentes/ElementalState.tscn
-Bum.tscn::PackedScene::3529317745193013309::1710790672::0::1::::<><>::res://Scripts/Enemigos/Bum.gd<>uid://fyyh6totk12a::::res://Componentes/Salud.tscn<>uid://q367cv8ywqsc::::res://Sprites/Enemigos/Bun.png<>uid://dljqaqas8it2e::::res://Componentes/CukiHealthbar.tscn<>uid://6wpanuw2c5wd::::res://Componentes/ElementalState.tscn
-Chooty.tscn::PackedScene::387034407031628471::1707769979::0::1::::<><>::res://Scripts/Enemigos/Chooty.gd<>uid://ljpm51y6y4aw::::res://Sprites/Enemigos/Chooty.png<>uid://dljqaqas8it2e::::res://Componentes/CukiHealthbar.tscn<>uid://fyyh6totk12a::::res://Componentes/Salud.tscn<>uid://6wpanuw2c5wd::::res://Componentes/ElementalState.tscn
-Rabion.tscn::PackedScene::1974194663602259847::1710790672::0::1::::<><>::res://Scripts/Enemigos/Rabion.gd<>uid://0ettfhn1kxgs::::res://Sprites/Enemigos/Rabion.PNG<>uid://fyyh6totk12a::::res://Componentes/Salud.tscn<>uid://dljqaqas8it2e::::res://Componentes/CukiHealthbar.tscn<>uid://6wpanuw2c5wd::::res://Componentes/ElementalState.tscn<>uid://c0wjgvhp87sex::::res://Componentes/GenerAyudas.tscn
-::res://Entidades/Enemigos/Proyectiles Chooty/::1711044088
-BurbujaTar.tscn::PackedScene::6052022011578833487::1711044088::0::1::::<><>::res://Scripts/Enemigos/Proyectiles Chooty/Burbuja_tar.gd<>uid://b1lsi3waxb6jf::::res://Sprites/Enemigos/P_piedra.png
-DardoVeneno.tscn::PackedScene::8247448759594426894::1711044088::0::1::::<><>::res://Scripts/Enemigos/Proyectiles Chooty/Dardo_veneno.gd
-Piedra.tscn::PackedScene::3996871549009678166::1707769980::0::1::::<><>::res://Scripts/Enemigos/Proyectiles Chooty/Piedra.gd<>uid://b1lsi3waxb6jf::::res://Sprites/Enemigos/P_piedra.png<>res://Shaders/PiedraFuego.gdshader
-ZonaAtaquePiedra.tscn::PackedScene::1543802727933446364::1707141086::0::1::::<><>::res://Scripts/Enemigos/Proyectiles Chooty/Piedra_a_z.gd
-::res://Scripts/::1707141120
-::res://Scripts/Aliados/::1707164784
-Cuki.gd::GDScript::-1::1707164784::0::1::::<>CharacterBody2D<>::
-::res://Scripts/Componentes/::1709587239
-Element.gd::GDScript::-1::1706795882::0::1::::<>Area2D<>::
-ElementalStateMachine.gd::GDScript::-1::1709587239::0::1::::ElementalState<>Node<>::
-GenerAyudas.gd::GDScript::-1::1707141572::0::1::::<>Node<>::
-Salud.gd::GDScript::-1::1706795882::0::1::::Salud<>Node<>::
-::res://Scripts/Elementos combate/::1707768286
-Barril.gd::GDScript::-1::1707768286::0::1::::<>CharacterBody2D<>::
-Explosion.gd::GDScript::-1::1707139679::0::1::::<>Area2D<>::
-Vida.gd::GDScript::-1::1700135600::0::1::::<>Area2D<>::
-::res://Scripts/Elementos puzzles/::1711043938
-Antorcha.gd::GDScript::-1::1711043339::0::1::::<>StaticBody2D<>::
-Bateria.gd::GDScript::-1::1711043339::0::1::::<>StaticBody2D<>::
-Bloque_hielo.gd::GDScript::-1::1711043938::0::1::::<>Area2D<>::
-Motor.gd::GDScript::-1::1711043479::0::1::::<>StaticBody2D<>::
-Palanca.gd::GDScript::-1::1700135600::0::1::::<>StaticBody2D<>::
-Puerta.gd::GDScript::-1::1711043517::0::1::::<>StaticBody2D<>::
-::res://Scripts/Enemigos/::1710790900
-Blonk.gd::GDScript::-1::1707749171::0::1::::<>CharacterBody2D<>::
-Bum.gd::GDScript::-1::1710790665::0::1::::<>CharacterBody2D<>::
-Chooty.gd::GDScript::-1::1710790900::0::1::::<>CharacterBody2D<>::
-Rabion.gd::GDScript::-1::1707165014::0::1::::<>CharacterBody2D<>::
-::res://Scripts/Enemigos/Proyectiles Chooty/::1710790835
-Burbuja_tar.gd::GDScript::-1::1707768286::0::1::::<>CharacterBody2D<>::
-Dardo_veneno.gd::GDScript::-1::1710790835::0::1::::<>RayCast2D<>::
-Piedra.gd::GDScript::-1::1709587135::0::1::::<>CharacterBody2D<>::
-Piedra_a_z.gd::GDScript::-1::1707758380::0::1::::<>Area2D<>::
-::res://Shaders/::1698009340
-PiedraFuego.gdshader::Shader::-1::1698009340::0::1::::<><>::
+Pruebas.tscn::PackedScene::5086348431193309548::1712605226::0::1::::<><>::uid://b1qp8t0uk54ou::::res://Entidades/Aliados/Cuki.tscn<>uid://cty4jbpf7flme::::res://Entidades/Elementos combates/Barril.tscn<>uid://burlcxw7l5brg::::res://Entidades/Elementos puzzles/Bateria.tscn<>uid://h3m2qalip2d0::::res://Entidades/Elementos puzzles/Bloque_hielo.tscn<>uid://dor6kp4tlmn0p::::res://Tileset/Cueva.tres<>uid://dwf5l2rmoctp3::::res://Entidades/Elementos puzzles/Puerta.tscn
+::res://Componentes/::1712603618
+CukiHealthbar.tscn::PackedScene::7950891044004337142::1712603618::0::1::::<><>::
+ElementalState.tscn::PackedScene::2222181932995230567::1712603618::0::1::::<><>::res://Scripts/Componentes/ElementalStateMachine.gd
+GenerAyudas.tscn::PackedScene::6573537051155547415::1712603618::0::1::::<><>::res://Scripts/Componentes/GenerAyudas.gd
+Salud.tscn::PackedScene::401960650908374654::1712603618::0::1::::<><>::res://Scripts/Componentes/Salud.gd
+::res://Entidades/::1712603619
+::res://Entidades/Aliados/::1712603618
+Cuki.tscn::PackedScene::4245331385924306100::1712603618::0::1::::<><>::res://Scripts/Aliados/Cuki.gd<>uid://dicp13ihj0xno::::res://Sprites/Aliados/Cuki/Cuki.png<>uid://ksv0uls0ckvx::::res://Sprites/Efectos/Slash.png<>uid://fyyh6totk12a::::res://Componentes/Salud.tscn<>uid://dljqaqas8it2e::::res://Componentes/CukiHealthbar.tscn<>uid://6wpanuw2c5wd::::res://Componentes/ElementalState.tscn
+::res://Entidades/Elementos combates/::1712606715
+Barril.tscn::PackedScene::6157751403507189456::1712605226::0::1::::<><>::uid://b0qvf717halgi::::res://Sprites/Enemigos/Barril.png<>res://Scripts/Elementos combate/Barril.gd
+Bateria.tscn::PackedScene::5683818066891322570::1712606707::0::1::::<><>::res://Scripts/Elementos combate/Vida.gd<>uid://blqp1teld5n5d::::res://Sprites/Objetos/Vida_y_carga.png
+Explosion.tscn::PackedScene::3552599243559140964::1712605226::0::1::::<><>::res://Scripts/Elementos combate/Explosion.gd<>uid://6m0j5v1pvvou::::res://Sprites/Efectos/Explosion.png
+Vida.tscn::PackedScene::7088790733968517231::1712603619::0::1::::<><>::res://Scripts/Elementos combate/Vida.gd<>uid://blqp1teld5n5d::::res://Sprites/Objetos/Vida_y_carga.png
+::res://Entidades/Elementos puzzles/::1712603619
+Antorcha.tscn::PackedScene::7362826554915816065::1712603619::0::1::::<><>::res://Scripts/Elementos puzzles/Antorcha.gd<>uid://dso8qkwogtl30::::res://Sprites/Objetos/Puerta y palanca.png
+Bateria.tscn::PackedScene::3825964680273570412::1712603619::0::1::::<><>::res://Scripts/Elementos puzzles/Bateria.gd<>uid://dso8qkwogtl30::::res://Sprites/Objetos/Puerta y palanca.png
+Bloque_hielo.tscn::PackedScene::549902143813233731::1712603619::0::1::::<><>::uid://dso8qkwogtl30::::res://Sprites/Objetos/Puerta y palanca.png<>res://Scripts/Elementos puzzles/Bloque_hielo.gd
+Motor.tscn::PackedScene::8049242279364981555::1712603619::0::1::::<><>::res://Scripts/Elementos puzzles/Motor.gd<>uid://dso8qkwogtl30::::res://Sprites/Objetos/Puerta y palanca.png
+Palanca.tscn::PackedScene::4514076291036317623::1712603619::0::1::::<><>::res://Scripts/Elementos puzzles/Palanca.gd<>uid://dso8qkwogtl30::::res://Sprites/Objetos/Puerta y palanca.png
+Puerta.tscn::PackedScene::8715581098358426134::1712603619::0::1::::<><>::res://Scripts/Elementos puzzles/Puerta.gd<>uid://dso8qkwogtl30::::res://Sprites/Objetos/Puerta y palanca.png
+::res://Entidades/Enemigos/::1712605226
+Blonk.tscn::PackedScene::5910939861369258018::1712603619::0::1::::<><>::res://Scripts/Enemigos/Blonk.gd<>uid://uulcfvlwm8yg::::res://Sprites/Enemigos/Blonk.png<>uid://fyyh6totk12a::::res://Componentes/Salud.tscn<>uid://dljqaqas8it2e::::res://Componentes/CukiHealthbar.tscn<>uid://6wpanuw2c5wd::::res://Componentes/ElementalState.tscn
+Bum.tscn::PackedScene::3529317745193013309::1712603619::0::1::::<><>::res://Scripts/Enemigos/Bum.gd<>uid://fyyh6totk12a::::res://Componentes/Salud.tscn<>uid://q367cv8ywqsc::::res://Sprites/Enemigos/Bun.png<>uid://dljqaqas8it2e::::res://Componentes/CukiHealthbar.tscn<>uid://6wpanuw2c5wd::::res://Componentes/ElementalState.tscn
+Chooty.tscn::PackedScene::387034407031628471::1712605226::0::1::::<><>::res://Scripts/Enemigos/Chooty.gd<>uid://ljpm51y6y4aw::::res://Sprites/Enemigos/Chooty.png<>uid://dljqaqas8it2e::::res://Componentes/CukiHealthbar.tscn<>uid://fyyh6totk12a::::res://Componentes/Salud.tscn<>uid://6wpanuw2c5wd::::res://Componentes/ElementalState.tscn
+Rabion.tscn::PackedScene::1974194663602259847::1712603619::0::1::::<><>::res://Scripts/Enemigos/Rabion.gd<>uid://0ettfhn1kxgs::::res://Sprites/Enemigos/Rabion.PNG<>uid://fyyh6totk12a::::res://Componentes/Salud.tscn<>uid://dljqaqas8it2e::::res://Componentes/CukiHealthbar.tscn<>uid://6wpanuw2c5wd::::res://Componentes/ElementalState.tscn<>uid://c0wjgvhp87sex::::res://Componentes/GenerAyudas.tscn
+::res://Entidades/Enemigos/Proyectiles Chooty/::1712605226
+BurbujaTar.tscn::PackedScene::6052022011578833487::1712605226::0::1::::<><>::res://Scripts/Enemigos/Proyectiles Chooty/Burbuja_tar.gd<>uid://b1lsi3waxb6jf::::res://Sprites/Enemigos/P_piedra.png
+DardoVeneno.tscn::PackedScene::8247448759594426894::1712605226::0::1::::<><>::res://Scripts/Enemigos/Proyectiles Chooty/Dardo_veneno.gd
+Piedra.tscn::PackedScene::3996871549009678166::1712603619::0::1::::<><>::res://Scripts/Enemigos/Proyectiles Chooty/Piedra.gd<>uid://b1lsi3waxb6jf::::res://Sprites/Enemigos/P_piedra.png<>res://Shaders/PiedraFuego.gdshader
+ZonaAtaquePiedra.tscn::PackedScene::1543802727933446364::1712603619::0::1::::<><>::res://Scripts/Enemigos/Proyectiles Chooty/Piedra_a_z.gd
+::res://Scripts/::1712603619
+::res://Scripts/Aliados/::1712603619
+Cuki.gd::GDScript::-1::1712603619::0::1::::<>CharacterBody2D<>::
+::res://Scripts/Componentes/::1712603619
+Element.gd::GDScript::-1::1712603619::0::1::::<>Area2D<>::
+ElementalStateMachine.gd::GDScript::-1::1712603619::0::1::::ElementalState<>Node<>::
+GenerAyudas.gd::GDScript::-1::1712603619::0::1::::<>Node<>::
+Salud.gd::GDScript::-1::1712603619::0::1::::Salud<>Node<>::
+::res://Scripts/Elementos combate/::1712603619
+Barril.gd::GDScript::-1::1712603619::0::1::::<>CharacterBody2D<>::
+Explosion.gd::GDScript::-1::1712603619::0::1::::<>Area2D<>::
+Vida.gd::GDScript::-1::1712603619::0::1::::<>Area2D<>::
+::res://Scripts/Elementos puzzles/::1712603619
+Antorcha.gd::GDScript::-1::1712603619::0::1::::<>StaticBody2D<>::
+Bateria.gd::GDScript::-1::1712603619::0::1::::<>StaticBody2D<>::
+Bloque_hielo.gd::GDScript::-1::1712603619::0::1::::<>Area2D<>::
+Motor.gd::GDScript::-1::1712603619::0::1::::<>StaticBody2D<>::
+Palanca.gd::GDScript::-1::1712603619::0::1::::<>StaticBody2D<>::
+Puerta.gd::GDScript::-1::1712603619::0::1::::<>StaticBody2D<>::
+::res://Scripts/Enemigos/::1712605226
+Blonk.gd::GDScript::-1::1712603619::0::1::::<>CharacterBody2D<>::
+Bum.gd::GDScript::-1::1712603619::0::1::::<>CharacterBody2D<>::
+Chooty.gd::GDScript::-1::1712605226::0::1::::<>CharacterBody2D<>::
+Rabion.gd::GDScript::-1::1712603619::0::1::::<>CharacterBody2D<>::
+::res://Scripts/Enemigos/Proyectiles Chooty/::1712603619
+Burbuja_tar.gd::GDScript::-1::1712603619::0::1::::<>CharacterBody2D<>::
+Dardo_veneno.gd::GDScript::-1::1712603619::0::1::::<>RayCast2D<>::
+Piedra.gd::GDScript::-1::1712603619::0::1::::<>CharacterBody2D<>::
+Piedra_a_z.gd::GDScript::-1::1712603619::0::1::::<>Area2D<>::
+::res://Shaders/::1712603619
+PiedraFuego.gdshader::Shader::-1::1712603619::0::1::::<><>::
 ::res://Sprites/::1698009340
 ::res://Sprites/Aliados/::1698009340
 ::res://Sprites/Aliados/Cuki/::1698009340
@@ -77,11 +78,11 @@ Bun.png::CompressedTexture2D::1182763586522826806::1698009340::1698009340::1::::
 Chooty.png::CompressedTexture2D::791590481221522490::1698009340::1698009340::1::::<><>::
 P_piedra.png::CompressedTexture2D::4235147470467948459::1698009340::1698009340::1::::<><>::
 Rabion.PNG::CompressedTexture2D::1764166428970011274::1698009340::1698009340::1::::<><>::
-::res://Sprites/Objetos/::1698676156
-Puerta y palanca.png::CompressedTexture2D::8453595318448567605::1698009340::1698009340::1::::<><>::
-Vida_y_carga.png::CompressedTexture2D::3192486197937302195::1698676075::1698676156::1::::<><>::
-::res://Sprites/Tilesets/::1698009340
-Cuki_Minas_.png::CompressedTexture2D::7300895853383083557::1698009340::1698009340::1::::<><>::
+::res://Sprites/Objetos/::1712603619
+Puerta y palanca.png::CompressedTexture2D::8453595318448567605::1712603619::1698009340::1::::<><>::
+Vida_y_carga.png::CompressedTexture2D::3192486197937302195::1712603619::1712603619::1::::<><>::
+::res://Sprites/Tilesets/::1712603619
+Cuki_Minas_.png::CompressedTexture2D::7300895853383083557::1712603619::1712603619::1::::<><>::
 ::res://Sprites/Tilesets/Calabozo/::1698009340
 Esquina.png::CompressedTexture2D::1496692930265151925::1698009340::1698009340::1::::<><>::
 Mosaico.png::CompressedTexture2D::1288842623590277985::1698009340::1698009340::1::::<><>::
@@ -90,5 +91,5 @@ Wall_2.png::CompressedTexture2D::458347075969167493::1698009340::1698009340::1::
 Wall_5 copia2.PNG::CompressedTexture2D::810886419073145844::1698009340::1698009340::1::::<><>::
 Wall_5 copia.png::CompressedTexture2D::2123980897586032144::1698009340::1698009340::1::::<><>::
 Wall_6.png::CompressedTexture2D::8775742135347421078::1698009340::1698009340::1::::<><>::
-::res://Tileset/::1711043339
-Cueva.tres::TileSet::8178901202073622597::1711043339::0::1::::<><>::uid://dcauxnmmttfy0::::res://Sprites/Tilesets/Cuki_Minas_.png
+::res://Tileset/::1712605226
+Cueva.tres::TileSet::8178901202073622597::1712605226::0::1::::<><>::uid://dcauxnmmttfy0::::res://Sprites/Tilesets/Cuki_Minas_.png
