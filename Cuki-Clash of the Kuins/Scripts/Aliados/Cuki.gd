@@ -16,16 +16,20 @@ const GROUND_SLAM = preload("res://Entidades/Elementos combates/Explosion.tscn")
 
 @export var _speed : float = 200
 
+@export var _phone_charge : int :
+	set(v):
+		_phone_charge = clamp(v,0,2)
+
 var _next_state : int = STATES.idle
 var _current_state : int = _next_state
 var _next_an : int = 0
 var _charge : float = 0
 var _total_speed : float = 0
-var _can_spin:bool = false
-var _can_charge: bool = false
-var _direction = Vector2.ZERO
-var _movement = Vector2()
-var _knockback = Vector2()
+var _can_spin : bool = false
+var _can_charge : bool = false
+var _direction := Vector2.ZERO
+var _movement := Vector2()
+var _knockback := Vector2()
 
 @onready var health = $Salud 
 @onready var health_bar = $Health_bar
@@ -48,6 +52,9 @@ func _physics_process(delta):
 	moviendose()
 	attack(delta)
 	animations()
+
+func _process(delta):
+	$Label.text = str(_phone_charge)
 
 func CukiDirections():
 	
@@ -357,10 +364,7 @@ func _on_hitbox_area_entered(area):
 				health.current += 1
 				health_bar.show()
 			1:
-				pass
-
-func elemental_damage(element):
-	elemental_state.contactWithElement(element)
+				_phone_charge += 1
 
 func _on_elemental_state_temporal_damage():
 	

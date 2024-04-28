@@ -490,6 +490,7 @@ scale = Vector2(1.5, 1.5)
 collision_mask = 22
 motion_mode = 1
 script = ExtResource("1")
+_phone_charge = 4
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -500,7 +501,6 @@ vframes = 5
 frame = 1
 
 [node name="Spin_attack" type="Area2D" parent="." groups=["C_attack"]]
-visible = false
 collision_mask = 18
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spin_attack"]
@@ -533,7 +533,6 @@ hframes = 3
 frame = 1
 
 [node name="Hitbox" type="Area2D" parent="."]
-visible = false
 collision_mask = 14
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]

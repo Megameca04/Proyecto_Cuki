@@ -1,7 +1,8 @@
 res://default_env.tres
 res://Entidades/Elementos combates/CargaTel.tscn
 res://Tileset/Cueva.tres
-res://Entidades/Elementos combates/Vida.tscn
-res://Scripts/Elementos combate/Vida.gd
 res://Entidades/Aliados/Cuki.tscn
 res://Scripts/Aliados/Cuki.gd
+res://Pruebas.tscn
+res://Entidades/Elementos combates/Vida.tscn
+res://Entidades/Enemigos/Proyectiles Chooty/DardoVeneno.tscn
