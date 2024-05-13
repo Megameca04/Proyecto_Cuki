@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://cty4jbpf7flme"]
+[gd_scene load_steps=9 format=3 uid="uid://cty4jbpf7flme"]
 
 [ext_resource type="Texture2D" uid="uid://b0qvf717halgi" path="res://Sprites/Enemigos/Barril.png" id="1_4pnol"]
 [ext_resource type="Script" path="res://Scripts/Elementos combate/Barril.gd" id="1_beh4f"]
+[ext_resource type="PackedScene" uid="uid://c0wjgvhp87sex" path="res://Componentes/GenerAyudas.tscn" id="3_02ip0"]
 
 [sub_resource type="Animation" id="Animation_6bykk"]
 resource_name = "Estatico"
@@ -96,7 +97,7 @@ radius = 21.0238
 [sub_resource type="CircleShape2D" id="CircleShape2D_q4apc"]
 radius = 22.2036
 
-[node name="Barril" type="CharacterBody2D"]
+[node name="Barril" type="CharacterBody2D" groups=["Barrels"]]
 texture_filter = 1
 scale = Vector2(0.5, 0.5)
 collision_layer = 16
@@ -126,6 +127,8 @@ collision_mask = 31
 shape = SubResource("CircleShape2D_q4apc")
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="GenerAyudas" parent="." instance=ExtResource("3_02ip0")]
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

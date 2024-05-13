@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cep4oemi8n8dk"]
+[gd_scene load_steps=9 format=3 uid="uid://cep4oemi8n8dk"]
 
 [ext_resource type="PackedScene" uid="uid://b1qp8t0uk54ou" path="res://Entidades/Aliados/Cuki.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://cty4jbpf7flme" path="res://Entidades/Elementos combates/Barril.tscn" id="3_l2s6e"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://h3m2qalip2d0" path="res://Entidades/Elementos puzzles/Bloque_hielo.tscn" id="6_6xalv"]
 [ext_resource type="TileSet" uid="uid://dor6kp4tlmn0p" path="res://Tileset/Cueva.tres" id="6_311sy"]
 [ext_resource type="PackedScene" uid="uid://dwf5l2rmoctp3" path="res://Entidades/Elementos puzzles/Puerta.tscn" id="8_53glx"]
+[ext_resource type="Script" path="res://EnemySpawner.gd" id="8_cyim0"]
+[ext_resource type="PackedScene" uid="uid://bqjvl2384r77f" path="res://Entidades/Enemigos/Bum.tscn" id="8_m3ugs"]
 
 [node name="Node2D" type="Node2D"]
 y_sort_enabled = true
@@ -53,3 +55,8 @@ colorhex = "00ff00"
 
 [node name="Bloque de Hielo" parent="." instance=ExtResource("6_6xalv")]
 position = Vector2(120, 720)
+
+[node name="Node" type="Marker2D" parent="."]
+position = Vector2(472, 704)
+script = ExtResource("8_cyim0")
+enemy = ExtResource("8_m3ugs")

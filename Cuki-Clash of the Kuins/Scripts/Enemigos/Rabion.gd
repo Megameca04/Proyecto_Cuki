@@ -8,6 +8,8 @@ var knockback = Vector2()
 var movement = Vector2()
 var formacion = Vector2.ZERO
 
+var last_hit_from = 2
+
 @onready var aliados = get_tree().get_nodes_in_group("Conejos")
 
 @onready var health = $Salud
@@ -23,6 +25,7 @@ func _ready():
 	health.initialize()
 
 func _process(_delta):
+	last_hit_from = 2
 	animations()
 
 func _physics_process(_delta):
@@ -83,7 +86,7 @@ func moviendose():
 		movement = velocity
 
 func defeat():
-	$GenerAyudas.generar_vida(0)
+	$GenerAyudas.generar_por_muerte(last_hit_from)
 	self.queue_free()
 
 func _on_VisionField_body_entered(body):
@@ -110,10 +113,13 @@ func _on_Area2D_area_entered(area):
 		
 		if area.is_in_group("C_attack"):
 			
+			last_hit_from = 0
+			
 			if elemental_state.getState() == 5:
 				attackedBySomething(350,2,area)
 			else:
 				attackedBySomething(350,1,area)
+
 		
 		if area.is_in_group("expl_attack") or area.is_in_group("expl_bun"):
 			
@@ -128,9 +134,11 @@ func _on_Area2D_area_entered(area):
 				health.current -= 4
 			
 			elemental_state.contactWithElement(area.name)
-	
+			
 			if (area.get_parent().name != "Cuki" and area.element == 4 and elemental_state.getState() == 2):
 				health.current -= 1
+			
+			last_hit_from = 1
 
 func elemental_damage(element):
 	elemental_state.contactWithElement(element)

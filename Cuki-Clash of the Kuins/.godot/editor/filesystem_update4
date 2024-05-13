@@ -1,8 +1,15 @@
 res://default_env.tres
-res://Entidades/Elementos combates/CargaTel.tscn
-res://Tileset/Cueva.tres
-res://Entidades/Aliados/Cuki.tscn
-res://Scripts/Aliados/Cuki.gd
 res://Pruebas.tscn
-res://Entidades/Elementos combates/Vida.tscn
-res://Entidades/Enemigos/Proyectiles Chooty/DardoVeneno.tscn
+res://Tileset/Cueva.tres
+res://Scripts/Enemigos/Rabion.gd
+res://Entidades/Aliados/Cuki.tscn
+res://Entidades/Enemigos/Rabion.tscn
+res://Componentes/GenerAyudas.tscn
+res://EnemySpawner.gd
+res://Entidades/Enemigos/Blonk.tscn
+res://Scripts/Componentes/GenerAyudas.gd
+res://Scripts/Enemigos/Blonk.gd
+res://Entidades/Enemigos/Chooty.tscn
+res://Scripts/Enemigos/Chooty.gd
+res://Entidades/Enemigos/Bum.tscn
+res://Scripts/Enemigos/Bum.gd

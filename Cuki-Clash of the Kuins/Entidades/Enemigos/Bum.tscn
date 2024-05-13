@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://bqjvl2384r77f"]
+[gd_scene load_steps=18 format=3 uid="uid://bqjvl2384r77f"]
 
 [ext_resource type="Script" path="res://Scripts/Enemigos/Bum.gd" id="1_njnlc"]
+[ext_resource type="PackedScene" uid="uid://c0wjgvhp87sex" path="res://Componentes/GenerAyudas.tscn" id="2_7fxrw"]
 [ext_resource type="PackedScene" uid="uid://fyyh6totk12a" path="res://Componentes/Salud.tscn" id="2_7w504"]
 [ext_resource type="Texture2D" uid="uid://q367cv8ywqsc" path="res://Sprites/Enemigos/Bun.png" id="2_oe7r6"]
 [ext_resource type="PackedScene" uid="uid://dljqaqas8it2e" path="res://Componentes/CukiHealthbar.tscn" id="3_8p41f"]
@@ -111,6 +112,8 @@ collision_layer = 2
 collision_mask = 29
 script = ExtResource("1_njnlc")
 
+[node name="GenerAyudas" parent="." instance=ExtResource("2_7fxrw")]
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_obhf7")
 
@@ -144,7 +147,7 @@ collision_mask = 25
 shape = SubResource("CircleShape2D_j4u7k")
 
 [node name="Salud" parent="." instance=ExtResource("2_7w504")]
-max_amount = 5
+max_amount = 1
 
 [node name="ProgressBar" parent="." instance=ExtResource("3_8p41f")]
 visible = false

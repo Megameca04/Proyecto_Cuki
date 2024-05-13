@@ -18,8 +18,7 @@ enum Elements {
 var still:bool = true
 var movement:Vector2 = Vector2.ZERO
 
-func _ready():
-	add_to_group("Barrels")
+@onready var generAyudas = $GenerAyudas
 
 func _physics_process(_delta):
 	if !still:
@@ -43,6 +42,8 @@ func blow_up():
 	var expl = EXPL.instantiate()
 	expl.element = element
 	expl.global_position = self.global_position
+	if element == Elements.SHOCK:
+		generAyudas.generar_solo_bateria(self)
 	call_deferred("add_sibling",expl)
 	queue_free()
 	

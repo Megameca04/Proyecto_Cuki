@@ -16,9 +16,11 @@ const GROUND_SLAM = preload("res://Entidades/Elementos combates/Explosion.tscn")
 
 @export var _speed : float = 200
 
-@export var _phone_charge : int :
+@export var phone_charge : int :
 	set(v):
-		_phone_charge = clamp(v,0,2)
+		phone_charge = clamp(v,0,2)
+	get:
+		return phone_charge
 
 var _next_state : int = STATES.idle
 var _current_state : int = _next_state
@@ -54,7 +56,7 @@ func _physics_process(delta):
 	animations()
 
 func _process(delta):
-	$Label.text = str(_phone_charge)
+	$Label.text = str(phone_charge)
 
 func CukiDirections():
 	
@@ -364,7 +366,7 @@ func _on_hitbox_area_entered(area):
 				health.current += 1
 				health_bar.show()
 			1:
-				_phone_charge += 1
+				phone_charge += 1
 
 func _on_elemental_state_temporal_damage():
 	

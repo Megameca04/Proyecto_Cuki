@@ -1,9 +1,10 @@
+Sprite2D
+Marker2D
+Node
 CollisionPolygon2D
 Timer
-Node
 AnimationPlayer
 CollisionShape2D
-Sprite2D
 Area2D
 Line2D
 RayCast2D
@@ -11,5 +12,3 @@ CharacterBody2D
 Label
 ProgressBar
 GPUParticles2D
-AudioStreamPlayer2D
-Node2D

@@ -35,6 +35,8 @@ var movement = Vector2.ZERO
 var knockback = Vector2.ZERO
 var scape_position = Vector2.ZERO
 
+var last_hit_from = 2
+
 @onready var shoot_timer = $Shoot_timer
 @onready var vision_raycast = $Vision_Raycast
 @onready var health = $Salud
@@ -42,6 +44,7 @@ var scape_position = Vector2.ZERO
 @onready var hide_timer = $Hide_timer
 @onready var elemental_state = $ElementalState
 @onready var animations = $AnimationPlayer
+@onready var generAyudas = $GenerAyudas
 
 func _ready():
 	health.connect("changed",Callable(health_bar,"set_value"))
@@ -50,6 +53,7 @@ func _ready():
 	health.initialize()
 
 func _process(_delta):
+	last_hit_from = 2
 	chootyBehaviour()
 	if Cuki != null:
 		$Label.text = str(global_position.distance_to(Cuki.global_position))+"\n"+str(state)
@@ -204,6 +208,7 @@ func shoot_dart():
 		call_deferred("add_child", dart)
 
 func defeat():
+	generAyudas.generar_por_muerte(last_hit_from)
 	self.queue_free()
 
 func elemental_damage(element):
@@ -241,10 +246,12 @@ func _on_animation_player_animation_finished(anim_name):
 func _on_hitbox_area_entered(area):
 	
 	if area.is_in_group("C_attack"):
+		last_hit_from = 0
 		attackedBySomething(1,area,100)
 	
 	if area.is_in_group("expl_attack") or area.is_in_group("expl_bun"):
 		attackedBySomething(3,area,300)
+		last_hit_from = 1
 	
 	if !area.is_in_group("Piedra"):
 		elemental_state.contactWithElementGroup(area.get_groups())
