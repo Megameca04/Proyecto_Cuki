@@ -1,15 +1,10 @@
 res://default_env.tres
-res://Pruebas.tscn
-res://Tileset/Cueva.tres
-res://Scripts/Enemigos/Rabion.gd
-res://Entidades/Aliados/Cuki.tscn
-res://Entidades/Enemigos/Rabion.tscn
-res://Componentes/GenerAyudas.tscn
+res://Entidades/Elementos combates/Barril.tscn
 res://EnemySpawner.gd
-res://Entidades/Enemigos/Blonk.tscn
+res://Tileset/Cueva.tres
+res://Pruebas.tscn
+res://Scripts/Elementos combate/Barril.gd
+res://Entidades/Enemigos/Proyectiles Chooty/Piedra.tscn
+res://Scripts/Enemigos/Proyectiles Chooty/Piedra.gd
+res://Componentes/GenerAyudas.tscn
 res://Scripts/Componentes/GenerAyudas.gd
-res://Scripts/Enemigos/Blonk.gd
-res://Entidades/Enemigos/Chooty.tscn
-res://Scripts/Enemigos/Chooty.gd
-res://Entidades/Enemigos/Bum.tscn
-res://Scripts/Enemigos/Bum.gd

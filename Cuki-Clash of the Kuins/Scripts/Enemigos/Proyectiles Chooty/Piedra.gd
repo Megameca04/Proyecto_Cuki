@@ -84,7 +84,8 @@ func blow_up():
 	expl.add_to_group("expl_attack")
 	expl.global_position = self.global_position
 	call_deferred("add_sibling",expl)
-	generAyudas.generar_solo_bateria(self)
+	if element == 2:
+		generAyudas.generar_solo_bateria(self)
 	self.queue_free()
 
 func _on_alive_timer_timeout():

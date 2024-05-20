@@ -40,7 +40,7 @@ func _decidir_generar(muerte, tipo):
 					return 0
 
 func generar_solo_bateria(parent):
-	if parent.is_in_group("Barrels"):
+	if parent.is_in_group("Barrels") or parent.is_in_group("Enemy_shock_attack"):
 		if parent.element == 2:
 			var elec = rng.randi_range(1,7)
 			
