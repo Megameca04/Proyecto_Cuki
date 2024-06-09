@@ -14,7 +14,6 @@ func generar_por_muerte(muerte):
 		get_parent().get_parent().call_deferred("add_child",a)
 	else:
 		elec = _decidir_generar(muerte, 1)
-		print(elec)
 		
 		if elec == 1:
 			var a = AYUDA.instantiate()

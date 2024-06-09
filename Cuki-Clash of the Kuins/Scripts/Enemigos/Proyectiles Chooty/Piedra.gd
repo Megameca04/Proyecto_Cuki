@@ -76,6 +76,8 @@ func create_attack_zone():
 	az.element = element
 	az.global_position = self.global_position
 	call_deferred("add_sibling", az)
+	if element == 2:
+		generAyudas.generar_solo_bateria(self)
 	self.queue_free()
 
 func blow_up():

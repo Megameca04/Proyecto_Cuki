@@ -160,7 +160,7 @@ func contactWithMovementState(elementalEvent):
 			
 			#Si el elemento actual es Fuego
 			if (_current_element == Elements.FIRE):
-				 
+				
 				_current_element = Elements.NONE
 				_current_element = Elements.INTENSEFIRE
 				_state_time_length.set_wait_time(_state_time_length.get_wait_time() - state_length / 2)

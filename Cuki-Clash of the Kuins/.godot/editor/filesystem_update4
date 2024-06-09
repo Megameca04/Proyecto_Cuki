@@ -1,10 +1,9 @@
 res://default_env.tres
-res://Entidades/Elementos combates/Barril.tscn
+res://Entidades/Enemigos/Proyectiles Chooty/Piedra.tscn
 res://EnemySpawner.gd
 res://Tileset/Cueva.tres
-res://Pruebas.tscn
-res://Scripts/Elementos combate/Barril.gd
-res://Entidades/Enemigos/Proyectiles Chooty/Piedra.tscn
 res://Scripts/Enemigos/Proyectiles Chooty/Piedra.gd
+res://Pruebas.tscn
+res://Componentes/ElementalState.tscn
 res://Componentes/GenerAyudas.tscn
 res://Scripts/Componentes/GenerAyudas.gd
