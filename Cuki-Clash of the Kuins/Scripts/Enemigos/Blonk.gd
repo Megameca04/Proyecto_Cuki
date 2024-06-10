@@ -15,11 +15,14 @@ var CukiOnAttackRange = null
 var state = BlonkState.PATROL
 var movement = Vector2()
 
+var last_hit_from = 2
+
 @onready var health = $Salud
 @onready var health_bar = $ProgressBar
 @onready var hide_timer = $Hide_timer
 @onready var pause_attack_timer = $Pause_attack_timer
 @onready var elemental_state = $ElementalState 
+@onready var generAyudas = $GenerAyudas
 
 func _ready():
 	health.connect("changed",Callable(health_bar,"set_value"))
@@ -28,6 +31,7 @@ func _ready():
 	health.initialize()
 
 func _process(_delta):
+	last_hit_from = 2
 	animationFace()
 	blonkBehaviour()
 
@@ -94,6 +98,7 @@ func attackPlayer():
 		pause_attack_timer.start()
 
 func defeat():
+	generAyudas.generar_por_muerte(last_hit_from)
 	self.queue_free()
 
 func elemental_damage(element):
@@ -121,6 +126,7 @@ func _on_vision_field_body_exited(body):
 func _on_hitbox_area_entered(area):
 	
 	if area.is_in_group("C_attack"):
+		last_hit_from = 0
 		attackedBySomething(0,1,null)
 	
 	if (
@@ -131,6 +137,7 @@ func _on_hitbox_area_entered(area):
 		attackedBySomething(0,2,null)
 		
 		elemental_state.contactWithElement(area.element)
+		last_hit_from = 1
 	
 	if (area.name == "Water" && elemental_state.getState() == 2):
 		attackedBySomething(0,1,null)

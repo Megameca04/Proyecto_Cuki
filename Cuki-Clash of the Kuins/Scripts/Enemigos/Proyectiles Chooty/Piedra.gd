@@ -14,12 +14,14 @@ var element : int = 0
 var ZonaAtaque
 
 @onready var aliveTimer = $AliveTimer
+@onready var generAyudas = $GenerAyudas
 
 func _ready():
 	
 	if element != 2:
 		movement = global_position.direction_to(objective_position)
 	else:
+		add_to_group("Enemy_shock_attack")
 		aliveTimer.start()
 		
 		if Cuki != null:
@@ -74,6 +76,8 @@ func create_attack_zone():
 	az.element = element
 	az.global_position = self.global_position
 	call_deferred("add_sibling", az)
+	if element == 2:
+		generAyudas.generar_solo_bateria(self)
 	self.queue_free()
 
 func blow_up():
@@ -82,6 +86,8 @@ func blow_up():
 	expl.add_to_group("expl_attack")
 	expl.global_position = self.global_position
 	call_deferred("add_sibling",expl)
+	if element == 2:
+		generAyudas.generar_solo_bateria(self)
 	self.queue_free()
 
 func _on_alive_timer_timeout():

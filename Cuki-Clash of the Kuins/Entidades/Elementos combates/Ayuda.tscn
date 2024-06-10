@@ -1,8 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c784l27ejedjb"]
 
-[ext_resource type="Script" path="res://Scripts/Elementos combate/Vida.gd" id="1_823hx"]
-[ext_resource type="Texture2D" uid="uid://blqp1teld5n5d" path="res://Sprites/Objetos/Vida_y_carga.png" id="1_w4pw2"]
-
+[ext_resource type="Script" path="res://Scripts/Elementos combate/Vida.gd" id="1_wgcvg"]
+[ext_resource type="Texture2D" uid="uid://blqp1teld5n5d" path="res://Sprites/Objetos/Vida_y_carga.png" id="2_bqpvb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dvatl"]
 size = Vector2(32, 32)
@@ -52,16 +51,16 @@ _data = {
 "Generar": SubResource("Animation_7kqoy")
 }
 
-[node name="Vida" type="Area2D" groups=["Vida"]]
+[node name="Ayuda" type="Area2D" groups=["item_ayuda"]]
 texture_filter = 1
 scale = Vector2(0.5, 0.5)
 collision_layer = 4
-script = ExtResource("1_823hx")
+script = ExtResource("1_wgcvg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, 5)
 scale = Vector2(1e-05, 1e-05)
-texture = ExtResource("1_w4pw2")
+texture = ExtResource("2_bqpvb")
 hframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -69,11 +68,9 @@ shape = SubResource("RectangleShape2D_dvatl")
 disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "Generar"
 libraries = {
 "": SubResource("AnimationLibrary_viih3")
 }
-
-[node name="Node" type="Node" parent="."]
+autoplay = "Generar"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

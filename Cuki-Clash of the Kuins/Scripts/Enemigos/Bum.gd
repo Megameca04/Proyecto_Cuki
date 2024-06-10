@@ -9,6 +9,8 @@ var movement : Vector2 = Vector2()
 var knockback : Vector2 = Vector2()
 var in_knockback : bool = false
 
+var last_hit_from = 2
+
 var Cuki = null
 var CukiOnAttackRange = null
 var barrelToGet = null
@@ -21,6 +23,7 @@ var barrelToGet = null
 @onready var sprite = $Sprite2D
 @onready var col_shape = $CollisionShape2D
 @onready var animations = $AnimationPlayer
+@onready var generAyudas = $GenerAyudas
 
 @export var explosiveEaterSpeed = 100
 
@@ -31,6 +34,7 @@ func _ready():
 	health.initialize()
 
 func _process(_delta):
+	last_hit_from = 2
 	animationFace()
 
 func _physics_process(_delta):
@@ -102,6 +106,7 @@ func attackPlayer():
 		self.queue_free()
 
 func defeat():
+	generAyudas.generar_por_muerte(last_hit_from)
 	self.queue_free()
 
 func eatBarrel(body):
@@ -111,10 +116,16 @@ func eatBarrel(body):
 func attackedBySomething(knockbackForce, healthLost, something):
 	if elemental_state.getState() != 9:
 		in_knockback = true
-		knockback -= knockbackForce*Vector2(cos(get_angle_to(something.global_position)),sin(get_angle_to(something.global_position)))
+		
+		knockback -= knockbackForce*Vector2(
+				cos(get_angle_to(something.global_position)),
+				sin(get_angle_to(something.global_position))
+				)
+		
 		$Knockback_timer.start()
 		health_bar.show()
 		hide_timer.start()
+		
 		if elemental_state.getState() == 5:
 			health.current -= healthLost * 2
 		else:
@@ -148,8 +159,12 @@ func _on_hitbox_area_entered(area):
 		if state == ExplosiveEaterState.Pursuing:
 			attackPlayer()
 		else:
+			last_hit_from = 0
 			attackedBySomething(350, 1, area)
 		
+		
+		
+	
 	if area.is_in_group("expl_attack") || area.is_in_group("expl_blonk"):
 		
 		if state == ExplosiveEaterState.Pursuing:
@@ -162,6 +177,8 @@ func _on_hitbox_area_entered(area):
 			elemental_state.contactWithElementGroup(area.get_groups())
 			if (area.element == 4 && elemental_state.getState() == 2):
 				attackedBySomething(0, 1, area)
+		
+		last_hit_from = 1
 
 func _on_hide_timer_timeout():
 	health_bar.hide()
