@@ -1,7 +1,9 @@
 res://default_env.tres
-res://Entidades/Totem.tscn
-res://Scripts/Totem.gd
+res://Entidades/Enemigos/Proyectiles Chooty/Piedra.tscn
+res://EnemySpawner.gd
+res://Tileset/Cueva.tres
+res://Scripts/Enemigos/Proyectiles Chooty/Piedra.gd
 res://Pruebas.tscn
-res://Entidades/explosive_eater.tscn
-res://Entidades/Barril_b.tscn
-res://Entidades/Explosion.tscn
+res://Componentes/ElementalState.tscn
+res://Componentes/GenerAyudas.tscn
+res://Scripts/Componentes/GenerAyudas.gd

@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Cuki-Clash of the Kuins"
 run/main_scene="res://Pruebas.tscn"
-config/features=PackedStringArray("4.0")
+config/features=PackedStringArray("4.2")
 config/icon="res://icon.png"
 
 [input]
@@ -61,9 +61,13 @@ Dash={
 [layer_names]
 
 2d_physics/layer_1="Cuki"
-2d_physics/layer_2="Enemies"
-2d_physics/layer_3="World"
+2d_physics/layer_2="Enemigos"
+2d_physics/layer_3="Mundo estatico"
+2d_physics/layer_4="Explosiones"
+2d_physics/layer_5="Mundo fisico"
 
 [rendering]
 
+renderer/rendering_method="gl_compatibility"
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)
 environment/defaults/default_environment="res://default_env.tres"
