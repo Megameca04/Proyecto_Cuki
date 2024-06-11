@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cep4oemi8n8dk"]
+[gd_scene load_steps=9 format=3 uid="uid://cep4oemi8n8dk"]
 
 [ext_resource type="PackedScene" uid="uid://b1qp8t0uk54ou" path="res://Entidades/Aliados/Cuki.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://cty4jbpf7flme" path="res://Entidades/Elementos combates/Barril.tscn" id="3_l2s6e"]
@@ -7,15 +7,14 @@
 [ext_resource type="TileSet" uid="uid://dor6kp4tlmn0p" path="res://Tileset/Cueva.tres" id="6_311sy"]
 [ext_resource type="PackedScene" uid="uid://dwf5l2rmoctp3" path="res://Entidades/Elementos puzzles/Puerta.tscn" id="8_53glx"]
 [ext_resource type="PackedScene" uid="uid://frqnus88mbbb" path="res://Entidades/Enemigos/Chooty.tscn" id="8_gvajt"]
-[ext_resource type="Script" path="res://EnemySpawner.gd" id="8_kpapf"]
-[ext_resource type="PackedScene" uid="uid://3ekxyrpwp712" path="res://Entidades/Enemigos/Rabion.tscn" id="9_poy33"]
+[ext_resource type="PackedScene" uid="uid://de0i72vr6rc3" path="res://Entidades/Totem.tscn" id="10_l6jp7"]
 
 [node name="Node2D" type="Node2D"]
 y_sort_enabled = true
 texture_filter = 1
 
 [node name="Cuki" parent="." instance=ExtResource("1")]
-position = Vector2(256, 696)
+position = Vector2(32, 1120)
 
 [node name="Camera2D" type="Camera2D" parent="Cuki"]
 visible = false
@@ -38,9 +37,6 @@ layer_0/tile_data = PackedInt32Array(0, 262144, 4, 65536, 262144, 5, 131072, 262
 layer_1/name = "Decoración"
 layer_1/tile_data = PackedInt32Array(131074, 65536, 3, 131075, 65536, 3, 131076, 65536, 3, 131078, 65536, 3, 196615, 131072, 4, 327687, 131072, 4, 393223, 0, 5, 393224, 65536, 5, 393225, 65536, 5, 393226, 65536, 5, 393228, 65536, 5, 393229, 65536, 5, 131079, 131072, 3, -327685, 458752, 0, -196612, 393216, 0, -65538, 393216, 0, -262142, 458752, 0, -196590, 262144, 0, 917497, 327680, 0, 458747, 327680, 0, 524284, 327680, 0, 1179649, 458752, 0, 1179654, 458752, 0, 1179664, 262144, 0, 1179666, 393216, 0, 1179667, 262144, 0, 983060, 458752, 0, 786449, 458752, 0, 65553, 458752, 0, 21, 262144, 0, -65512, 327680, 0, -65508, 262144, 0)
 
-[node name="Totem" parent="." instance=ExtResource("8_jxlva")]
-position = Vector2(736, 64)
-rounds = 2
 [node name="Puerta" parent="." instance=ExtResource("8_53glx")]
 position = Vector2(160, 816)
 rotation = 4.71239
@@ -63,7 +59,5 @@ position = Vector2(120, 720)
 position = Vector2(992, 744)
 element = 2
 
-[node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(480, 704)
-script = ExtResource("8_kpapf")
-enemy = ExtResource("9_poy33")
+[node name="Totem" parent="." instance=ExtResource("10_l6jp7")]
+position = Vector2(168, 1152)

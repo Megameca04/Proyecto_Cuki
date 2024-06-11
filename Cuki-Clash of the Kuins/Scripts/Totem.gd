@@ -3,14 +3,14 @@ extends Area2D
 enum DifficultyLevels { EASY, NORMAL, HARD }
 @export var difficulty:DifficultyLevels
 @export var rounds = 0
-@onready var rabion = preload("res://Entidades/Rabion.tscn")
-@onready var blonk = preload("res://Entidades/blonk.tscn")
-@onready var chooty = preload("res://Entidades/Chooty.tscn")
-@onready var explosive_eater = preload("res://Entidades/explosive_eater.tscn")
-@onready var barrel_to_eat = preload("res://Entidades/Barril_b.tscn")
-var easyEnemiesDictionary = {0:"Rabion", 1:"Blonk", 2:"Chooty", 3:"Explosive_Eater"} # La cantidad de enemigos que aparecen. Subdificultad por rounds. En cada round hay un tope de enemigos que pueden salir. Determina que tipo de enemigos puede salir.
-var normalEnemiesDictionary = {0:"Rabion", 1:"Blonk", 2:"Chooty", 3:"Explosive_Eater"}
-var hardEnemiesDictionary = {0:"Rabion", 1:"Blonk", 2:"Chooty", 3:"Explosive_Eater"}
+@onready var rabion = preload("res://Entidades/Enemigos/Rabion.tscn")
+@onready var blonk = preload("res://Entidades/Enemigos/Blonk.tscn")
+@onready var chooty = preload("res://Entidades/Enemigos/Chooty.tscn")
+@onready var bum = preload("res://Entidades/Enemigos/Bum.tscn")
+@onready var barrel_to_eat = preload("res://Entidades/Elementos combates/Barril.tscn")
+var easyEnemiesDictionary = {0:"Rabion", 1:"Blonk", 2:"Chooty", 3:"bum"} # La cantidad de enemigos que aparecen. Subdificultad por rounds. En cada round hay un tope de enemigos que pueden salir. Determina que tipo de enemigos puede salir.
+var normalEnemiesDictionary = {0:"Rabion", 1:"Blonk", 2:"Chooty", 3:"bum"}
+var hardEnemiesDictionary = {0:"Rabion", 1:"Blonk", 2:"Chooty", 3:"bum"}
 var enemyStates = {0:"Freeze", 1:"Poison", 2:"Flame", 3:"Water", 4:"Tar", 5:"Shock"}
 var currentRound = 0
 var randomQuantityEnemies = 0
@@ -48,8 +48,8 @@ func generateEnemies():
 			if (easyEnemiesDictionary[randomEnemyIndex] == "Chooty"):
 				enemy = chooty.instantiate()
 				barrel = null
-			if (easyEnemiesDictionary[randomEnemyIndex] == "Explosive_Eater"):
-				enemy = explosive_eater.instantiate()
+			if (easyEnemiesDictionary[randomEnemyIndex] == "bum"):
+				enemy = bum.instantiate()
 				barrel = barrel_to_eat.instantiate()
 			var newPosition = Vector2.ZERO
 			while newPosition == Vector2.ZERO || newPosition.distance_to(Cuki.position) < 130:

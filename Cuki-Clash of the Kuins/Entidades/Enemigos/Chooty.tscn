@@ -140,7 +140,7 @@ offset_bottom = -40.0
 theme = SubResource("Theme_3lc3p")
 
 [node name="Salud" parent="." instance=ExtResource("4_wc8xc")]
-max_amount = 1
+max_amount = 3
 
 [node name="Label" type="Label" parent="."]
 offset_top = -4.0
