@@ -1,13 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://cep4oemi8n8dk"]
+[gd_scene load_steps=7 format=3 uid="uid://cep4oemi8n8dk"]
 
 [ext_resource type="PackedScene" uid="uid://b1qp8t0uk54ou" path="res://Entidades/Aliados/Cuki.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://cty4jbpf7flme" path="res://Entidades/Elementos combates/Barril.tscn" id="3_l2s6e"]
-[ext_resource type="PackedScene" uid="uid://burlcxw7l5brg" path="res://Entidades/Elementos puzzles/Bateria.tscn" id="5_8j28c"]
-[ext_resource type="PackedScene" uid="uid://h3m2qalip2d0" path="res://Entidades/Elementos puzzles/Bloque_hielo.tscn" id="6_6xalv"]
+[ext_resource type="Script" path="res://EnemySpawner.gd" id="5_4v5mb"]
 [ext_resource type="TileSet" uid="uid://dor6kp4tlmn0p" path="res://Tileset/Cueva.tres" id="6_311sy"]
 [ext_resource type="PackedScene" uid="uid://dwf5l2rmoctp3" path="res://Entidades/Elementos puzzles/Puerta.tscn" id="8_53glx"]
-[ext_resource type="PackedScene" uid="uid://frqnus88mbbb" path="res://Entidades/Enemigos/Chooty.tscn" id="8_gvajt"]
-[ext_resource type="Script" path="res://EnemySpawner.gd" id="8_kpapf"]
 [ext_resource type="PackedScene" uid="uid://3ekxyrpwp712" path="res://Entidades/Enemigos/Rabion.tscn" id="9_poy33"]
 
 [node name="Node2D" type="Node2D"]
@@ -15,7 +12,7 @@ y_sort_enabled = true
 texture_filter = 1
 
 [node name="Cuki" parent="." instance=ExtResource("1")]
-position = Vector2(256, 696)
+position = Vector2(-56, 1008)
 
 [node name="Camera2D" type="Camera2D" parent="Cuki"]
 visible = false
@@ -42,25 +39,8 @@ layer_1/tile_data = PackedInt32Array(131074, 65536, 3, 131075, 65536, 3, 131076,
 position = Vector2(160, 816)
 rotation = 4.71239
 
-[node name="Barril" parent="." instance=ExtResource("3_l2s6e")]
-position = Vector2(128, 664)
-element = 1
-
-[node name="Barril2" parent="." instance=ExtResource("3_l2s6e")]
-position = Vector2(176, 720)
-
-[node name="Bateria" parent="." instance=ExtResource("5_8j28c")]
-position = Vector2(120, 728)
-colorhex = "00ff00"
-
-[node name="Bloque de Hielo" parent="." instance=ExtResource("6_6xalv")]
-position = Vector2(120, 720)
-
-[node name="Chooty" parent="." instance=ExtResource("8_gvajt")]
-position = Vector2(992, 744)
-element = 2
-
 [node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(480, 704)
-script = ExtResource("8_kpapf")
+position = Vector2(187, 1120)
+scale = Vector2(1.5, 1.5)
+script = ExtResource("5_4v5mb")
 enemy = ExtResource("9_poy33")

@@ -90,7 +90,7 @@ func defeat():
 	self.queue_free()
 
 func _on_VisionField_body_entered(body):
-	if elemental_state.getState() != 2 and elemental_state.getState() != 4:
+	if elemental_state.getState() != 2:
 		
 		if body != self:
 			
@@ -123,17 +123,14 @@ func _on_Area2D_area_entered(area):
 		
 		if area.is_in_group("expl_attack") or area.is_in_group("expl_bun"):
 			
-			knockback -= 600*Vector2(cos(get_angle_to(area.global_position)),sin(get_angle_to(area.global_position)))
-			$Knockback_timer.start()
-			health_bar.show()
-			hide_timer.start()
+			attackedBySomething(600,1,area)
 			
 			if elemental_state.getState() == 5:
 				health.current -= 4 * 2
 			else:
-				health.current -= 4
+				health.current -= 1
 			
-			elemental_state.contactWithElement(area.name)
+			elemental_state.contactWithElement(area.element)
 			
 			if (area.get_parent().name != "Cuki" and area.element == 4 and elemental_state.getState() == 2):
 				health.current -= 1
@@ -148,6 +145,8 @@ func attackedBySomething(knockbackForce, healthLost, something):
 		knockback = -knockbackForce*Vector2(cos(get_angle_to(something.global_position)),
 				sin(get_angle_to(something.global_position)))
 	$Knockback_timer.start()
+	health_bar.show()
+	hide_timer.start()
 	health.current -= healthLost
 
 func _on_hide_timer_timeout():
