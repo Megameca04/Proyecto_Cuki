@@ -56,7 +56,7 @@ func _physics_process(delta):
 	animations()
 
 func _process(delta):
-	$Label.text = str(phone_charge)
+	$Label.text = str(elemental_state.getState())
 
 func CukiDirections():
 	
@@ -278,7 +278,10 @@ func attackedBySomething(knockbackForce, healthLost, something):
 	
 	$Knockback_timer.start()
 	$Health_bar.show()
-	health.current -= healthLost
+	if elemental_state.getState() == 5:
+		health.current -= healthLost*2
+	else:
+		health.current -= healthLost
 
 func game_over():
 	self.set_physics_process(false)
@@ -350,10 +353,10 @@ func _on_hitbox_area_entered(area):
 			
 			elemental_state.contactWithElement(area.element)
 			if area.element == 4 and elemental_state.getState() == 2:
-					attackedBySomething(0, 1, area)
+					attackedBySomething(0, 3, area)
 	
 	if area.is_in_group("expl_blonk"):
-		attackedBySomething(750, 1, area)
+		attackedBySomething(750, 3, area)
 	
 	if area.is_in_group("Piedra"):
 		attackedBySomething(500, 1, area)

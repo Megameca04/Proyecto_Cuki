@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cep4oemi8n8dk"]
+[gd_scene load_steps=10 format=3 uid="uid://cep4oemi8n8dk"]
 
 [ext_resource type="PackedScene" uid="uid://b1qp8t0uk54ou" path="res://Entidades/Aliados/Cuki.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://cty4jbpf7flme" path="res://Entidades/Elementos combates/Barril.tscn" id="3_l2s6e"]
@@ -6,15 +6,18 @@
 [ext_resource type="PackedScene" uid="uid://h3m2qalip2d0" path="res://Entidades/Elementos puzzles/Bloque_hielo.tscn" id="6_6xalv"]
 [ext_resource type="TileSet" uid="uid://dor6kp4tlmn0p" path="res://Tileset/Cueva.tres" id="6_311sy"]
 [ext_resource type="PackedScene" uid="uid://dwf5l2rmoctp3" path="res://Entidades/Elementos puzzles/Puerta.tscn" id="8_53glx"]
+[ext_resource type="PackedScene" uid="uid://kq3klqnipj6s" path="res://Entidades/TotemVenenoso.tscn" id="8_82jvv"]
 [ext_resource type="PackedScene" uid="uid://frqnus88mbbb" path="res://Entidades/Enemigos/Chooty.tscn" id="8_gvajt"]
-[ext_resource type="PackedScene" uid="uid://de0i72vr6rc3" path="res://Entidades/Totem.tscn" id="10_l6jp7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_702se"]
+size = Vector2(64, 32)
 
 [node name="Node2D" type="Node2D"]
 y_sort_enabled = true
 texture_filter = 1
 
 [node name="Cuki" parent="." instance=ExtResource("1")]
-position = Vector2(32, 1120)
+position = Vector2(152, 936)
 
 [node name="Camera2D" type="Camera2D" parent="Cuki"]
 visible = false
@@ -59,5 +62,20 @@ position = Vector2(120, 720)
 position = Vector2(992, 744)
 element = 2
 
-[node name="Totem" parent="." instance=ExtResource("10_l6jp7")]
-position = Vector2(168, 1152)
+[node name="Puerta2" parent="." instance=ExtResource("8_53glx")]
+position = Vector2(160, 976)
+rotation = 1.5708
+colorhex = "a5668b"
+
+[node name="Totem" parent="." instance=ExtResource("8_82jvv")]
+position = Vector2(160, 1176)
+colorhex = "a5668b"
+
+[node name="Area2D" type="Area2D" parent="Totem"]
+position = Vector2(0, -168)
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Totem/Area2D"]
+shape = SubResource("RectangleShape2D_702se")
+
+[connection signal="body_entered" from="Totem/Area2D" to="Totem" method="_on_body_entered"]

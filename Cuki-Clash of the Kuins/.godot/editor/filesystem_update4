@@ -1,12 +1,10 @@
 res://default_env.tres
-res://Entidades/Totem.tscn
-res://EnemySpawner.gd
+res://Entidades/TotemVenenoso.tscn
 res://Tileset/Cueva.tres
-res://Scripts/Totem.gd
-res://Componentes/ElementalState.tscn
+res://Entidades/Totem.tscn
+res://Scripts/Elementos puzzles/Totem.gd
 res://Pruebas.tscn
 res://Entidades/Aliados/Cuki.tscn
-res://Entidades/Enemigos/Chooty.tscn
-res://Entidades/Enemigos/Bum.tscn
-res://Entidades/Enemigos/Rabion.tscn
-res://Entidades/Enemigos/Blonk.tscn
+res://Entidades/Elementos puzzles/Palanca.tscn
+res://Entidades/Elementos puzzles/Puerta.tscn
+res://Scripts/Elementos puzzles/TotemVenenoso.gd

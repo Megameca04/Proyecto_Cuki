@@ -133,7 +133,7 @@ func _on_Area2D_area_entered(area):
 			else:
 				health.current -= 4
 			
-			elemental_state.contactWithElement(area.name)
+			elemental_state.contactWithElement(area.element)
 			
 			if (area.get_parent().name != "Cuki" and area.element == 4 and elemental_state.getState() == 2):
 				health.current -= 1
