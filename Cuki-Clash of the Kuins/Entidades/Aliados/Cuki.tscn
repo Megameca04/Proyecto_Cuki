@@ -483,7 +483,7 @@ tangential_accel_max = -4.0
 damping_min = 2.0
 damping_max = 2.0
 
-[node name="Cuki" type="CharacterBody2D"]
+[node name="Cuki" type="CharacterBody2D" groups=["Player"]]
 y_sort_enabled = true
 texture_filter = 1
 scale = Vector2(1.5, 1.5)

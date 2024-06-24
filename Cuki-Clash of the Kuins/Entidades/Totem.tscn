@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://de0i72vr6rc3"]
+
+[ext_resource type="Script" path="res://Scripts/Elementos puzzles/Totem.gd" id="1_8ypfj"]
+[ext_resource type="Texture2D" uid="uid://dso8qkwogtl30" path="res://Sprites/Objetos/Puerta y palanca.png" id="2_t57nl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nu5ff"]
+
+[node name="Totem" type="StaticBody2D" groups=["Palanca"]]
+script = ExtResource("1_8ypfj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_nu5ff")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_t57nl")
+hframes = 4
+vframes = 2
+frame = 7

@@ -147,7 +147,7 @@ collision_mask = 25
 shape = SubResource("CircleShape2D_j4u7k")
 
 [node name="Salud" parent="." instance=ExtResource("2_7w504")]
-max_amount = 1
+max_amount = 5
 
 [node name="ProgressBar" parent="." instance=ExtResource("3_8p41f")]
 visible = false
