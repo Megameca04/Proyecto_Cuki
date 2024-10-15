@@ -1,2 +1,5 @@
-res://EnemySpawner.gd
+res://default_env.tres
+res://Pruebas.tscn
 res://Tileset/Cueva.tres
+res://Scripts/EstadoBase.gd
+res://Scripts/MaquinaEstados.gd

@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://cep4oemi8n8dk"]
 
-[ext_resource type="PackedScene" uid="uid://b1qp8t0uk54ou" path="res://Entidades/Aliados/Cuki.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://b1qp8t0uk54ou" path="res://Entidades/Cuki.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://cty4jbpf7flme" path="res://Entidades/Elementos combates/Barril.tscn" id="3_l2s6e"]
-[ext_resource type="Script" path="res://EnemySpawner.gd" id="5_4v5mb"]
+[ext_resource type="Script" path="res://Scripts/EnemySpawner.gd" id="5_4v5mb"]
 [ext_resource type="TileSet" uid="uid://dor6kp4tlmn0p" path="res://Tileset/Cueva.tres" id="6_311sy"]
 [ext_resource type="PackedScene" uid="uid://dwf5l2rmoctp3" path="res://Entidades/Elementos puzzles/Puerta.tscn" id="8_53glx"]
 [ext_resource type="PackedScene" uid="uid://3ekxyrpwp712" path="res://Entidades/Enemigos/Rabion.tscn" id="9_poy33"]
