@@ -1,17 +1,25 @@
-[gd_scene load_steps=25 format=3 uid="uid://b1qp8t0uk54ou"]
+[gd_scene load_steps=29 format=3 uid="uid://di83f7tg1t2p1"]
 
-[ext_resource type="Script" path="res://Scripts/Aliados/Cuki.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://dicp13ihj0xno" path="res://Sprites/Aliados/Cuki/Cuki.png" id="2"]
-[ext_resource type="Texture2D" uid="uid://ksv0uls0ckvx" path="res://Sprites/Efectos/Slash.png" id="3"]
-[ext_resource type="PackedScene" uid="uid://fyyh6totk12a" path="res://Componentes/Salud.tscn" id="4_1c8bs"]
-[ext_resource type="PackedScene" uid="uid://dljqaqas8it2e" path="res://Componentes/CukiHealthbar.tscn" id="5_y61dv"]
-[ext_resource type="PackedScene" uid="uid://6wpanuw2c5wd" path="res://Componentes/ElementalState.tscn" id="6_vu03k"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_itqlg"]
-radius = 39.3559
+[ext_resource type="Script" path="res://Scripts/Aliados/Cuki.gd" id="1_pgr52"]
+[ext_resource type="Texture2D" uid="uid://dicp13ihj0xno" path="res://Sprites/Aliados/Cuki/Cuki.png" id="2_7snix"]
+[ext_resource type="Texture2D" uid="uid://ksv0uls0ckvx" path="res://Sprites/Efectos/Slash.png" id="3_h677d"]
+[ext_resource type="PackedScene" uid="uid://fyyh6totk12a" path="res://Componentes/Salud.tscn" id="4_xqo2r"]
+[ext_resource type="PackedScene" uid="uid://6wpanuw2c5wd" path="res://Componentes/ElementalState.tscn" id="5_eikpf"]
+[ext_resource type="PackedScene" uid="uid://hum6y5m0ols4" path="res://Componentes/MaquinaEstados.tscn" id="6_ioxyp"]
+[ext_resource type="Script" path="res://Scripts/Estados/JugadorIdle.gd" id="7_buxvn"]
+[ext_resource type="Script" path="res://Scripts/Estados/JugadorMovimiento.gd" id="8_qpe61"]
+[ext_resource type="Script" path="res://Scripts/Estados/JugadorAtaque.gd" id="9_moob1"]
+[ext_resource type="Script" path="res://Scripts/Estados/JugadorDash.gd" id="10_6jemd"]
+[ext_resource type="Script" path="res://Scripts/Estados/JugadorDashAtt.gd" id="11_uyyhx"]
+[ext_resource type="Script" path="res://Scripts/Estados/JugadorCharging.gd" id="12_oiriu"]
+[ext_resource type="Script" path="res://Scripts/Estados/JugadorAtaqueP.gd" id="13_dhhti"]
+[ext_resource type="Script" path="res://Scripts/Estados/JugadorHerido.gd" id="14_5ch58"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(21.8333, 43.3333)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_itqlg"]
+radius = 39.3559
 
 [sub_resource type="CircleShape2D" id="9"]
 radius = 12.0
@@ -24,7 +32,7 @@ resource_name = "ChargedAttack"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/path = NodePath("CukiSprite:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -36,7 +44,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/path = NodePath("CukiSprite:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -45,25 +53,13 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Charge_particles:emitting")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
 
 [sub_resource type="Animation" id="Animation_5x0mo"]
 resource_name = "ChargingAttack"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/path = NodePath("CukiSprite:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -72,18 +68,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1)]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Charge_particles:emitting")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
 
 [sub_resource type="Animation" id="Animation_cxf5s"]
 resource_name = "Dash"
@@ -91,7 +75,7 @@ length = 0.7
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("CukiSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -103,7 +87,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/path = NodePath("CukiSprite:rotation")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -129,7 +113,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:modulate")
+tracks/3/path = NodePath("CukiSprite:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -146,7 +130,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("CukiSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -198,7 +182,7 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("CukiSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -251,7 +235,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("CukiSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -287,7 +271,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:scale")
+tracks/3/path = NodePath("CukiSprite:scale")
 tracks/3/interp = 2
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -299,7 +283,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite2D:modulate")
+tracks/4/path = NodePath("CukiSprite:modulate")
 tracks/4/interp = 2
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -311,7 +295,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Sprite2D:self_modulate")
+tracks/5/path = NodePath("CukiSprite:self_modulate")
 tracks/5/interp = 2
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -323,7 +307,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Sprite2D:position")
+tracks/6/path = NodePath("CukiSprite:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -335,7 +319,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Sprite2D:rotation")
+tracks/7/path = NodePath("CukiSprite:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -345,40 +329,13 @@ tracks/7/keys = {
 "values": [0.0]
 }
 
-[sub_resource type="Animation" id="Animation_jufp3"]
-resource_name = "Spin_attack"
-length = 0.6
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:rotation")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [6.26573, 0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Spin_attack/CollisionShape2D:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-
 [sub_resource type="Animation" id="5"]
+resource_name = "Idle"
 length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("CukiSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -390,7 +347,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/path = NodePath("CukiSprite:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -402,7 +359,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:modulate")
+tracks/2/path = NodePath("CukiSprite:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -412,12 +369,53 @@ tracks/2/keys = {
 "values": [Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="6"]
-length = 0.8
+[sub_resource type="Animation" id="Animation_jufp3"]
+resource_name = "Spin_attack"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("CukiSprite:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [6.26573, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Attack_node/Spin_attack/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CukiSprite:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="6"]
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CukiSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -435,77 +433,26 @@ _data = {
 "Hit_1": SubResource("4"),
 "Hit_2": SubResource("Animation_5xmtp"),
 "Hurt": SubResource("Animation_fmjm6"),
+"Idle": SubResource("5"),
 "Spin_attack": SubResource("Animation_jufp3"),
-"Stay": SubResource("5"),
 "Walking": SubResource("6")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_al1jy"]
-bg_color = Color(0, 0.27451, 0.0823529, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1.38376e-07, 0.215617, 0.0876136, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lkb8y"]
-bg_color = Color(0.2, 0.721569, 0, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.116853, 0.519997, 0, 1)
-
-[sub_resource type="Theme" id="Theme_8m2b8"]
-resource_local_to_scene = true
-ProgressBar/fonts/font = null
-ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
-ProgressBar/styles/fill = SubResource("StyleBoxFlat_lkb8y")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jx1js"]
-lifetime_randomness = 0.1
-particle_flag_disable_z = true
-emission_shape = 2
-emission_sphere_radius = 8.0
-direction = Vector3(0, 0, 0)
-spread = 0.0
-flatness = 0.66
-initial_velocity_min = 1.0
-initial_velocity_max = 1.0
-angular_velocity_min = 1.0
-angular_velocity_max = 1.0
-orbit_velocity_min = 1.0
-orbit_velocity_max = 1.0
-gravity = Vector3(0, 9.8, 0)
-radial_accel_min = -4.0
-tangential_accel_min = -16.0
-tangential_accel_max = -4.0
-damping_min = 2.0
-damping_max = 2.0
-
-[node name="Cuki" type="CharacterBody2D" groups=["Player"]]
+[node name="CukiME" type="CharacterBody2D" groups=["Player"]]
 y_sort_enabled = true
 texture_filter = 1
 scale = Vector2(1.5, 1.5)
-collision_mask = 22
+collision_mask = 20
 motion_mode = 1
-script = ExtResource("1")
+script = ExtResource("1_pgr52")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="CukiSprite" type="Sprite2D" parent="."]
 texture_filter = 1
 position = Vector2(0, -7.33333)
-texture = ExtResource("2")
+texture = ExtResource("2_7snix")
 hframes = 3
 vframes = 5
-frame = 1
-
-[node name="Spin_attack" type="Area2D" parent="." groups=["C_attack"]]
-collision_mask = 18
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spin_attack"]
-position = Vector2(-1.33333, -2.66667)
-shape = SubResource("CircleShape2D_itqlg")
-disabled = true
+frame = 2
 
 [node name="Attack_node" type="Node2D" parent="."]
 z_as_relative = false
@@ -527,9 +474,17 @@ z_as_relative = false
 y_sort_enabled = true
 position = Vector2(25.3334, 0)
 scale = Vector2(1.5, 1.5)
-texture = ExtResource("3")
+texture = ExtResource("3_h677d")
 hframes = 3
 frame = 1
+
+[node name="Spin_attack" type="Area2D" parent="Attack_node" groups=["C_attack"]]
+position = Vector2(3.27534e-05, 0)
+collision_mask = 18
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack_node/Spin_attack"]
+position = Vector2(-1.33333, -2.66667)
+shape = SubResource("CircleShape2D_itqlg")
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_mask = 14
@@ -538,46 +493,51 @@ collision_mask = 14
 shape = SubResource("9")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("8")
 
-[node name="Anim_Sprite" type="AnimationPlayer" parent="."]
+[node name="Animaciones" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_y1pv4")
 }
 
-[node name="Salud" parent="." instance=ExtResource("4_1c8bs")]
+[node name="Salud" parent="." instance=ExtResource("4_xqo2r")]
 max_amount = 20
-
-[node name="Health_bar" parent="." instance=ExtResource("5_y61dv")]
-visible = false
-offset_left = -17.5
-offset_top = -38.3333
-offset_right = 15.5
-offset_bottom = -32.3333
-theme = SubResource("Theme_8m2b8")
-
-[node name="Knockback_timer" type="Timer" parent="."]
-wait_time = 0.1
-
-[node name="Charge_particles" type="GPUParticles2D" parent="."]
-emitting = false
-amount = 16
-process_material = SubResource("ParticleProcessMaterial_jx1js")
-explosiveness = 0.08
-randomness = 0.09
-trail_enabled = true
-trail_lifetime = 0.1
-trail_sections = 2
 
 [node name="Label" type="Label" parent="."]
 offset_right = 40.0
 offset_bottom = 23.0
 
-[node name="ElementalState" parent="." instance=ExtResource("6_vu03k")]
+[node name="ElementalState" parent="." instance=ExtResource("5_eikpf")]
+
+[node name="MaquinaEstados" parent="." node_paths=PackedStringArray("estado_defecto") instance=ExtResource("6_ioxyp")]
+estado_defecto = NodePath("JugadorIdle")
+
+[node name="JugadorIdle" type="Node" parent="MaquinaEstados"]
+script = ExtResource("7_buxvn")
+
+[node name="JugadorMovim" type="Node" parent="MaquinaEstados"]
+script = ExtResource("8_qpe61")
+
+[node name="JugadorAtaque" type="Node" parent="MaquinaEstados"]
+script = ExtResource("9_moob1")
+
+[node name="JugadorDash" type="Node" parent="MaquinaEstados"]
+script = ExtResource("10_6jemd")
+
+[node name="JugadorDashAtt" type="Node" parent="MaquinaEstados"]
+script = ExtResource("11_uyyhx")
+
+[node name="JugadorCharging" type="Node" parent="MaquinaEstados"]
+script = ExtResource("12_oiriu")
+
+[node name="JugadorAtaqueP" type="Node" parent="MaquinaEstados"]
+script = ExtResource("13_dhhti")
+
+[node name="JugadorHerido" type="Node" parent="MaquinaEstados"]
+script = ExtResource("14_5ch58")
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
-[connection signal="animation_finished" from="Anim_Sprite" to="." method="_on_Anim_Sprite_animation_finished"]
-[connection signal="timeout" from="Knockback_timer" to="." method="_on_knockback_timer_timeout"]
+[connection signal="animation_finished" from="Animaciones" to="." method="_on_Anim_Sprite_animation_finished"]
+[connection signal="depleted" from="Salud" to="." method="_on_salud_depleted"]
 [connection signal="temporal_damage" from="ElementalState" to="." method="_on_elemental_state_temporal_damage"]

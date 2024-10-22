@@ -77,7 +77,7 @@ ProgressBar/styles/fill = SubResource("StyleBoxFlat_ub6uk")
 
 [node name="Rabion" type="CharacterBody2D" groups=["Conejos", "Enemy"]]
 collision_layer = 2
-collision_mask = 30
+collision_mask = 31
 motion_mode = 1
 script = ExtResource("1")
 
@@ -90,7 +90,6 @@ vframes = 2
 frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("6")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

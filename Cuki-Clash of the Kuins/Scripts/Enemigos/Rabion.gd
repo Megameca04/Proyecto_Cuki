@@ -94,7 +94,7 @@ func _on_VisionField_body_entered(body):
 		
 		if body != self:
 			
-			if body.get_name() == "Cuki":
+			if body.is_in_group("Player"):
 				
 				Cuki = body
 				

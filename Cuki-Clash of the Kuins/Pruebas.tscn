@@ -1,22 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://cep4oemi8n8dk"]
+[gd_scene load_steps=8 format=3 uid="uid://cep4oemi8n8dk"]
 
-[ext_resource type="PackedScene" uid="uid://b1qp8t0uk54ou" path="res://Entidades/Cuki.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://cty4jbpf7flme" path="res://Entidades/Elementos combates/Barril.tscn" id="3_l2s6e"]
 [ext_resource type="Script" path="res://Scripts/EnemySpawner.gd" id="5_4v5mb"]
 [ext_resource type="TileSet" uid="uid://dor6kp4tlmn0p" path="res://Tileset/Cueva.tres" id="6_311sy"]
+[ext_resource type="PackedScene" uid="uid://cqhkk0g3dp5pe" path="res://Entidades/Enemigos/Blonk.tscn" id="7_cko0v"]
+[ext_resource type="PackedScene" uid="uid://di83f7tg1t2p1" path="res://Entidades/Cuki.tscn" id="7_jmsn7"]
 [ext_resource type="PackedScene" uid="uid://dwf5l2rmoctp3" path="res://Entidades/Elementos puzzles/Puerta.tscn" id="8_53glx"]
 [ext_resource type="PackedScene" uid="uid://3ekxyrpwp712" path="res://Entidades/Enemigos/Rabion.tscn" id="9_poy33"]
 
 [node name="Node2D" type="Node2D"]
 y_sort_enabled = true
 texture_filter = 1
-
-[node name="Cuki" parent="." instance=ExtResource("1")]
-position = Vector2(-56, 1008)
-
-[node name="Camera2D" type="Camera2D" parent="Cuki"]
-visible = false
-zoom = Vector2(1.5, 1.5)
 
 [node name="Barril_b6" parent="." instance=ExtResource("3_l2s6e")]
 position = Vector2(320, 128)
@@ -44,3 +38,15 @@ position = Vector2(187, 1120)
 scale = Vector2(1.5, 1.5)
 script = ExtResource("5_4v5mb")
 enemy = ExtResource("9_poy33")
+
+[node name="CukiME" parent="." instance=ExtResource("7_jmsn7")]
+position = Vector2(152, 88)
+
+[node name="Camera2D" type="Camera2D" parent="CukiME"]
+zoom = Vector2(1.5, 1.5)
+
+[node name="Rabion" parent="." instance=ExtResource("9_poy33")]
+position = Vector2(1064, 696)
+
+[node name="Blonk" parent="." instance=ExtResource("7_cko0v")]
+position = Vector2(184, 176)

@@ -1,5 +1,6 @@
-res://default_env.tres
-res://Pruebas.tscn
+res://Entidades/CukiME.tscn
 res://Tileset/Cueva.tres
-res://Scripts/EstadoBase.gd
-res://Scripts/MaquinaEstados.gd
+res://Pruebas.tscn
+res://Entidades/Enemigos/Blonk.tscn
+res://Entidades/Elementos combates/Explosion.tscn
+res://Entidades/Cuki.tscn
