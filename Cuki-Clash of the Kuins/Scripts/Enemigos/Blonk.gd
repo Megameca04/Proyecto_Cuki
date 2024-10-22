@@ -115,12 +115,11 @@ func attackedBySomething(knockbackForce, healthLost, something):
 			health.current -= healthLost
 
 func _on_vision_field_body_entered(body):
-	if body != self:
-		if body.get_name() == "Cuki":
-			Cuki = body
+	if body.is_in_group("Player"):
+		Cuki = body
 
 func _on_vision_field_body_exited(body):
-	if body.get_name() == "Cuki":
+	if body.is_in_group("Player"):
 		Cuki = null
 
 func _on_hitbox_area_entered(area):
@@ -143,12 +142,11 @@ func _on_hitbox_area_entered(area):
 		attackedBySomething(0,1,null)
 
 func _on_attack_area_body_entered(body):
-	if body != self:
-		if body.get_name() == "Cuki":
-			CukiOnAttackRange = body
+	if body.is_in_group("Player"):
+		CukiOnAttackRange = true
 
 func _on_attack_area_body_exited(body):
-	if body.get_name() == "Cuki":
+	if body.is_in_group("Player"):
 		CukiOnAttackRange = null
 
 func _on_hide_timer_timeout():

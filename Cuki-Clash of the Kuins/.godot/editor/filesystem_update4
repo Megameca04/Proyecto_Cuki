@@ -1,2 +1,6 @@
-res://EnemySpawner.gd
+res://Entidades/CukiME.tscn
 res://Tileset/Cueva.tres
+res://Pruebas.tscn
+res://Entidades/Enemigos/Blonk.tscn
+res://Entidades/Elementos combates/Explosion.tscn
+res://Entidades/Cuki.tscn

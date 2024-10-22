@@ -109,8 +109,6 @@ func contactWithWater():
 ##efecto persistente en un intervalo de tiempo
 func contactWithTemporalState(elementalEvent : int):
 	
-	var current_state_length = state_length
-	
 	#Si no hay un efecto activo en la entidad
 	if _current_element == Elements.NONE:
 		
