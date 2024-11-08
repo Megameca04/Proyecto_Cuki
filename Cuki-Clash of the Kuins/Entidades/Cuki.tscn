@@ -1,10 +1,13 @@
-[gd_scene load_steps=29 format=3 uid="uid://di83f7tg1t2p1"]
+[gd_scene load_steps=32 format=3 uid="uid://di83f7tg1t2p1"]
 
 [ext_resource type="Script" path="res://Scripts/Aliados/Cuki.gd" id="1_pgr52"]
 [ext_resource type="Texture2D" uid="uid://dicp13ihj0xno" path="res://Sprites/Aliados/Cuki/Cuki.png" id="2_7snix"]
 [ext_resource type="Texture2D" uid="uid://ksv0uls0ckvx" path="res://Sprites/Efectos/Slash.png" id="3_h677d"]
+[ext_resource type="AudioStream" uid="uid://brqcx16gxpeme" path="res://SFX/Golpe.ogg" id="4_xj3kl"]
 [ext_resource type="PackedScene" uid="uid://fyyh6totk12a" path="res://Componentes/Salud.tscn" id="4_xqo2r"]
 [ext_resource type="PackedScene" uid="uid://6wpanuw2c5wd" path="res://Componentes/ElementalState.tscn" id="5_eikpf"]
+[ext_resource type="AudioStream" uid="uid://cxnm4js3jvtr5" path="res://SFX/Golpe Fuerte.ogg" id="5_yto47"]
+[ext_resource type="AudioStream" uid="uid://dg4h7qrenh7dn" path="res://SFX/Caminar.ogg" id="6_3a3cu"]
 [ext_resource type="PackedScene" uid="uid://hum6y5m0ols4" path="res://Componentes/MaquinaEstados.tscn" id="6_ioxyp"]
 [ext_resource type="Script" path="res://Scripts/Estados/JugadorIdle.gd" id="7_buxvn"]
 [ext_resource type="Script" path="res://Scripts/Estados/JugadorMovimiento.gd" id="8_qpe61"]
@@ -122,6 +125,17 @@ tracks/3/keys = {
 "update": 1,
 "values": [Color(1, 1, 1, 1), Color(0.113725, 1, 0.117647, 1), Color(1, 1, 1, 1)]
 }
+tracks/4/type = "audio"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AudioStreamPlayer2D")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"clips": [],
+"times": PackedFloat32Array()
+}
+tracks/4/use_blend = true
 
 [sub_resource type="Animation" id="4"]
 resource_name = "Hit_1"
@@ -175,6 +189,21 @@ tracks/3/keys = {
 "update": 1,
 "values": [true, false]
 }
+tracks/4/type = "audio"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AudioStreamPlayer2D")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"clips": [{
+"end_offset": 0.0565836,
+"start_offset": 0.021708,
+"stream": ExtResource("4_xj3kl")
+}],
+"times": PackedFloat32Array(0.2)
+}
+tracks/4/use_blend = true
 
 [sub_resource type="Animation" id="Animation_5xmtp"]
 resource_name = "Hit_2"
@@ -227,6 +256,21 @@ tracks/3/keys = {
 "update": 1,
 "values": [true, false]
 }
+tracks/4/type = "audio"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AudioStreamPlayer2D")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"clips": [{
+"end_offset": 0.0565836,
+"start_offset": 0.0195866,
+"stream": ExtResource("4_xj3kl")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/4/use_blend = true
 
 [sub_resource type="Animation" id="Animation_fmjm6"]
 resource_name = "Hurt"
@@ -408,6 +452,21 @@ tracks/2/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AudioStreamPlayer2D")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("5_yto47")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/3/use_blend = true
 
 [sub_resource type="Animation" id="6"]
 length = 0.8
@@ -424,6 +483,21 @@ tracks/0/keys = {
 "update": 1,
 "values": [0, 1, 2, 1]
 }
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 1.739,
+"start_offset": 0.0,
+"stream": ExtResource("6_3a3cu")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_y1pv4"]
 _data = {
@@ -438,7 +512,7 @@ _data = {
 "Walking": SubResource("6")
 }
 
-[node name="CukiME" type="CharacterBody2D" groups=["Player"]]
+[node name="Cuki" type="CharacterBody2D" groups=["Player"]]
 y_sort_enabled = true
 texture_filter = 1
 scale = Vector2(1.5, 1.5)
@@ -452,7 +526,6 @@ position = Vector2(0, -7.33333)
 texture = ExtResource("2_7snix")
 hframes = 3
 vframes = 5
-frame = 2
 
 [node name="Attack_node" type="Node2D" parent="."]
 z_as_relative = false
@@ -476,15 +549,14 @@ position = Vector2(25.3334, 0)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("3_h677d")
 hframes = 3
-frame = 1
 
 [node name="Spin_attack" type="Area2D" parent="Attack_node" groups=["C_attack"]]
 position = Vector2(3.27534e-05, 0)
 collision_mask = 18
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Attack_node/Spin_attack"]
-position = Vector2(-1.33333, -2.66667)
 shape = SubResource("CircleShape2D_itqlg")
+disabled = true
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_mask = 14
@@ -535,6 +607,9 @@ script = ExtResource("13_dhhti")
 
 [node name="JugadorHerido" type="Node" parent="MaquinaEstados"]
 script = ExtResource("14_5ch58")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+volume_db = -13.371
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]

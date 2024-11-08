@@ -18,15 +18,11 @@ var movement = Vector2()
 var last_hit_from = 2
 
 @onready var health = $Salud
-@onready var health_bar = $ProgressBar
-@onready var hide_timer = $Hide_timer
 @onready var pause_attack_timer = $Pause_attack_timer
 @onready var elemental_state = $ElementalState 
 @onready var generAyudas = $GenerAyudas
 
 func _ready():
-	health.connect("changed",Callable(health_bar,"set_value"))
-	health.connect("max_changed",Callable(health_bar,"set_max"))
 	health.connect("depleted",Callable(self,"defeat"))
 	health.initialize()
 
@@ -107,8 +103,6 @@ func elemental_damage(element):
 func attackedBySomething(knockbackForce, healthLost, something):
 	health.current -= healthLost
 	if elemental_state.getState() != 9:
-		health_bar.show()
-		hide_timer.start()
 		if elemental_state.getState() == 5:
 			health.current -= healthLost * 2
 		else:
@@ -148,9 +142,6 @@ func _on_attack_area_body_entered(body):
 func _on_attack_area_body_exited(body):
 	if body.is_in_group("Player"):
 		CukiOnAttackRange = null
-
-func _on_hide_timer_timeout():
-	health_bar.hide()
 
 func _on_pause_attack_timer_timeout():
 	stateAndAnimationChange(BlonkState.PATROL)

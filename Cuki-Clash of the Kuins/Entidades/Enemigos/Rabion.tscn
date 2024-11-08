@@ -1,9 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://3ekxyrpwp712"]
+[gd_scene load_steps=12 format=3 uid="uid://3ekxyrpwp712"]
 
 [ext_resource type="Script" path="res://Scripts/Enemigos/Rabion.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://0ettfhn1kxgs" path="res://Sprites/Enemigos/Rabion.PNG" id="2"]
 [ext_resource type="PackedScene" uid="uid://fyyh6totk12a" path="res://Componentes/Salud.tscn" id="3"]
-[ext_resource type="PackedScene" uid="uid://dljqaqas8it2e" path="res://Componentes/CukiHealthbar.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://6wpanuw2c5wd" path="res://Componentes/ElementalState.tscn" id="5_ee7kg"]
 [ext_resource type="PackedScene" uid="uid://c0wjgvhp87sex" path="res://Componentes/GenerAyudas.tscn" id="6_e8toi"]
 
@@ -53,28 +52,6 @@ radius = 136.0
 [sub_resource type="CircleShape2D" id="7"]
 radius = 9.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pdp1l"]
-bg_color = Color(0, 0.27451, 0.0823529, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1.38376e-07, 0.215617, 0.0876136, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ub6uk"]
-bg_color = Color(0.2, 0.721569, 0, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.116853, 0.519997, 0, 1)
-
-[sub_resource type="Theme" id="Theme_7433e"]
-resource_local_to_scene = true
-ProgressBar/fonts/font = null
-ProgressBar/styles/background = SubResource("StyleBoxFlat_pdp1l")
-ProgressBar/styles/fill = SubResource("StyleBoxFlat_ub6uk")
-
 [node name="Rabion" type="CharacterBody2D" groups=["Conejos", "Enemy"]]
 collision_layer = 2
 collision_mask = 31
@@ -120,16 +97,6 @@ max_amount = 5
 wait_time = 0.2
 one_shot = true
 
-[node name="Hide_timer" type="Timer" parent="."]
-
-[node name="ProgressBar" parent="." instance=ExtResource("4")]
-visible = false
-offset_left = -16.0
-offset_top = -40.0
-offset_right = 24.0
-offset_bottom = -32.0
-theme = SubResource("Theme_7433e")
-
 [node name="ElementalState" parent="." instance=ExtResource("5_ee7kg")]
 
 [node name="GenerAyudas" parent="." instance=ExtResource("6_e8toi")]
@@ -139,5 +106,4 @@ theme = SubResource("Theme_7433e")
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Area2D_area_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="timeout" from="Knockback_timer" to="." method="_on_knockback_timer_timeout"]
-[connection signal="timeout" from="Hide_timer" to="." method="_on_hide_timer_timeout"]
 [connection signal="temporal_damage" from="ElementalState" to="." method="_on_elemental_state_temporal_damage"]

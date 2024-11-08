@@ -16,8 +16,6 @@ var CukiOnAttackRange = null
 var barrelToGet = null
 
 @onready var health = $Salud
-@onready var health_bar = $ProgressBar
-@onready var hide_timer = $Hide_timer
 @onready var attack_spawner = $AttackSpawner
 @onready var elemental_state = $ElementalState # Referencia a la barra de estado de los elementos
 @onready var sprite = $Sprite2D
@@ -28,8 +26,6 @@ var barrelToGet = null
 @export var explosiveEaterSpeed = 100
 
 func _ready():
-	health.connect("changed",Callable(health_bar,"set_value"))
-	health.connect("max_changed",Callable(health_bar,"set_max"))
 	health.connect("depleted",Callable(self,"defeat"))
 	health.initialize()
 
@@ -123,8 +119,6 @@ func attackedBySomething(knockbackForce, healthLost, something):
 				)
 		
 		$Knockback_timer.start()
-		health_bar.show()
-		hide_timer.start()
 		
 		if elemental_state.getState() == 5:
 			health.current -= healthLost * 2
@@ -179,9 +173,6 @@ func _on_hitbox_area_entered(area):
 				attackedBySomething(0, 1, area)
 		
 		last_hit_from = 1
-
-func _on_hide_timer_timeout():
-	health_bar.hide()
 
 func _on_knockback_timer_timeout():
 	in_knockback = false

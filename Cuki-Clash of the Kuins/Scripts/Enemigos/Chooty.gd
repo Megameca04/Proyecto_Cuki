@@ -40,15 +40,11 @@ var last_hit_from = 2
 @onready var shoot_timer = $Shoot_timer
 @onready var vision_raycast = $Vision_Raycast
 @onready var health = $Salud
-@onready var health_bar = $ProgressBar
-@onready var hide_timer = $Hide_timer
 @onready var elemental_state = $ElementalState
 @onready var animations = $AnimationPlayer
 @onready var generAyudas = $GenerAyudas
 
 func _ready():
-	health.connect("changed",Callable(health_bar,"set_value"))
-	health.connect("max_changed",Callable(health_bar,"set_max"))
 	health.connect("depleted",Callable(self,"defeat"))
 	health.initialize()
 
@@ -216,9 +212,6 @@ func elemental_damage(element):
 
 func attackedBySomething(healthLost, something, knockbackForce):
 	if elemental_state.getState() != 4:
-		
-		health_bar.show()
-		hide_timer.start()
 		knockback =  -knockbackForce*Vector2(cos(get_angle_to(something.global_position)),sin(get_angle_to(something.global_position)))
 		
 		if elemental_state.getState() == 5:
@@ -227,11 +220,11 @@ func attackedBySomething(healthLost, something, knockbackForce):
 			health.current -= healthLost
 
 func _on_vision_field_body_entered(body):
-	if body.get_name() == "Cuki":
+	if body.is_in_group("Player"):
 			Cuki = body
 
 func _on_vision_field_body_exited(body):
-	if body.get_name() == "Cuki":
+	if body.is_in_group("Player"):
 		Cuki = null
 
 func _on_shoot_timer_timeout():

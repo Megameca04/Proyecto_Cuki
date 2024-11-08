@@ -106,7 +106,7 @@ func _on_Anim_Sprite_animation_finished(anim_name):
 
 func _on_hitbox_area_entered(area):
 	
-	if area.is_in_group("expl_attack"):
+	if area.is_in_group("expl_attack") and !area.is_in_group("Cuki_HA"):
 		attacked_by_something(750, 1, area)
 		elemental_state.contactWithElement(area.element)
 		

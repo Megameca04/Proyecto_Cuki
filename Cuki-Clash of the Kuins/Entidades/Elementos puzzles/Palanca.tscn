@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://b5kwgau0s81tb"]
+[gd_scene load_steps=9 format=3 uid="uid://b5kwgau0s81tb"]
 
 [ext_resource type="Script" path="res://Scripts/Elementos puzzles/Palanca.gd" id="1_pml65"]
-[ext_resource type="Texture2D" uid="uid://dso8qkwogtl30" path="res://Sprites/Objetos/Puerta y palanca.png" id="1_xl3ty"]
+[ext_resource type="Texture2D" uid="uid://bgcvcdm2ed6yw" path="res://Sprites/Objetos/Palanca.png" id="2_5wsj0"]
+[ext_resource type="AudioStream" uid="uid://bjv4ihjfwyvfv" path="res://SFX/Palanca.ogg" id="3_7rhdu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cis52"]
 size = Vector2(30, 24)
@@ -19,11 +20,26 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [3, 2]
+"values": [0, 1, 2]
 }
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0652887,
+"start_offset": 0.291623,
+"stream": ExtResource("3_7rhdu")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
 
 [sub_resource type="Animation" id="Animation_5fs3s"]
 resource_name = "On"
@@ -35,11 +51,26 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [2, 3]
+"values": [2, 1, 0]
 }
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.304681,
+"start_offset": 0.0565836,
+"stream": ExtResource("3_7rhdu")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1xl6p"]
 _data = {
@@ -61,10 +92,9 @@ shape = SubResource("RectangleShape2D_cis52")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -10)
-texture = ExtResource("1_xl3ty")
-hframes = 8
-vframes = 3
-frame = 3
+texture = ExtResource("2_5wsj0")
+hframes = 3
+frame = 2
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 4
@@ -90,5 +120,7 @@ color = Color(0, 0, 0, 0.392157)
 libraries = {
 "": SubResource("AnimationLibrary_1xl6p")
 }
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

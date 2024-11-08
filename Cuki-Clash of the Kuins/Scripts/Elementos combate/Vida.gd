@@ -12,5 +12,5 @@ func _ready():
 	sprite.frame = tipo
 
 func _on_body_entered(body):
-	if body.name == "Cuki":
+	if body.is_in_group("Player"):
 		self.queue_free()

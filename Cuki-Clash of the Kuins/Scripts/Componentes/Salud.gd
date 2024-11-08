@@ -44,7 +44,6 @@ signal depleted() ##Se emite cuando la salud llega a 0.
 #Establece la salud actual al valor de la cantidad del nodo, y la inicializa.
 func _ready():
 	current = max_amount
-	initialize()
 
 #inicia el nodo, emitiendo las señales `max_cambiado` y `vida_cambiada`.
 func initialize():

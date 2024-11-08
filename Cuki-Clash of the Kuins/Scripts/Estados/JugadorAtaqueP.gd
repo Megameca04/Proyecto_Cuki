@@ -8,4 +8,5 @@ func detener():
 	gs.global_position = nodo_c.global_position
 	gs.collision_mask = 18
 	gs.add_to_group("expl_attack")
+	gs.add_to_group("Cuki_HA")
 	nodo_c.call_deferred("add_sibling",gs)

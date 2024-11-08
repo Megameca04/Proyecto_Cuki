@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://dljqaqas8it2e"]
+
+[ext_resource type="Texture2D" uid="uid://ch7drswfui2wj" path="res://Sprites/GUI/Healh_bar.png" id="1_fp1p2"]
+[ext_resource type="Texture2D" uid="uid://yvsos6ja1bl3" path="res://Sprites/GUI/Healh_bar_over.png" id="2_qr8nj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_al1jy"]
+bg_color = Color(0, 0.27451, 0.0823529, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1.38376e-07, 0.215617, 0.0876136, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lkb8y"]
+bg_color = Color(0.2, 0.721569, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.116853, 0.519997, 0, 1)
+
+[sub_resource type="Theme" id="Theme_eoxfp"]
+resource_local_to_scene = true
+ProgressBar/fonts/font = null
+ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_lkb8y")
+
+[node name="BarraSalud" type="TextureProgressBar"]
+texture_filter = 1
+custom_minimum_size = Vector2(512, 64)
+anchors_preset = -1
+anchor_right = 0.031
+anchor_bottom = 0.021
+offset_right = 0.287998
+offset_bottom = 0.391999
+theme = SubResource("Theme_eoxfp")
+value = 60.0
+nine_patch_stretch = true
+stretch_margin_left = 3
+stretch_margin_top = 3
+stretch_margin_right = 3
+stretch_margin_bottom = 3
+texture_under = ExtResource("1_fp1p2")
+texture_progress = ExtResource("2_qr8nj")

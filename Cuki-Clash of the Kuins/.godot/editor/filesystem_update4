@@ -1,6 +1,7 @@
-res://Entidades/CukiME.tscn
-res://Tileset/Cueva.tres
-res://Pruebas.tscn
-res://Entidades/Enemigos/Blonk.tscn
-res://Entidades/Elementos combates/Explosion.tscn
 res://Entidades/Cuki.tscn
+res://Tileset/Cueva.tres
+res://Scripts/Aliados/Cuki.gd
+res://Entidades/Elementos combates/Explosion.tscn
+res://Entidades/Elementos puzzles/Palanca.tscn
+res://Pruebas.tscn
+res://Scripts/Estados/JugadorAtaqueP.gd

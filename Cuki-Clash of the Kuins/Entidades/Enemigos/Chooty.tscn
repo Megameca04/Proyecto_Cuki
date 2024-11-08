@@ -1,8 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://frqnus88mbbb"]
+[gd_scene load_steps=12 format=3 uid="uid://frqnus88mbbb"]
 
 [ext_resource type="Script" path="res://Scripts/Enemigos/Chooty.gd" id="1_3j4sc"]
 [ext_resource type="Texture2D" uid="uid://ljpm51y6y4aw" path="res://Sprites/Enemigos/Chooty.png" id="1_xv04k"]
-[ext_resource type="PackedScene" uid="uid://dljqaqas8it2e" path="res://Componentes/CukiHealthbar.tscn" id="3_nlkpd"]
 [ext_resource type="PackedScene" uid="uid://fyyh6totk12a" path="res://Componentes/Salud.tscn" id="4_wc8xc"]
 [ext_resource type="PackedScene" uid="uid://6wpanuw2c5wd" path="res://Componentes/ElementalState.tscn" id="5_ttn2o"]
 [ext_resource type="PackedScene" uid="uid://c0wjgvhp87sex" path="res://Componentes/GenerAyudas.tscn" id="6_qq6qi"]
@@ -67,28 +66,6 @@ _data = {
 "Shoot": SubResource("Animation_t3q33")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_al1jy"]
-bg_color = Color(0, 0.27451, 0.0823529, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1.38376e-07, 0.215617, 0.0876136, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lkb8y"]
-bg_color = Color(0.2, 0.721569, 0, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.116853, 0.519997, 0, 1)
-
-[sub_resource type="Theme" id="Theme_3lc3p"]
-resource_local_to_scene = true
-ProgressBar/fonts/font = null
-ProgressBar/styles/background = SubResource("StyleBoxFlat_al1jy")
-ProgressBar/styles/fill = SubResource("StyleBoxFlat_lkb8y")
-
 [node name="Chooty" type="CharacterBody2D" groups=["Enemy"]]
 texture_filter = 1
 collision_layer = 2
@@ -129,15 +106,6 @@ one_shot = true
 libraries = {
 "": SubResource("AnimationLibrary_3du0n")
 }
-
-[node name="Hide_timer" type="Timer" parent="."]
-
-[node name="ProgressBar" parent="." instance=ExtResource("3_nlkpd")]
-offset_left = -32.0
-offset_top = -56.0
-offset_right = 32.0
-offset_bottom = -40.0
-theme = SubResource("Theme_3lc3p")
 
 [node name="Salud" parent="." instance=ExtResource("4_wc8xc")]
 max_amount = 3

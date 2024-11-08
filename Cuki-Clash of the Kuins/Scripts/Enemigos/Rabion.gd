@@ -13,14 +13,10 @@ var last_hit_from = 2
 @onready var aliados = get_tree().get_nodes_in_group("Conejos")
 
 @onready var health = $Salud
-@onready var health_bar = $ProgressBar
-@onready var hide_timer = $Hide_timer
 @onready var elemental_state = $ElementalState
 
 func _ready():
 	
-	health.connect("changed",Callable(health_bar,"set_value"))
-	health.connect("max_changed",Callable(health_bar,"set_max"))
 	health.connect("depleted",Callable(self,"defeat"))
 	health.initialize()
 
@@ -145,12 +141,7 @@ func attackedBySomething(knockbackForce, healthLost, something):
 		knockback = -knockbackForce*Vector2(cos(get_angle_to(something.global_position)),
 				sin(get_angle_to(something.global_position)))
 	$Knockback_timer.start()
-	health_bar.show()
-	hide_timer.start()
 	health.current -= healthLost
-
-func _on_hide_timer_timeout():
-	health_bar.hide()
 
 func _on_knockback_timer_timeout():
 	knockback = Vector2.ZERO
