@@ -30,4 +30,3 @@ Los integrantes del equipo antes mencionado son
 ## Documentación del proyecto
 
 - **GameDev Document:** [Drive](https://docs.google.com/document/d/1DOKpN3sf2Wf-_vPekBPOIxBAVrhIyHVnn-GEN5YtJA4/edit?usp=sharing)
-- **Tablero de planeación:** [Milanote](https://app.milanote.com/1PeA9G1D5CoY42?p=quJDR9qMlCO)
